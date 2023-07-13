@@ -1,0 +1,44 @@
+package com.PersonalProject.Jemo.validator;
+
+import com.PersonalProject.Jemo.dto.ProductDto;
+import org.springframework.util.StringUtils;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductValidator {
+
+    public static List<String> validator(ProductDto productDto){
+        List<String> errors = new ArrayList<>();
+        if (productDto == null){
+            errors.add("Please fill in the product fields");
+        } else {
+            if (!StringUtils.hasLength(productDto.getCodeProduct())){
+                errors.add("Please fill in the product code field");
+            }
+            if (!StringUtils.hasLength(productDto.getName())){
+                errors.add("Please fill in the product name field");
+            }
+            if (!StringUtils.hasLength(productDto.getDescription())){
+                errors.add("Please fill in the product description field");
+            }
+            if (!StringUtils.hasLength(productDto.getPicture())){
+                errors.add("Please fill in the product picture");
+            }
+            if (productDto.getPriceHT().compareTo(BigDecimal.ZERO) == 0){
+                errors.add("Please fill in the product priceHT");
+            }
+            if (productDto.getTVA().compareTo(BigDecimal.ZERO) == 0){
+                errors.add("Please fill in the product TVA");
+            }
+            if (productDto.getPriceTTC().compareTo(BigDecimal.ZERO) == 0){
+                errors.add("Please fill in the product priceTTC");
+            }
+            if (productDto.getCategory() == null || productDto.getCategory().getId() == null){
+                errors.add("Please select product category");
+            }
+        }
+        return errors;
+    }
+}
