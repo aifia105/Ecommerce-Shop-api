@@ -44,6 +44,7 @@ public class ProductDto {
     private List<MvtStkDto> mvtStks;
 
     public static ProductDto formEntity(Product product){
+
         if (product == null){
             return null;
         }
