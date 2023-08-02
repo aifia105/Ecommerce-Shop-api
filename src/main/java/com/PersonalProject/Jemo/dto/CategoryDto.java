@@ -16,7 +16,6 @@ public class CategoryDto {
 
     private String codeCategory;
 
-
     private String nameCategory;
 
     @JsonIgnore
