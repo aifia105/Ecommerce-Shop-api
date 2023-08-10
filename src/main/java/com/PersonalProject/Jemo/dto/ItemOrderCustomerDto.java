@@ -9,7 +9,7 @@ import lombok.Data;
 @Builder
 public class ItemOrderCustomerDto {
 
-    private Integer id;
+    private Long id;
 
     private ProductDto productDto;
 

@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto findById(Integer id) {
+    public CustomerDto findById(Long id) {
         if(id == null){
             log.error("ID is null");
             return null;
@@ -76,7 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
      if (id == null){
          log.error("ID is null");
      } else {

@@ -13,7 +13,7 @@ import java.util.List;
 public class CustomerDto {
 
 
-    private Integer id;
+    private Long id;
 
     private String name;
 

@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findById(Integer id) {
+    public UserDto findById(Long id) {
         if (id == null){
             log.error("User id is null");
             return null;
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         if(id == null){
             log.error("User id is null");
         } else {

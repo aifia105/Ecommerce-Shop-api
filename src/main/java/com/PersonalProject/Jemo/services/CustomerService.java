@@ -8,10 +8,10 @@ import java.util.List;
 public interface CustomerService {
 
     CustomerDto save(CustomerDto customerDto);
-    CustomerDto findById(Integer id);
+    CustomerDto findById(Long id);
     CustomerDto findByEmail(String customerEmail);
     List<CustomerDto> findAll();
-    void delete(Integer id);
+    void delete(Long id);
     CustomerDto changePassWord(ModifyPasswordDto modifyPasswordDto);
 
 

@@ -13,7 +13,7 @@ import java.time.Instant;
 @Builder
 public class MvtStkDto {
 
-    private Integer id;
+    private Long id;
 
     private Instant dateMvt;
 

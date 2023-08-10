@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 public class OrderCustomerDto {
 
-    private Integer id;
+    private Long id;
 
     private String codeOrder;
 

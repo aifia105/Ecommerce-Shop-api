@@ -4,7 +4,10 @@ import com.PersonalProject.Jemo.dto.CategoryDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
+import com.PersonalProject.Jemo.exception.OperationNotValidException;
+import com.PersonalProject.Jemo.model.Product;
 import com.PersonalProject.Jemo.repository.CategoryRepository;
+import com.PersonalProject.Jemo.repository.ProductRepository;
 import com.PersonalProject.Jemo.services.CategoryService;
 import com.PersonalProject.Jemo.validator.CategoryValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +23,13 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService {
 
     private CategoryRepository categoryRepository;
+    private ProductRepository productRepository;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository) {
         super();
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -53,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto findById(Integer id) {
+    public CategoryDto findById(Long id) {
         if(id == null){
             log.error("ID is null");
             return null;
@@ -73,12 +78,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         if (id == null){
             log.error("ID is null");
-        } else {
-            categoryRepository.findById(id);
+            return;
         }
+        List<Product> products = productRepository.findAllByCategoryId(id);
+        if(!products.isEmpty()){
+            throw new OperationNotValidException("Category already in use",ErrorCodes.CATEGORY_ALREADY_IN_USE);
+        }
+            categoryRepository.findById(id);
+
 
     }
 }

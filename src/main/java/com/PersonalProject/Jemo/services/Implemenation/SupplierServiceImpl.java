@@ -41,7 +41,7 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public SupplierDto findById(Integer id) {
+    public SupplierDto findById(Long id) {
         if (id == null){
             log.error("Supplier ID is null");
             return null;
@@ -61,7 +61,7 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         if (id == null){
             log.error("supplier ID is null");
         } else {

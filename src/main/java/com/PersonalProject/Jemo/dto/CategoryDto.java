@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class CategoryDto {
 
-    private Integer id;
+    private Long id;
 
     private String codeCategory;
 

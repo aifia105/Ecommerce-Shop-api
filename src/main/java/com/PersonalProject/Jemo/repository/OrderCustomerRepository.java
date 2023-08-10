@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface OrderCustomerRepository extends JpaRepository<OrderCustomer, Integer> {
+public interface OrderCustomerRepository extends JpaRepository<OrderCustomer, Long> {
 
-    List<OrderCustomer> findAllByCustomerId(Integer id);
+    List<OrderCustomer> findAllByCustomerId(Long id);
+
 }
