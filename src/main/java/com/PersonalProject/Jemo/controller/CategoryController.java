@@ -3,6 +3,7 @@ package com.PersonalProject.Jemo.controller;
 import com.PersonalProject.Jemo.controller.api.CategoryApi;
 import com.PersonalProject.Jemo.dto.CategoryDto;
 import com.PersonalProject.Jemo.services.CategoryService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,27 +18,28 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
-        return categoryService.save(categoryDto);
+    public ResponseEntity<CategoryDto> save(CategoryDto categoryDto) {
+        return ResponseEntity.ok(categoryService.save(categoryDto));
     }
 
     @Override
-    public CategoryDto findCategoryByNameCategory(String categoryName) {
-        return categoryService.findCategoryByNameCategory(categoryName);
+    public ResponseEntity<CategoryDto> findCategoryByNameCategory(String categoryName) {
+        return ResponseEntity.ok(categoryService.findCategoryByNameCategory(categoryName));
     }
 
     @Override
-    public CategoryDto findById(Long id) {
-        return categoryService.findById(id);
+    public ResponseEntity<CategoryDto> findById(Long id) {
+        return ResponseEntity.ok(categoryService.findById(id));
     }
 
     @Override
-    public List<CategoryDto> findAll() {
-        return categoryService.findAll();
+    public ResponseEntity<List<CategoryDto>> findAll() {
+        return ResponseEntity.ok(categoryService.findAll());
     }
 
     @Override
-    public void delete(Long id) {
+    public ResponseEntity<Void> delete(Long id) {
          categoryService.delete(id);
+         return ResponseEntity.ok().build();
     }
 }

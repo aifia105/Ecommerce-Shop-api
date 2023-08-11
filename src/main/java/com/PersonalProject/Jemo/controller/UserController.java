@@ -4,6 +4,7 @@ import com.PersonalProject.Jemo.controller.api.UserApi;
 import com.PersonalProject.Jemo.dto.ModifyPasswordDto;
 import com.PersonalProject.Jemo.dto.UserDto;
 import com.PersonalProject.Jemo.services.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,32 +19,33 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public UserDto save(UserDto userDto) {
-        return userService.save(userDto);
+    public ResponseEntity<UserDto> save(UserDto userDto) {
+        return ResponseEntity.ok(userService.save(userDto));
     }
 
     @Override
-    public UserDto findById(Long id) {
-        return userService.findById(id);
+    public ResponseEntity<UserDto> findById(Long id) {
+        return ResponseEntity.ok(userService.findById(id));
     }
 
     @Override
-    public List<UserDto> findAll() {
-        return userService.findAll();
+    public ResponseEntity<List<UserDto>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @Override
-    public void delete(Long id) {
+    public ResponseEntity<Void> delete(Long id) {
         userService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
     @Override
-    public UserDto findByEmail(String email) {
-        return userService.findByEmail(email);
+    public ResponseEntity<UserDto> findByEmail(String email) {
+        return ResponseEntity.ok(userService.findByEmail(email));
     }
 
     @Override
-    public UserDto ChangePassword(ModifyPasswordDto modifyPasswordDto) {
-        return userService.ChangePassword(modifyPasswordDto);
+    public ResponseEntity<UserDto> ChangePassword(ModifyPasswordDto modifyPasswordDto) {
+        return ResponseEntity.ok(userService.ChangePassword(modifyPasswordDto));
     }
 }

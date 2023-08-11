@@ -3,6 +3,7 @@ package com.PersonalProject.Jemo.controller;
 import com.PersonalProject.Jemo.controller.api.SupplierApi;
 import com.PersonalProject.Jemo.dto.SupplierDto;
 import com.PersonalProject.Jemo.services.SupplierService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,22 +18,23 @@ public class SupplierController implements SupplierApi {
     }
 
     @Override
-    public SupplierDto save(SupplierDto supplierDto) {
-        return supplierService.save(supplierDto);
+    public ResponseEntity<SupplierDto> save(SupplierDto supplierDto) {
+        return ResponseEntity.ok(supplierService.save(supplierDto));
     }
 
     @Override
-    public SupplierDto findById(Long id) {
-        return supplierService.findById(id);
+    public ResponseEntity<SupplierDto> findById(Long id) {
+        return ResponseEntity.ok(supplierService.findById(id));
     }
 
     @Override
-    public List<SupplierDto> findAll() {
-        return supplierService.findAll();
+    public ResponseEntity<List<SupplierDto>> findAll() {
+        return ResponseEntity.ok(supplierService.findAll());
     }
 
     @Override
-    public void delete(Long id) {
+    public ResponseEntity<Void> delete(Long id) {
          supplierService.delete(id);
+         return ResponseEntity.ok().build();
     }
 }

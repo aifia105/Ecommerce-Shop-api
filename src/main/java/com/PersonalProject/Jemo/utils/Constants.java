@@ -14,5 +14,11 @@ public interface Constants {
 
      String CATEGORY_ENDPOINT = APP_ROOT + "/Category";
 
+     String MVT_STK_ENDPOINT = APP_ROOT + "/MvtStk";
+
+     String ORDER_CUSTOMER_ENDPOINT = APP_ROOT + "/OrderCustomer";
+
+     String ORDER_SUPPLIER_ENDPOINT = APP_ROOT + "/OrderSupplier";
+
 
 }

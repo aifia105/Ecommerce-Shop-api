@@ -6,6 +6,7 @@ import com.PersonalProject.Jemo.dto.ItemOrderSupplierDto;
 import com.PersonalProject.Jemo.dto.ProductDto;
 import com.PersonalProject.Jemo.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,42 +22,43 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ProductDto save(ProductDto productDto) {
-        return productService.save(productDto);
+    public ResponseEntity<ProductDto> save(ProductDto productDto) {
+        return ResponseEntity.ok(productService.save(productDto));
     }
 
     @Override
-    public ProductDto findByName(String productName) {
-        return productService.findByName(productName);
+    public ResponseEntity<ProductDto> findByName(String productName) {
+        return ResponseEntity.ok(productService.findByName(productName));
     }
 
     @Override
-    public ProductDto findById(Long id) {
-        return productService.findById(id);
+    public ResponseEntity<ProductDto> findById(Long id) {
+        return ResponseEntity.ok(productService.findById(id));
     }
 
     @Override
-    public List<ProductDto> findAll() {
-        return productService.findAll();
+    public ResponseEntity<List<ProductDto>> findAll() {
+        return ResponseEntity.ok(productService.findAll());
     }
 
     @Override
-    public List<ProductDto> findAllByCategoryId(Long idCategory) {
-        return productService.findAllByCategoryId(idCategory);
+    public ResponseEntity<List<ProductDto>>  findAllByCategoryId(Long idCategory) {
+        return ResponseEntity.ok(productService.findAllByCategoryId(idCategory));
     }
 
     @Override
-    public List<ItemOrderCustomerDto> findHistoryOrderClient(Long id) {
-        return productService.findHistoryOrderClient(id);
+    public ResponseEntity<List<ItemOrderCustomerDto>> findHistoryOrderClient(Long id) {
+        return ResponseEntity.ok(productService.findHistoryOrderClient(id));
     }
 
     @Override
-    public List<ItemOrderSupplierDto> findHistoryOrderSupplier(Long id) {
-        return productService.findHistoryOrderSupplier(id);
+    public ResponseEntity<List<ItemOrderSupplierDto>> findHistoryOrderSupplier(Long id) {
+        return ResponseEntity.ok(productService.findHistoryOrderSupplier(id));
     }
 
     @Override
-    public void delete(Long id) {
+    public ResponseEntity<Void> delete(Long id) {
     productService.delete(id);
+    return ResponseEntity.ok().build();
     }
 }
