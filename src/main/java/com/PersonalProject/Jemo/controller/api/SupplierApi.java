@@ -5,20 +5,20 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import static com.PersonalProject.Jemo.utils.Constants.APP_ROOT;
+import static com.PersonalProject.Jemo.utils.Constants.SUPPLIER_ENDPOINT;
 
 public interface SupplierApi {
 
 
-    @PostMapping(value = APP_ROOT + "/Supplier/create" ,consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = SUPPLIER_ENDPOINT + "/create" ,consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
     SupplierDto save(@RequestBody SupplierDto supplierDto);
 
-    @GetMapping(value = APP_ROOT + "/Supplier/{id}" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = SUPPLIER_ENDPOINT + "/{id}" ,produces = MediaType.APPLICATION_JSON_VALUE)
     SupplierDto findById(@PathVariable Long id);
 
-    @GetMapping(value = APP_ROOT + "/Supplier/All" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = SUPPLIER_ENDPOINT + "/All" ,produces = MediaType.APPLICATION_JSON_VALUE)
     List<SupplierDto> findAll();
 
-    @DeleteMapping(value = APP_ROOT + "/Supplier/delete/{id}")
+    @DeleteMapping(value = SUPPLIER_ENDPOINT + "/delete/{id}")
     void delete(@PathVariable Long id);
 }
