@@ -63,10 +63,10 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
                 if (itemOder.getProductDto() != null){
                     Optional<Product> product = productRepository.findById(itemOder.getProductDto().getId());
                     if (product.isEmpty()){
-                        productsErrors.add("Product with id was not found " + itemOder.getProductDto().getId());
+                        productsErrors.add("Product with this id was not found " + itemOder.getProductDto().getId());
                     }
                 } else {
-                    productsErrors.add("Cant save a order with Product NULL ");
+                    productsErrors.add("Cant save a order with a Product id NULL ");
                 }
             });
         }
