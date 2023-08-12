@@ -1,7 +1,6 @@
 package com.PersonalProject.Jemo.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,13 +20,11 @@ public class AbstractEntity implements Serializable {
     private Long id;
 
     @CreatedDate
-    @Column(name="CreationDate" , nullable = false)
-    @JsonIgnore
+    @Column(name="CreationDate" , nullable = false, updatable = false)
     private Instant CreationDate;
 
     @LastModifiedDate
     @Column(name="LastUpDate")
-    @JsonIgnore
     private Instant LastUpDate;
 
 
