@@ -17,5 +17,8 @@ public interface OrderCustomerService {
     OrderCustomerDto updateOrderStatus(Long id, OrderStatu orderStatu);
     OrderCustomerDto updateQuantityOrder(Long id, Long idItem, BigDecimal quantity);
     OrderCustomerDto updateCustomer(Long id, Long idCustomer);
+    OrderCustomerDto updateProduct(Long id,Long idItem ,Long idProduct);
+    OrderCustomerDto deleteProduct(Long id,Long idItem);
+
 
 }

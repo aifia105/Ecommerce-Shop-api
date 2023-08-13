@@ -2,6 +2,7 @@ package com.PersonalProject.Jemo.validator;
 
 import com.PersonalProject.Jemo.dto.ItemOrderCustomerDto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class ItemOrderCustomerValidator {
             if (itemOrderCustomerDto.getProductDto() == null || itemOrderCustomerDto.getProductDto().getId() == null ){
                 errors.add("Please fill in the product field");
             }
-            if (itemOrderCustomerDto.getQuantity() == 0){
+            if (itemOrderCustomerDto.getQuantity().compareTo(BigDecimal.ZERO) == 0){
                 errors.add("Please fill in the product quantity field");
             }
             if (itemOrderCustomerDto.getUnit_price() == 0){

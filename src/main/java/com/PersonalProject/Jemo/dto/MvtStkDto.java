@@ -3,6 +3,7 @@ package com.PersonalProject.Jemo.dto;
 
 
 import com.PersonalProject.Jemo.model.MvtStk;
+import com.PersonalProject.Jemo.model.SourceMvtStk;
 import com.PersonalProject.Jemo.model.TypeMvtStk;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,8 @@ public class MvtStkDto {
 
     private TypeMvtStk typeMvt;
 
+    private SourceMvtStk sourceMvtStk;
+
 
     public static MvtStkDto fromEntity(MvtStk mvtStk){
         if (mvtStk == null){
@@ -33,7 +36,8 @@ public class MvtStkDto {
                 .dateMvt(mvtStk.getDateMvt())
                 .quantity(mvtStk.getQuantity())
                 .productDto(ProductDto.formEntity(mvtStk.getProduct()))
-                .typeMvt(mvtStk.getTypeMvt()).build();
+                .typeMvt(mvtStk.getTypeMvt())
+                .sourceMvtStk(mvtStk.getSourceMvtStk()).build();
     }
 
     public static MvtStk toEntity(MvtStkDto mvtStkDto){
@@ -46,6 +50,7 @@ public class MvtStkDto {
         mvtStk.setQuantity(mvtStkDto.getQuantity());
         mvtStk.setProduct(ProductDto.toEntity(mvtStkDto.getProductDto()));
         mvtStk.setTypeMvt(mvtStkDto.getTypeMvt());
+        mvtStk.setSourceMvtStk(mvtStkDto.getSourceMvtStk());
         return mvtStk;
     }
 }

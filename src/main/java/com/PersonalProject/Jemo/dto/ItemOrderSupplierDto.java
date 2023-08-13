@@ -19,7 +19,7 @@ public class ItemOrderSupplierDto {
 
     private Integer unit_price;
 
-    private OrderSupplierDto orderSupplierDto;
+    private OrderSupplierDto orderSupplierDtos;
 
     public static ItemOrderSupplierDto fromEntity(ItemOrderSupplier itemOrderSupplier){
         if (itemOrderSupplier == null){
