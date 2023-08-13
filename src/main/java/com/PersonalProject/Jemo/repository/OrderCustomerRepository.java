@@ -9,4 +9,5 @@ public interface OrderCustomerRepository extends JpaRepository<OrderCustomer, Lo
 
     List<OrderCustomer> findAllByCustomerId(Long id);
 
+
 }

@@ -3,7 +3,6 @@ package com.PersonalProject.Jemo.dto;
 
 import com.PersonalProject.Jemo.model.OrderCustomer;
 import com.PersonalProject.Jemo.model.OrderStatu;
-import com.PersonalProject.Jemo.model.OrderSupplier;
 import lombok.Builder;
 import lombok.Data;
 
@@ -56,8 +55,8 @@ public class OrderCustomerDto {
         return orderCustomer;
     }
 
-    public boolean isCommandeLivre() {
-        return OrderStatu.LIVREE.equals(this.orderStatu);
+    public boolean isOrderDELIVERED() {
+        return OrderStatu.DELIVERED.equals(this.orderStatu);
     }
 
 }

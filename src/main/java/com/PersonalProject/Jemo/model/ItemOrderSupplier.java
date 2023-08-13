@@ -3,6 +3,7 @@ package com.PersonalProject.Jemo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 
 
 @Data
@@ -17,7 +18,7 @@ public class ItemOrderSupplier extends AbstractEntity {
     private Product product;
 
     @Column(name = "quantity")
-    private Integer quantity;
+    private BigDecimal quantity;
 
     @Column(name = "unit_price")
     private Integer unit_price;

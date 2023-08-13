@@ -5,6 +5,8 @@ import com.PersonalProject.Jemo.model.ItemOrderSupplier;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 public class ItemOrderSupplierDto {
@@ -13,7 +15,7 @@ public class ItemOrderSupplierDto {
 
     private ProductDto productDto;
 
-    private Integer quantity;
+    private BigDecimal quantity;
 
     private Integer unit_price;
 

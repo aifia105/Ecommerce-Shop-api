@@ -1,15 +1,13 @@
 package com.PersonalProject.Jemo.services.Implemenation;
 
+import com.PersonalProject.Jemo.dto.CustomerDto;
 import com.PersonalProject.Jemo.dto.ItemOrderCustomerDto;
 import com.PersonalProject.Jemo.dto.OrderCustomerDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
 import com.PersonalProject.Jemo.exception.OperationNotValidException;
-import com.PersonalProject.Jemo.model.Customer;
-import com.PersonalProject.Jemo.model.ItemOrderCustomer;
-import com.PersonalProject.Jemo.model.OrderCustomer;
-import com.PersonalProject.Jemo.model.Product;
+import com.PersonalProject.Jemo.model.*;
 import com.PersonalProject.Jemo.repository.CustomerRepository;
 import com.PersonalProject.Jemo.repository.ItemOrderCustomerRepository;
 import com.PersonalProject.Jemo.repository.OrderCustomerRepository;
@@ -18,7 +16,9 @@ import com.PersonalProject.Jemo.services.OrderCustomerService;
 import com.PersonalProject.Jemo.validator.OrderCustomerValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +48,9 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
         if(!errors.isEmpty()){
             log.error("order invalid {}",orderCustomerDto);
             throw new EntityNotValidException("order invalid", ErrorCodes.ORDER_CUSTOMER_NOT_VALID, errors);
+        }
+        if (orderCustomerDto.getId() != null && orderCustomerDto.isOrderDELIVERED()){
+            throw new OperationNotValidException("Cant update DELIVERED order",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
 
         Optional<Customer> customer = customerRepository.findById(orderCustomerDto.getCustomerDto().getId());
@@ -120,5 +123,87 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             orderCustomerRepository.deleteById(id);
 
 
+    }
+    @Override
+    public List<ItemOrderCustomerDto> findAllByOrderId(Long id) {
+        return itemOrderCustomerRepository.findAllByOrderCustomerId(id).stream()
+                .map(ItemOrderCustomerDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderCustomerDto updateOrderStatus(Long id, OrderStatu orderStatu) {
+        if (id == null){
+            log.error("order id is null");
+            throw new OperationNotValidException("Cant update order status ID is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        if (!StringUtils.hasLength(String.valueOf(orderStatu))){
+            log.error("order status is null");
+            throw new OperationNotValidException("Cant update order status to NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        OrderCustomerDto orderCustomerDto = findById(id);
+        if(orderCustomerDto.isOrderDELIVERED()){
+            throw new OperationNotValidException("Cant update DELIVERED order",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        orderCustomerDto.setOrderStatu(orderStatu);
+
+        return OrderCustomerDto.fromEntity(
+                orderCustomerRepository.save(OrderCustomerDto.toEntity(orderCustomerDto))
+        );
+    }
+
+    @Override
+    public OrderCustomerDto updateQuantityOrder(Long id, Long idItem, BigDecimal quantity) {
+        if (id == null){
+            log.error("order id is null");
+            throw new OperationNotValidException("Cant update order  ID is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        if (idItem == null){
+            log.error("order id is null");
+            throw new OperationNotValidException("Cant update order  ID item order is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        if (quantity == null || quantity.compareTo(BigDecimal.ZERO) == 0){
+            log.error("quantity id is null");
+            throw new OperationNotValidException("Cant update order quantity is 0 or NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        OrderCustomerDto orderCustomerDto = findById(id);
+        if(orderCustomerDto.isOrderDELIVERED()){
+            throw new OperationNotValidException("Cant update DELIVERED order",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        Optional<ItemOrderCustomer> itemOrderCustomerOptional = itemOrderCustomerRepository.findById(idItem);
+        if (itemOrderCustomerOptional.isEmpty()){
+            throw new EntityNotFoundException("No items with this ID" + idItem , ErrorCodes.ORDER_CUSTOMER_NOT_FOUND);
+        }
+        ItemOrderCustomer itemOrderCustomer = itemOrderCustomerOptional.get();
+        itemOrderCustomer.setQuantity(quantity);
+        itemOrderCustomerRepository.save(itemOrderCustomer);
+
+        return OrderCustomerDto.fromEntity(
+                orderCustomerRepository.save(OrderCustomerDto.toEntity(orderCustomerDto))
+        );
+    }
+
+    @Override
+    public OrderCustomerDto updateCustomer(Long id, Long idCustomer) {
+        if (id == null){
+            log.error("order id is null");
+            throw new OperationNotValidException("Cant update order  ID is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        if (idCustomer == null){
+            log.error("order id is null");
+            throw new OperationNotValidException("Cant update order  ID customer is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        OrderCustomerDto orderCustomerDto = findById(id);
+        if(orderCustomerDto.isOrderDELIVERED()){
+            throw new OperationNotValidException("Cant update DELIVERED order",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
+        }
+        Optional<Customer> customerOptional = customerRepository.findById(idCustomer);
+        if(customerOptional.isEmpty()){
+            throw new EntityNotFoundException("No customers with Id" + idCustomer,ErrorCodes.CUSTOMER_NOT_FOUND);
+        }
+        orderCustomerDto.setCustomerDto(CustomerDto.fromEntity(customerOptional.get()));
+
+        return OrderCustomerDto.fromEntity(
+                orderCustomerRepository.save(OrderCustomerDto.toEntity(orderCustomerDto))
+        );
     }
 }

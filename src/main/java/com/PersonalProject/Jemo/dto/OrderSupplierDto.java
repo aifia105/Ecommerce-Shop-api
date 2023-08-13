@@ -1,7 +1,6 @@
 package com.PersonalProject.Jemo.dto;
 
 
-import com.PersonalProject.Jemo.model.ItemOrderSupplier;
 import com.PersonalProject.Jemo.model.OrderStatu;
 import com.PersonalProject.Jemo.model.OrderSupplier;
 import lombok.Builder;
@@ -24,7 +23,7 @@ public class OrderSupplierDto {
 
     private SupplierDto supplierDto;
 
-    private List<ItemOrderSupplierDto> itemOrderSupplierDtos;
+    private List<ItemOrderSupplierDto> itemOrderSupplierDto;
 
 
     public static OrderSupplierDto fromEntity(OrderSupplier orderSupplier){
@@ -52,7 +51,7 @@ public class OrderSupplierDto {
         return orderSupplier;
     }
 
-    public boolean isCommandeLivre() {
-        return OrderStatu.LIVREE.equals(this.orderStatu);
+    public boolean isOrderDELIVERED() {
+        return OrderStatu.DELIVERED.equals(this.orderStatu);
     }
 }

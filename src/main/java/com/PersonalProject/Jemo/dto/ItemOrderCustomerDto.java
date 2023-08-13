@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 public class ItemOrderCustomerDto {
@@ -13,7 +15,7 @@ public class ItemOrderCustomerDto {
 
     private ProductDto productDto;
 
-    private Integer quantity;
+    private BigDecimal quantity;
 
     private Integer unit_price;
 
