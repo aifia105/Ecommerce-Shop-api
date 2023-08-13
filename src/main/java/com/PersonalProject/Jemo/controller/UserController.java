@@ -4,6 +4,7 @@ import com.PersonalProject.Jemo.controller.api.UserApi;
 import com.PersonalProject.Jemo.dto.ModifyPasswordDto;
 import com.PersonalProject.Jemo.dto.UserDto;
 import com.PersonalProject.Jemo.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +13,9 @@ import java.util.List;
 @RestController
 public class UserController implements UserApi {
 
-    private UserService userService;
+    private final UserService userService;
+
+    @Autowired
     public UserController(UserService userService) {
         super();
         this.userService = userService;

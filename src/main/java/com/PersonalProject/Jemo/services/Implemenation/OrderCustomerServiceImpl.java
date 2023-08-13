@@ -29,10 +29,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OrderCustomerServiceImpl implements OrderCustomerService {
 
-    private OrderCustomerRepository orderCustomerRepository;
-    private CustomerRepository customerRepository;
-    private ProductRepository productRepository;
-    private ItemOrderCustomerRepository itemOrderCustomerRepository;
+    private final OrderCustomerRepository orderCustomerRepository;
+    private final CustomerRepository customerRepository;
+    private final ProductRepository productRepository;
+    private final ItemOrderCustomerRepository itemOrderCustomerRepository;
     public OrderCustomerServiceImpl(OrderCustomerRepository orderCustomerRepository, ItemOrderCustomerRepository itemOrderCustomerRepository
             ,CustomerRepository customerRepository,ProductRepository productRepository) {
         super();

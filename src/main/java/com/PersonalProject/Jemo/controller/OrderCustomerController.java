@@ -3,6 +3,7 @@ package com.PersonalProject.Jemo.controller;
 import com.PersonalProject.Jemo.controller.api.OrderCustomerApi;
 import com.PersonalProject.Jemo.dto.OrderCustomerDto;
 import com.PersonalProject.Jemo.services.OrderCustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,9 @@ import java.util.List;
 @RestController
 public class OrderCustomerController implements OrderCustomerApi {
 
-    private OrderCustomerService orderCustomerService;
+    private final OrderCustomerService orderCustomerService;
+
+    @Autowired
     public OrderCustomerController(OrderCustomerService orderCustomerService) {
         super();
         this.orderCustomerService = orderCustomerService;

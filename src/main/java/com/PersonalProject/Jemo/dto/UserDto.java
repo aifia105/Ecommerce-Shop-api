@@ -1,10 +1,8 @@
 package com.PersonalProject.Jemo.dto;
 
 
-import com.PersonalProject.Jemo.model.Address;
+
 import com.PersonalProject.Jemo.model.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import lombok.Builder;
 import lombok.Data;
 
@@ -29,6 +27,8 @@ public class UserDto {
     private AddressDto addressDto;
 
     private String picture;
+
+    private String phone;
 
     public static UserDto fromEntity(User user){
         if (user == null){

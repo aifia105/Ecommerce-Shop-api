@@ -18,7 +18,7 @@ public class Product extends AbstractEntity {
     private String codeProduct;
 
     @Column(name="Name")
-    private String Name;
+    private String name;
 
     @Column(name="description")
     private String description;

@@ -4,13 +4,18 @@ import com.PersonalProject.Jemo.controller.api.CustomerApi;
 import com.PersonalProject.Jemo.dto.CustomerDto;
 import com.PersonalProject.Jemo.dto.ModifyPasswordDto;
 import com.PersonalProject.Jemo.services.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
 public class CustomerController implements CustomerApi {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
+
+    @Autowired
     public CustomerController(CustomerService customerService) {
         super();
         this.customerService = customerService;

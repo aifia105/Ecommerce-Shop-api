@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class ProductController implements ProductApi {
 
-    private ProductService productService;
+    private final ProductService productService;
     @Autowired
     public ProductController(ProductService productService) {
         super();

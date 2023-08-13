@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class ProductServiceImpl implements ProductService {
-    private  ProductRepository productRepository;
-    private ItemOrderCustomerRepository itemOrderCustomerRepository;
-    private ItemOrderSupplierRepository itemOrderSupplierRepository;
+    private final   ProductRepository productRepository;
+    private final ItemOrderCustomerRepository itemOrderCustomerRepository;
+    private final ItemOrderSupplierRepository itemOrderSupplierRepository;
 
 
     @Autowired

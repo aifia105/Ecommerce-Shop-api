@@ -20,5 +20,7 @@ public interface Constants {
 
      String ORDER_SUPPLIER_ENDPOINT = APP_ROOT + "/OrderSuppliers";
 
+     String AUTHENTICATION_ENDPOINT = APP_ROOT + "/auth";
+
 
 }

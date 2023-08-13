@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -19,13 +20,15 @@ public class CustomerDto {
 
     private String lastName;
 
+    private String email;
+
+    private Instant birthday;
+
     private AddressDto address;
 
     private CartDto cart;
 
     private String picture;
-
-    private String email;
 
     private String password;
 

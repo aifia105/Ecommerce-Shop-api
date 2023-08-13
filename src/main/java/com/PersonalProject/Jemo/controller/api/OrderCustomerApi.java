@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import static com.PersonalProject.Jemo.utils.Constants.ORDER_CUSTOMER_ENDPOINT;
-import static com.PersonalProject.Jemo.utils.Constants.ORDER_SUPPLIER_ENDPOINT;
 
 public interface OrderCustomerApi {
 
 
-    @PostMapping(value = ORDER_SUPPLIER_ENDPOINT + "/create" ,consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = ORDER_CUSTOMER_ENDPOINT + "/create" ,consumes = MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<OrderCustomerDto> save(@RequestBody OrderCustomerDto orderCustomerDto);
 
     @GetMapping(value = ORDER_CUSTOMER_ENDPOINT + "/{id}" ,produces = MediaType.APPLICATION_JSON_VALUE)

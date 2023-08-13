@@ -3,6 +3,7 @@ package com.PersonalProject.Jemo.controller;
 import com.PersonalProject.Jemo.controller.api.SupplierApi;
 import com.PersonalProject.Jemo.dto.SupplierDto;
 import com.PersonalProject.Jemo.services.SupplierService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,9 @@ import java.util.List;
 @RestController
 public class SupplierController implements SupplierApi {
 
-    private SupplierService supplierService;
+    private final SupplierService supplierService;
+
+    @Autowired
     public SupplierController(SupplierService supplierService) {
         super();
         this.supplierService = supplierService;

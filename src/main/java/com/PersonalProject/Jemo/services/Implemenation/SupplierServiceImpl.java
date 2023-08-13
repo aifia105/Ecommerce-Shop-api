@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SupplierServiceImpl implements SupplierService {
 
-    private SupplierRepository supplierRepository;
-    private OrderSupplierRepository orderSupplierRepository;
+    private final SupplierRepository supplierRepository;
+    private final OrderSupplierRepository orderSupplierRepository;
     public SupplierServiceImpl(SupplierRepository supplierRepository,OrderSupplierRepository orderSupplierRepository) {
         super();
         this.supplierRepository = supplierRepository;

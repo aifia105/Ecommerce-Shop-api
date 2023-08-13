@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
-    private CustomerRepository customerRepository;
-    private OrderCustomerRepository orderCustomerRepository;
+    private final CustomerRepository customerRepository;
+    private final OrderCustomerRepository orderCustomerRepository;
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository,OrderCustomerRepository orderCustomerRepository) {
         super();
