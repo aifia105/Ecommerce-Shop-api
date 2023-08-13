@@ -5,14 +5,18 @@ import com.PersonalProject.Jemo.dto.UserDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
+import com.PersonalProject.Jemo.model.User;
 import com.PersonalProject.Jemo.repository.UserRepository;
 import com.PersonalProject.Jemo.services.UserService;
 import com.PersonalProject.Jemo.validator.UserValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,9 +24,11 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    public UserServiceImpl(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         super();
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,9 +38,20 @@ public class UserServiceImpl implements UserService {
             log.error("User invalid {}",userDto);
             throw new EntityNotValidException("User invalid", ErrorCodes.USER_NOT_VALID, errors);
         }
+        if(userAlreadyExists(userDto.getEmail())){
+            throw new EntityNotValidException("User already exists",ErrorCodes.USER_ALREADY_EXISTS, Collections.singletonList("email user already exists"));
+        }
+
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
         return UserDto.fromEntity(
                 userRepository.save(
                         UserDto.toEntity(userDto)));
+    }
+
+    private Boolean userAlreadyExists(String email){
+        Optional<User> user = userRepository.findUserByEmail(email);
+        return user.isPresent();
     }
 
     @Override

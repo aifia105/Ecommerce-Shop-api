@@ -1,9 +1,8 @@
 package com.PersonalProject.Jemo.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +28,10 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Column(name = "email")
     private String email;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "User")
+    @JsonIgnore
+    private List<Role> role;
 
     @Column(name = "birthday")
     private Instant birthday;
