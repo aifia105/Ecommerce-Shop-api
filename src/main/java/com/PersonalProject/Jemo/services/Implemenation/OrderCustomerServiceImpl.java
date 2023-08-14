@@ -10,10 +10,12 @@ import com.PersonalProject.Jemo.repository.CustomerRepository;
 import com.PersonalProject.Jemo.repository.ItemOrderCustomerRepository;
 import com.PersonalProject.Jemo.repository.OrderCustomerRepository;
 import com.PersonalProject.Jemo.repository.ProductRepository;
+import com.PersonalProject.Jemo.services.MvtStkService;
 import com.PersonalProject.Jemo.services.OrderCustomerService;
 import com.PersonalProject.Jemo.validator.OrderCustomerValidator;
 import com.PersonalProject.Jemo.validator.ProductValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -32,22 +34,29 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
     private final ItemOrderCustomerRepository itemOrderCustomerRepository;
+    private final MvtStkService mvtStkService;
+
+    @Autowired
     public OrderCustomerServiceImpl(OrderCustomerRepository orderCustomerRepository, ItemOrderCustomerRepository itemOrderCustomerRepository
-            ,CustomerRepository customerRepository,ProductRepository productRepository) {
+            ,CustomerRepository customerRepository,ProductRepository productRepository, MvtStkService mvtStkService) {
         super();
         this.orderCustomerRepository = orderCustomerRepository;
         this.itemOrderCustomerRepository = itemOrderCustomerRepository;
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
+        this.mvtStkService = mvtStkService;
     }
 
     @Override
     public OrderCustomerDto save(OrderCustomerDto orderCustomerDto) {
+
         List<String> errors = OrderCustomerValidator.validator(orderCustomerDto);
+
         if(!errors.isEmpty()){
             log.error("order invalid {}",orderCustomerDto);
             throw new EntityNotValidException("order invalid", ErrorCodes.ORDER_CUSTOMER_NOT_VALID, errors);
         }
+
         if (orderCustomerDto.getId() != null && orderCustomerDto.isOrderDELIVERED()){
             throw new OperationNotValidException("Cant update DELIVERED order",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
@@ -58,6 +67,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             throw  new EntityNotFoundException("no user in database with this id" + orderCustomerDto.getCustomerDto().getId()
                     ,ErrorCodes.USER_NOT_FOUND);
         }
+
         List<String> productsErrors = new ArrayList<>();
 
         if(orderCustomerDto.getItemOrderCustomerDtos() != null){
@@ -72,6 +82,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
                 }
             });
         }
+
         if (!productsErrors.isEmpty()){
             log.warn("Product not found in the database");
             throw new EntityNotValidException("Product not found in the database",ErrorCodes.PRODUCT_NOT_FOUND,productsErrors);
@@ -276,5 +287,6 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
                 .quantity(itemOrderCustomer.getQuantity())
                 .sourceMvtStk(SourceMvtStk.Order_Customer)
                 .build();
+        mvtStkService.exitStock(mvtStkDto);
     }
 }

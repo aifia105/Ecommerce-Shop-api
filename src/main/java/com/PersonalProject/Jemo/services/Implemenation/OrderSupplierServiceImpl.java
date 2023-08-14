@@ -10,10 +10,12 @@ import com.PersonalProject.Jemo.repository.ItemOrderSupplierRepository;
 import com.PersonalProject.Jemo.repository.OrderSupplierRepository;
 import com.PersonalProject.Jemo.repository.ProductRepository;
 import com.PersonalProject.Jemo.repository.SupplierRepository;
+import com.PersonalProject.Jemo.services.MvtStkService;
 import com.PersonalProject.Jemo.services.OrderSupplierService;
 import com.PersonalProject.Jemo.validator.OrderSupplierValidator;
 import com.PersonalProject.Jemo.validator.ProductValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -32,14 +34,17 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
     private final ItemOrderSupplierRepository itemOrderSupplierRepository;
     private final SupplierRepository supplierRepository;
     private final ProductRepository productRepository;
+    private final MvtStkService mvtStkService;
 
+    @Autowired
     public OrderSupplierServiceImpl(OrderSupplierRepository orderSupplierRepository,ItemOrderSupplierRepository itemOrderSupplierRepository
-            , SupplierRepository supplierRepository,ProductRepository productRepository) {
+            , SupplierRepository supplierRepository,ProductRepository productRepository, MvtStkService mvtStkService) {
         super();
         this.orderSupplierRepository = orderSupplierRepository;
         this.itemOrderSupplierRepository = itemOrderSupplierRepository;
         this.supplierRepository = supplierRepository;
         this.productRepository = productRepository;
+        this.mvtStkService = mvtStkService;
     }
 
     @Override
@@ -274,5 +279,6 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
                 .quantity(itemOrderSupplier.getQuantity())
                 .sourceMvtStk(SourceMvtStk.Order_Supplier)
                 .build();
+        mvtStkService.entryStock(mvtStkDto);
     }
 }

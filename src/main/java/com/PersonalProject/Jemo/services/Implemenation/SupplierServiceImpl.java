@@ -11,6 +11,7 @@ import com.PersonalProject.Jemo.repository.SupplierRepository;
 import com.PersonalProject.Jemo.services.SupplierService;
 import com.PersonalProject.Jemo.validator.SupplierValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public class SupplierServiceImpl implements SupplierService {
 
     private final SupplierRepository supplierRepository;
     private final OrderSupplierRepository orderSupplierRepository;
+
+    @Autowired
     public SupplierServiceImpl(SupplierRepository supplierRepository,OrderSupplierRepository orderSupplierRepository) {
         super();
         this.supplierRepository = supplierRepository;
