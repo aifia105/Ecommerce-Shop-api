@@ -54,10 +54,13 @@ public enum ErrorCodes {
 
 
     UPDATE_PHOTO_EXCEPTION(12000),
-    UNKNOWN_CONTEXT(12001)
+    UNKNOWN_CONTEXT(12001),
+
+    CUSTOMER_ALREADY_EXISTS(12002),
+    CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID(12003)
 
     ;
-    private int Codes;
+    private final int Codes;
 
     ErrorCodes(int codes){
 

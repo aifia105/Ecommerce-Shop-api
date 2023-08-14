@@ -5,6 +5,7 @@ import com.PersonalProject.Jemo.dto.UserDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
+import com.PersonalProject.Jemo.exception.OperationNotValidException;
 import com.PersonalProject.Jemo.model.User;
 import com.PersonalProject.Jemo.repository.UserRepository;
 import com.PersonalProject.Jemo.services.UserService;
@@ -98,6 +99,35 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto ChangePassword(ModifyPasswordDto modifyPasswordDto) {
-        return null;
+        validate(modifyPasswordDto);
+
+        Optional<User> userOptional = userRepository.findById(modifyPasswordDto.getId());
+        if (userOptional.isEmpty()){
+            log.warn("No user with this ID {}",modifyPasswordDto.getId());
+            throw new EntityNotFoundException("No user with this ID" + modifyPasswordDto.getId(),ErrorCodes.USER_NOT_FOUND);
+        }
+        User user = userOptional.get();
+        user.setPassword(passwordEncoder.encode(modifyPasswordDto.getPassword()));
+
+        return UserDto.fromEntity(userRepository.save(user));
+    }
+    private void validate(ModifyPasswordDto modifyPasswordDto){
+        if (modifyPasswordDto == null){
+            log.warn("Object update user password is NULL");
+            throw new OperationNotValidException("Object update user password is NULL",ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+        }
+        if (modifyPasswordDto.getId() == null){
+            log.warn("Cant update Password with ID user is NULL");
+            throw new OperationNotValidException("ID user is NULL",ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+        }
+        if (StringUtils.hasLength(modifyPasswordDto.getPassword()) || StringUtils.hasLength(modifyPasswordDto.getConfirmPassWord())){
+            log.warn("Cant update Password with Password NULL");
+            throw new OperationNotValidException("Cant update Password with ID user is NULL",ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+        }
+        if (!modifyPasswordDto.getPassword().equals(modifyPasswordDto.getConfirmPassWord())){
+            log.warn("Cant update Password confirm password dont match");
+            throw new OperationNotValidException("Cant update Password confirm password dont match",ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+        }
+
     }
 }
