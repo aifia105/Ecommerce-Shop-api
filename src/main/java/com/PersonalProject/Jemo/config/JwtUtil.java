@@ -84,7 +84,7 @@ public class JwtUtil {
     }
 
     private Key getSignInKey() {
-        String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
+        final String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }

@@ -19,7 +19,7 @@ import static com.PersonalProject.Jemo.utils.Constants.AUTHENTICATION_ENDPOINT;
 @RestController
 @RequestMapping(AUTHENTICATION_ENDPOINT)
 @RequiredArgsConstructor
-public class AuthenticationController {
+public class AuthenticationUserController {
 
     private final UserService userService;
     private final JwtUtil jwtUtil;
