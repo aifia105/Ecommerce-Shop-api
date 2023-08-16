@@ -1,2 +1,3 @@
 # Jemo-api
-e-commerce website
+e-commerce website api 
+Spring boot
