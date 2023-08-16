@@ -23,16 +23,10 @@ public class SecurityConfiguration  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
          httpSecurity
-                 .csrf().disable()
-                 .authorizeHttpRequests()
-                 .requestMatchers(AUTHENTICATION_ENDPOINT + "/**")
-                 .permitAll()
-                 .anyRequest()
-                 .authenticated()
-                 .and()
-                 .sessionManagement()
-                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                 .and()
+                 .authorizeHttpRequests((request) -> request
+                         .requestMatchers("localhost:8080/JemoApi/version1/auth/customer/register").permitAll()
+                         .anyRequest().authenticated()
+                 )
                  .authenticationProvider(authenticationProvider)
                  .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
