@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -32,7 +30,6 @@ public class UserDto {
 
     private String phone;
 
-    private List<RoleDto> role;
 
     public static UserDto fromEntity(User user){
         if (user == null){
@@ -46,11 +43,7 @@ public class UserDto {
                 .birthday(user.getBirthday())
                 .password(user.getPassword())
                 .addressDto(AddressDto.fromEntity(user.getAddress()))
-                .picture(user.getPicture()).role(
-                user.getRole() != null ?
-                        user.getRole().stream()
-                                .map(RoleDto::fromEntity)
-                                .collect(Collectors.toList()) : null
+                .picture(user.getPicture()
         ).build();
     }
 
