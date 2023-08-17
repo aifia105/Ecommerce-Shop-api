@@ -6,7 +6,6 @@ import com.PersonalProject.Jemo.dto.UserDto;
 import com.PersonalProject.Jemo.repository.UserRepository;
 import com.PersonalProject.Jemo.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.PersonalProject.Jemo.utils.Constants.AUTHENTICATION_ENDPOINT;
 
 @RestController
-@RequestMapping(AUTHENTICATION_ENDPOINT)
+@RequestMapping()
 @RequiredArgsConstructor
 public class AuthenticationUserController {
 
@@ -27,7 +26,7 @@ public class AuthenticationUserController {
     private UserRepository userRepository;
 
 
-    @PostMapping(value = "/register" , consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping()
     public ResponseEntity<String> register(@RequestBody final UserDto user){
         return ResponseEntity.ok(jwtUtil.generateToken((UserDetails) userService.save(user)));
     }

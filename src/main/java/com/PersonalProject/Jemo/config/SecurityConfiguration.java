@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import static com.PersonalProject.Jemo.utils.Constants.AUTHENTICATION_ENDPOINT;
 
 
 @Configuration
@@ -23,10 +22,23 @@ public class SecurityConfiguration  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
          httpSecurity
+                 .csrf()
+                 .disable()
                  .authorizeHttpRequests((request) -> request
-                         .requestMatchers("localhost:8080/JemoApi/version1/auth/customer/register").permitAll()
+                         .requestMatchers("/JemoApi/version1/auth/**",
+                                 "/v3/api-docs/**",
+                                 "/swagger-resources/**",
+                                 "/configuration/ui",
+                                 "/configuration/security",
+                                 "/swagger-ui/**",
+                                 "/webjars/**",
+                                 "/swagger-ui.html"
+                                 ).permitAll()
                          .anyRequest().authenticated()
                  )
+                 .sessionManagement()
+                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                 .and()
                  .authenticationProvider(authenticationProvider)
                  .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
