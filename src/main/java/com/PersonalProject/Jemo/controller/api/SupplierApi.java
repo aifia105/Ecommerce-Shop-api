@@ -2,6 +2,7 @@ package com.PersonalProject.Jemo.controller.api;
 
 
 import com.PersonalProject.Jemo.dto.SupplierDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import static com.PersonalProject.Jemo.utils.Constants.SUPPLIER_ENDPOINT;
 
+
+@Tag(name = "Suppliers" )
 public interface SupplierApi {
 
 

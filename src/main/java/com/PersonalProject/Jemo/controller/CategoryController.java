@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
 public class CategoryController implements CategoryApi {
 
@@ -19,7 +20,6 @@ public class CategoryController implements CategoryApi {
         super();
         this.categoryService = categoryService;
     }
-
     @Override
     public ResponseEntity<CategoryDto> save(CategoryDto categoryDto) {
         return ResponseEntity.ok(categoryService.save(categoryDto));

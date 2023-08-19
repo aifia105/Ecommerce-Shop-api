@@ -26,6 +26,7 @@ public class SecurityConfiguration  {
                  .disable()
                  .authorizeHttpRequests((request) -> request
                          .requestMatchers("/JemoApi/version1/auth/**",
+                                 "/admin/authenticate",
                                  "/v3/api-docs/**",
                                  "/swagger-resources/**",
                                  "/configuration/ui",

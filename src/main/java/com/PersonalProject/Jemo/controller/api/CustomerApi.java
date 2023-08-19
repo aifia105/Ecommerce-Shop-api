@@ -2,6 +2,7 @@ package com.PersonalProject.Jemo.controller.api;
 
 import com.PersonalProject.Jemo.dto.CustomerDto;
 import com.PersonalProject.Jemo.dto.ModifyPasswordDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import static com.PersonalProject.Jemo.utils.Constants.CUSTOMER_ENDPOINT;
 
+@Tag(name = "Customer" )
 public interface CustomerApi {
 
     @PostMapping(value = CUSTOMER_ENDPOINT + "/signing" , consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)

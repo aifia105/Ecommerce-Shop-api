@@ -3,12 +3,15 @@ package com.PersonalProject.Jemo.controller.api;
 import com.PersonalProject.Jemo.dto.ItemOrderCustomerDto;
 import com.PersonalProject.Jemo.dto.ItemOrderSupplierDto;
 import com.PersonalProject.Jemo.dto.ProductDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import static com.PersonalProject.Jemo.utils.Constants.PRODUCT_ENDPOINT;
+
+@Tag(name = "Products" )
 public interface ProductApi {
 
     @PostMapping(value =PRODUCT_ENDPOINT + "/create",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE )

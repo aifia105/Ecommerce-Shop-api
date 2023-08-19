@@ -1,11 +1,9 @@
 package com.PersonalProject.Jemo.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Month;
 import java.time.Year;
@@ -13,9 +11,9 @@ import java.time.Year;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@Embeddable
-public class Cart implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+@Entity
+public class Cart extends AbstractEntity {
 
     @Column(name = "CardNumber")
     private BigDecimal cardNumber;
@@ -31,4 +29,8 @@ public class Cart implements Serializable {
 
     @Column(name = "CVV")
     private Integer cvv;
+
+    @ManyToOne
+    @JoinColumn(name = "idCart")
+    private Customer customer;
 }

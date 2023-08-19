@@ -26,8 +26,8 @@ public class Customer extends AbstractEntity implements UserDetails {
     @Embedded
     private Address address;
 
-    @Embedded
-    private Cart cart;
+    @OneToMany( mappedBy = "customer")
+    private List<Cart> cart;
 
     @Column(name = "picture")
     private String picture;

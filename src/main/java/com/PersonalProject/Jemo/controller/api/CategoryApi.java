@@ -1,6 +1,7 @@
 package com.PersonalProject.Jemo.controller.api;
 
 import com.PersonalProject.Jemo.dto.CategoryDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import static com.PersonalProject.Jemo.utils.Constants.CATEGORY_ENDPOINT;
 
+@Tag(name = "Categories" )
 public interface CategoryApi {
 
     @PostMapping(value = CATEGORY_ENDPOINT + "/create" , produces = MediaType.APPLICATION_JSON_VALUE , consumes = MediaType.APPLICATION_JSON_VALUE)

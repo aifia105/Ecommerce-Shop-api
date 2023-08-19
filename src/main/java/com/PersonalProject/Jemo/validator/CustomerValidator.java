@@ -30,7 +30,7 @@ public class CustomerValidator {
                 errors.add("Please fill in the phone field");
             }
             errors.addAll(AddressValidator.validator(customerDto.getAddress()));
-            errors.addAll(CartValidator.validator(customerDto.getCart()));
+
         }
         return errors;
     }

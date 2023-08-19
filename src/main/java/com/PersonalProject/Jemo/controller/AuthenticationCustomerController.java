@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = AUTHENTICATION_ENDPOINT)
 @RequiredArgsConstructor
-@Tag(name = "Authentication" )
+@Tag(name = "Authentication User" )
 public class AuthenticationCustomerController {
 
     private final AuthenticationCustomerService customerService;

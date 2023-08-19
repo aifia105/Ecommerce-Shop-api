@@ -1,6 +1,7 @@
 package com.PersonalProject.Jemo.controller.api;
 
 import com.PersonalProject.Jemo.dto.MvtStkDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import static com.PersonalProject.Jemo.utils.Constants.MVT_STK_ENDPOINT;
 
+@Tag(name = "Stock Management" )
 public interface MvtStkApi {
 
 

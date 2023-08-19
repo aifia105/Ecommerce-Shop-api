@@ -26,7 +26,8 @@ public class CustomerDto {
 
     private AddressDto address;
 
-    private CartDto cart;
+    @JsonIgnore
+    private List<CartDto> cart;
 
     private String picture;
 
@@ -47,7 +48,6 @@ public class CustomerDto {
                 .name(customer.getName())
                 .lastName(customer.getLastName())
                 .address(AddressDto.fromEntity(customer.getAddress()))
-                .cart(CartDto.fromEntity(customer.getCart()))
                 .picture(customer.getPhone())
                 .email(customer.getEmail())
                 .password(customer.getPassword())
@@ -63,7 +63,6 @@ public class CustomerDto {
         customer.setName(customerDto.getName());
         customer.setLastName(customerDto.getLastName());
         customer.setAddress(AddressDto.toEntity(customerDto.getAddress()));
-        customer.setCart(CartDto.toEntity(customerDto.getCart()));
         customer.setPicture(customerDto.getPicture());
         customer.setEmail(customerDto.getEmail());
         customer.setPassword(customerDto.getPassword());

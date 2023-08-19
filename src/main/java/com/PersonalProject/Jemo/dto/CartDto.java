@@ -26,6 +26,8 @@ public class CartDto {
 
     private Integer cvv;
 
+    private CustomerDto customer;
+
     public static CartDto fromEntity(Cart cart){
         if(cart == null){
             return null;
@@ -35,7 +37,9 @@ public class CartDto {
                 .cardholderName(cart.getCardholderName())
                 .expirationMonth(cart.getExpirationMonth())
                 .expirationYear(cart.getExpirationYear())
-                .cvv(cart.getCvv()).build();
+                .cvv(cart.getCvv())
+                .customer(CustomerDto.fromEntity(cart.getCustomer()))
+                .build();
     }
 
     public static Cart toEntity(CartDto cartDto){
@@ -48,6 +52,7 @@ public class CartDto {
         cart.setExpirationMonth(cartDto.getExpirationMonth());
         cart.setExpirationYear(cartDto.getExpirationYear());
         cart.setCvv(cartDto.getCvv());
+        cart.setCustomer(CustomerDto.toEntity(cartDto.getCustomer()));
         return cart;
     }
 

@@ -26,7 +26,7 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "email")
+    @Column(unique = true , name = "email")
     private String email;
 
     @Column(name = "birthday")
