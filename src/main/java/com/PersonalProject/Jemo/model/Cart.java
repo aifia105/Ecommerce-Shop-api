@@ -31,6 +31,6 @@ public class Cart extends AbstractEntity {
     private Integer cvv;
 
     @ManyToOne
-    @JoinColumn(name = "idCart")
+    @JoinColumn(name = "idUser")
     private Customer customer;
 }

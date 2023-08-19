@@ -4,7 +4,6 @@ import com.PersonalProject.Jemo.dto.CartDto;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +15,9 @@ public class CartValidator {
         if (cartDto == null) {
             errors.add("Please fill in the cart fields");
         } else {
+            if (cartDto.getCustomer() == null || cartDto.getCustomer().getId() == null){
+                errors.add("Cart should has a user");
+            }
             if (cartDto.getCardNumber().compareTo(BigDecimal.ZERO) == 0) {
                 errors.add("Please fill in the card number");
             }

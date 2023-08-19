@@ -22,5 +22,7 @@ public interface Constants {
 
      String AUTHENTICATION_ENDPOINT = APP_ROOT + "/auth";
 
+     String CART_ENDPOINT = APP_ROOT + "/Cart";
+
 
 }
