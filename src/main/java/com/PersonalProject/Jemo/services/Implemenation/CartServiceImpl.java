@@ -65,11 +65,9 @@ public class CartServiceImpl implements CartService {
             log.warn("Id User is null");
             return null;
         }
-        Optional<CartDto> cart = cartRepository.findByCustomerId(id);
-        if (cart.isEmpty()){
-         throw new EntityNotFoundException("Cart with this user ID not found UserId = " + id, ErrorCodes.CART_NOT_FOUND);
-        }
-        return cart.get();
+        return cartRepository.findByCustomerId(id).map(CartDto::fromEntity).orElseThrow(()->
+                 new EntityNotFoundException("Cart with this user ID not found UserId = " + id, ErrorCodes.CART_NOT_FOUND));
+
     }
 
     @Override
@@ -86,5 +84,14 @@ public class CartServiceImpl implements CartService {
         }
         cartRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<CartDto> findAllByCustomerId(Long id) {
+        if (id == null) {
+            log.warn("Id User is null");
+            return null;
+        }
+        return cartRepository.findAllByCustomerId(id).stream().map(CartDto::fromEntity).collect(Collectors.toList());
     }
 }

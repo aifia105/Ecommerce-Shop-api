@@ -7,6 +7,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.Month;
 import java.time.Year;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -33,4 +34,7 @@ public class Cart extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "idUser")
     private Customer customer;
+
+    @OneToMany(mappedBy = "cart")
+    private List<OrderCustomer> orderCustomers;
 }

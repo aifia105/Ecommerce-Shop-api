@@ -25,6 +25,8 @@ public class OrderCustomerDto {
 
     private CustomerDto customerDto;
 
+    private CartDto cartDto;
+
     private List<ItemOrderCustomerDto> itemOrderCustomerDtos;
 
     public static OrderCustomerDto fromEntity(OrderCustomer orderCustomer){
@@ -37,7 +39,9 @@ public class OrderCustomerDto {
                 .dateOrder(orderCustomer.getDateOrder())
                 .total(orderCustomer.getTotal())
                 .orderStatu(orderCustomer.getOrderStatu())
-                .customerDto(CustomerDto.fromEntity(orderCustomer.getCustomer())).build();
+                .customerDto(CustomerDto.fromEntity(orderCustomer.getCustomer()))
+                .cartDto(CartDto.fromEntity(orderCustomer.getCart()))
+                .build();
 
     }
 
@@ -52,6 +56,7 @@ public class OrderCustomerDto {
         orderCustomer.setTotal(orderCustomerDto.getTotal());
         orderCustomer.setOrderStatu(orderCustomerDto.getOrderStatu());
         orderCustomer.setCustomer(CustomerDto.toEntity(orderCustomerDto.getCustomerDto()));
+        orderCustomer.setCart(CartDto.toEntity(orderCustomerDto.getCartDto()));
         return orderCustomer;
     }
 

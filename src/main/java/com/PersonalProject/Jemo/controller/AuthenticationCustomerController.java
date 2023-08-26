@@ -40,7 +40,7 @@ public class AuthenticationCustomerController {
                     )
             }
     )
-    @PostMapping("/register")
+    @PostMapping("/singin")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody Customer register){
         return ResponseEntity.ok(customerService.register(register));
     }
@@ -59,7 +59,7 @@ public class AuthenticationCustomerController {
                     )
             }
     )
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest){
         return ResponseEntity.ok(customerService.authenticate(authenticationRequest));
     }

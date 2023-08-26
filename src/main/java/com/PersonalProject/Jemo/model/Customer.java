@@ -32,7 +32,6 @@ public class Customer extends AbstractEntity implements UserDetails {
     @Column(name = "picture")
     private String picture;
 
-
     @Column(unique = true ,name = "email")
     private String email;
 
@@ -52,7 +51,7 @@ public class Customer extends AbstractEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("Customer"));
+        return Collections.singletonList(new SimpleGrantedAuthority("client"));
     }
 
     @Override

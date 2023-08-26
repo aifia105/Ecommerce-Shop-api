@@ -45,4 +45,9 @@ public class CartController implements CartApi {
         cartService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    @Override
+    public ResponseEntity<List<CartDto>> findAllByCustomerId(Long id) {
+        return ResponseEntity.ok(cartService.findAllByCustomerId(id));
+    }
 }

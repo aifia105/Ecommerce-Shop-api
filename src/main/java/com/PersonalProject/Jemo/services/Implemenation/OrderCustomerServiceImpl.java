@@ -6,10 +6,7 @@ import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
 import com.PersonalProject.Jemo.exception.OperationNotValidException;
 import com.PersonalProject.Jemo.model.*;
-import com.PersonalProject.Jemo.repository.CustomerRepository;
-import com.PersonalProject.Jemo.repository.ItemOrderCustomerRepository;
-import com.PersonalProject.Jemo.repository.OrderCustomerRepository;
-import com.PersonalProject.Jemo.repository.ProductRepository;
+import com.PersonalProject.Jemo.repository.*;
 import com.PersonalProject.Jemo.services.MvtStkService;
 import com.PersonalProject.Jemo.services.OrderCustomerService;
 import com.PersonalProject.Jemo.validator.OrderCustomerValidator;
@@ -33,18 +30,20 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     private final OrderCustomerRepository orderCustomerRepository;
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
     private final ItemOrderCustomerRepository itemOrderCustomerRepository;
     private final MvtStkService mvtStkService;
 
     @Autowired
     public OrderCustomerServiceImpl(OrderCustomerRepository orderCustomerRepository, ItemOrderCustomerRepository itemOrderCustomerRepository
-            ,CustomerRepository customerRepository,ProductRepository productRepository, MvtStkService mvtStkService) {
+            ,CustomerRepository customerRepository,ProductRepository productRepository, MvtStkService mvtStkService, CartRepository cartRepository) {
         super();
         this.orderCustomerRepository = orderCustomerRepository;
         this.itemOrderCustomerRepository = itemOrderCustomerRepository;
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
         this.mvtStkService = mvtStkService;
+        this.cartRepository = cartRepository;
     }
 
     @Override
@@ -67,6 +66,15 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             throw  new EntityNotFoundException("no user in database with this id" + orderCustomerDto.getCustomerDto().getId()
                     ,ErrorCodes.USER_NOT_FOUND);
         }
+
+        Optional<Cart> cart = cartRepository.findByCustomerId(orderCustomerDto.getCustomerDto().getId());
+        if(cart.isEmpty()){
+            log.warn("Cart is not added");
+            throw  new EntityNotFoundException("no cart associate with this user id" + orderCustomerDto.getCustomerDto().getId()
+                    ,ErrorCodes.CART_NOT_FOUND);
+        }
+
+
 
         List<String> productsErrors = new ArrayList<>();
 

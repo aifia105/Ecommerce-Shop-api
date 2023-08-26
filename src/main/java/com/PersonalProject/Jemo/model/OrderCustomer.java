@@ -30,6 +30,10 @@ public class OrderCustomer extends AbstractEntity{
     @JoinColumn(name = "idCustomer")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "idCart")
+    private Cart cart;
+
     @OneToMany(mappedBy = "orderCustomer")
     private List<ItemOrderCustomer> orderItemCustomers;
 

@@ -28,6 +28,9 @@ public class OrderCustomerValidator {
             if (orderCustomerDto.getCustomerDto() == null || orderCustomerDto.getCustomerDto().getId() == null){
                 errors.add("Please fill in the customer");
             }
+            if (orderCustomerDto.getCartDto() == null || orderCustomerDto.getCartDto().getId() == null){
+                errors.add("Please fill in the customer");
+            }
         }
         return errors;
     }

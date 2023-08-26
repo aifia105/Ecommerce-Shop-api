@@ -12,6 +12,8 @@ import java.time.Year;
 @Builder
 public class CartDto {
 
+    private Long id;
+
     private BigDecimal cardNumber;
 
 
@@ -25,6 +27,7 @@ public class CartDto {
 
 
     private Integer cvv;
+
 
     private CustomerDto customer;
 
