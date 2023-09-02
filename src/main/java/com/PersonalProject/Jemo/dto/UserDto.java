@@ -43,8 +43,9 @@ public class UserDto {
                 .birthday(user.getBirthday())
                 .password(user.getPassword())
                 .addressDto(AddressDto.fromEntity(user.getAddress()))
-                .picture(user.getPicture()
-        ).build();
+                .picture(user.getPicture())
+                .phone(user.getPhone())
+                .build();
     }
 
     public static User toEntity(UserDto userDto){
@@ -60,6 +61,7 @@ public class UserDto {
         user.setPassword(user.getPassword());
         user.setAddress(AddressDto.toEntity(userDto.getAddressDto()));
         user.setPicture(userDto.getPicture());
+        user.setPhone(userDto.getPhone());
         return user ;
     }
 }

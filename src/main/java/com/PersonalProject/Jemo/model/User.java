@@ -41,6 +41,9 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "picture")
     private String picture;
 
+    @Column(name = "phone")
+    private String phone;
+
     @Override
     public Long getId() {
         return super.getId();

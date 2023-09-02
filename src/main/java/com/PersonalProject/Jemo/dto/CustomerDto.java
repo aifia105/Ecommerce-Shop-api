@@ -47,6 +47,7 @@ public class CustomerDto {
                 .id(customer.getId())
                 .name(customer.getName())
                 .lastName(customer.getLastName())
+                .birthday(customer.getBirthday())
                 .address(AddressDto.fromEntity(customer.getAddress()))
                 .picture(customer.getPhone())
                 .email(customer.getEmail())
@@ -67,6 +68,7 @@ public class CustomerDto {
         customer.setEmail(customerDto.getEmail());
         customer.setPassword(customerDto.getPassword());
         customer.setPhone(customerDto.getPhone());
+        customer.setBirthday(customerDto.getBirthday());
         return customer;
     }
 }
