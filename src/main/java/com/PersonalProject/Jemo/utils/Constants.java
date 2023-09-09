@@ -24,5 +24,9 @@ public interface Constants {
 
      String CART_ENDPOINT = APP_ROOT + "/Cart";
 
+     String RATING_ENDPOINT = APP_ROOT + "/Rating";
+
+     String REPORT_ENDPOINT = APP_ROOT + "/Report";
+
 
 }

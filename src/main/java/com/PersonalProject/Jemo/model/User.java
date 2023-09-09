@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 
 @Data
@@ -44,6 +45,9 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "phone")
     private String phone;
 
+    @OneToMany(mappedBy = "rapporteur")
+    private List<Reporting> reportings;
+
     @Override
     public Long getId() {
         return super.getId();
@@ -51,7 +55,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("admin"));
+        return Collections.singletonList(new SimpleGrantedAuthority("user"));
     }
 
     @Override

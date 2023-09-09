@@ -5,6 +5,7 @@ package com.PersonalProject.Jemo.dto;
 
 
 import com.PersonalProject.Jemo.model.Supplier;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,6 +25,7 @@ public class SupplierDto {
 
     private String phone;
 
+    @JsonIgnore
     private List<OrderSupplierDto> orderSupplierDtos;
 
     public static SupplierDto fromEntity(Supplier supplier){

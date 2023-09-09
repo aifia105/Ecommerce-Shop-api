@@ -29,6 +29,9 @@ public class UserValidator {
                 errors.add("Please fill in the birthday fields");
             }
             errors.addAll(AddressValidator.validator(userDto.getAddressDto()));
+            if (!StringUtils.hasLength(userDto.getPhone())){
+                errors.add("Please fill in the phone fields");
+            }
         }
         return errors;
     }

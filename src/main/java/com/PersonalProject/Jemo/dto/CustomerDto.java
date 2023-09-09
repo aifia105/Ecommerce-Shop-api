@@ -36,6 +36,9 @@ public class CustomerDto {
     private String phone;
 
     @JsonIgnore
+    private List<RatingDto> rating;
+
+    @JsonIgnore
     private List<OrderCustomerDto> orderCustomerDtos;
 
 

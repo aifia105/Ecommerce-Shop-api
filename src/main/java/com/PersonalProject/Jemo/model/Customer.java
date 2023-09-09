@@ -48,6 +48,9 @@ public class Customer extends AbstractEntity implements UserDetails {
     @OneToMany(mappedBy = "customer")
     private List<OrderCustomer> orderCustomers;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Rating> ratings;
+
     @Override
     public Long getId() {
         return super.getId();

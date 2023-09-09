@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import static com.PersonalProject.Jemo.utils.Constants.AUTHENTICATION_ENDPOINT;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping(AUTHENTICATION_ENDPOINT + "/admin")
 @RequiredArgsConstructor
 @Tag(name = "Authentication Admin" )
 public class AuthenticationUserController {

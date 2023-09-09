@@ -2,6 +2,7 @@ package com.PersonalProject.Jemo.dto;
 
 
 import com.PersonalProject.Jemo.model.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -38,10 +39,15 @@ public class ProductDto {
     private CategoryDto category;
 
 
+    @JsonIgnore
     private List<ItemOrderCustomerDto> itemOrderCustomerList;
 
 
+    @JsonIgnore
     private List<MvtStkDto> mvtStks;
+
+    @JsonIgnore
+    private List<RatingDto> rating;
 
     public static ProductDto formEntity(Product product){
 

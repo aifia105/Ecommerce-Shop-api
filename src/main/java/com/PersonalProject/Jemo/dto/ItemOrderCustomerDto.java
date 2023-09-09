@@ -1,7 +1,6 @@
 package com.PersonalProject.Jemo.dto;
 
 import com.PersonalProject.Jemo.model.ItemOrderCustomer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,7 +18,6 @@ public class ItemOrderCustomerDto {
 
     private Integer unit_price;
 
-    @JsonIgnore
     private OrderCustomerDto orderCustomerDto;
 
     public static ItemOrderCustomerDto fromEntity(ItemOrderCustomer itemOrderCustomer){
