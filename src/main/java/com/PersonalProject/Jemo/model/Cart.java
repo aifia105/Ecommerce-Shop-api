@@ -33,8 +33,8 @@ public class Cart extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "idUser")
-    private Customer customer;
+    private User user;
 
     @OneToMany(mappedBy = "cart")
-    private List<OrderCustomer> orderCustomers;
+    private List<OrderUser> orderUsers;
 }

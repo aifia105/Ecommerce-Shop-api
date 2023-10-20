@@ -8,7 +8,7 @@ import com.PersonalProject.Jemo.exception.OperationNotValidException;
 import com.PersonalProject.Jemo.model.*;
 import com.PersonalProject.Jemo.repository.*;
 import com.PersonalProject.Jemo.services.MvtStkService;
-import com.PersonalProject.Jemo.services.OrderCustomerService;
+import com.PersonalProject.Jemo.services.OrderUserService;
 import com.PersonalProject.Jemo.validator.OrderCustomerValidator;
 import com.PersonalProject.Jemo.validator.ProductValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -25,52 +25,52 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class OrderCustomerServiceImpl implements OrderCustomerService {
+public class OrderUserServiceImpl implements OrderUserService {
 
-    private final OrderCustomerRepository orderCustomerRepository;
-    private final CustomerRepository customerRepository;
+    private final OrderUserRepository orderUserRepository;
+    private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
-    private final ItemOrderCustomerRepository itemOrderCustomerRepository;
+    private final ItemOrderUserRepository itemOrderUserRepository;
     private final MvtStkService mvtStkService;
 
     @Autowired
-    public OrderCustomerServiceImpl(OrderCustomerRepository orderCustomerRepository, ItemOrderCustomerRepository itemOrderCustomerRepository
-            ,CustomerRepository customerRepository,ProductRepository productRepository, MvtStkService mvtStkService, CartRepository cartRepository) {
+    public OrderUserServiceImpl(OrderUserRepository orderUserRepository, ItemOrderUserRepository itemOrderUserRepository
+            , UserRepository userRepository, ProductRepository productRepository, MvtStkService mvtStkService, CartRepository cartRepository) {
         super();
-        this.orderCustomerRepository = orderCustomerRepository;
-        this.itemOrderCustomerRepository = itemOrderCustomerRepository;
-        this.customerRepository = customerRepository;
+        this.orderUserRepository = orderUserRepository;
+        this.itemOrderUserRepository = itemOrderUserRepository;
+        this.userRepository = userRepository;
         this.productRepository = productRepository;
         this.mvtStkService = mvtStkService;
         this.cartRepository = cartRepository;
     }
 
     @Override
-    public OrderCustomerDto save(OrderCustomerDto orderCustomerDto) {
+    public OrderUserDto save(OrderUserDto orderUserDto) {
 
-        List<String> errors = OrderCustomerValidator.validator(orderCustomerDto);
+        List<String> errors = OrderCustomerValidator.validator(orderUserDto);
 
         if(!errors.isEmpty()){
-            log.error("order invalid {}",orderCustomerDto);
+            log.error("order invalid {}", orderUserDto);
             throw new EntityNotValidException("order invalid", ErrorCodes.ORDER_CUSTOMER_NOT_VALID, errors);
         }
 
-        if (orderCustomerDto.getId() != null && orderCustomerDto.isOrderDELIVERED()){
+        if (orderUserDto.getId() != null && orderUserDto.isOrderDELIVERED()){
             throw new OperationNotValidException("Cant update DELIVERED order",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
 
-        Optional<Customer> customer = customerRepository.findById(orderCustomerDto.getCustomerDto().getId());
+        Optional<User> customer = userRepository.findById(orderUserDto.getUserDto().getId());
         if(customer.isEmpty()){
             log.warn("Customer not found in BD");
-            throw  new EntityNotFoundException("no user in database with this id" + orderCustomerDto.getCustomerDto().getId()
+            throw  new EntityNotFoundException("no user in database with this id" + orderUserDto.getUserDto().getId()
                     ,ErrorCodes.USER_NOT_FOUND);
         }
 
-        Optional<Cart> cart = cartRepository.findByCustomerId(orderCustomerDto.getCustomerDto().getId());
+        Optional<Cart> cart = cartRepository.findByUserId(orderUserDto.getUserDto().getId());
         if(cart.isEmpty()){
             log.warn("Cart is not added");
-            throw  new EntityNotFoundException("no cart associate with this user id" + orderCustomerDto.getCustomerDto().getId()
+            throw  new EntityNotFoundException("no cart associate with this user id" + orderUserDto.getUserDto().getId()
                     ,ErrorCodes.CART_NOT_FOUND);
         }
 
@@ -78,8 +78,8 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
         List<String> productsErrors = new ArrayList<>();
 
-        if(orderCustomerDto.getItemOrderCustomerDtos() != null){
-            orderCustomerDto.getItemOrderCustomerDtos().forEach(itemOder->{
+        if(orderUserDto.getItemOrderUserDtos() != null){
+            orderUserDto.getItemOrderUserDtos().forEach(itemOder->{
                 if (itemOder.getProductDto() != null){
                     Optional<Product> product = productRepository.findById(itemOder.getProductDto().getId());
                     if (product.isEmpty()){
@@ -95,38 +95,38 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             log.warn("Product not found in the database");
             throw new EntityNotValidException("Product not found in the database",ErrorCodes.PRODUCT_NOT_FOUND,productsErrors);
         }
-        orderCustomerDto.setDateOrder(Instant.now());
-        OrderCustomer savedOrderCustomer = orderCustomerRepository.save(OrderCustomerDto.toEntity(orderCustomerDto));
+        orderUserDto.setDateOrder(Instant.now());
+        OrderUser savedOrderUser = orderUserRepository.save(OrderUserDto.toEntity(orderUserDto));
 
-        if(orderCustomerDto.getItemOrderCustomerDtos() != null){
-        orderCustomerDto.getItemOrderCustomerDtos().forEach(item -> {
-            ItemOrderCustomer itemOrderCustomer = ItemOrderCustomerDto.toEntity(item);
-            itemOrderCustomer.setOrderCustomer(savedOrderCustomer);
-            ItemOrderCustomer savedItemOrder = itemOrderCustomerRepository.save(itemOrderCustomer);
+        if(orderUserDto.getItemOrderUserDtos() != null){
+        orderUserDto.getItemOrderUserDtos().forEach(item -> {
+            ItemOrderUser itemOrderUser = ItemOrderUserDto.toEntity(item);
+            itemOrderUser.setOrderUser(savedOrderUser);
+            ItemOrderUser savedItemOrder = itemOrderUserRepository.save(itemOrderUser);
 
             performOutput(savedItemOrder);
         });}
 
 
-        return OrderCustomerDto.fromEntity(savedOrderCustomer);
+        return OrderUserDto.fromEntity(savedOrderUser);
     }
 
     @Override
-    public OrderCustomerDto findById(Long id) {
+    public OrderUserDto findById(Long id) {
         if(id == null){
             log.error("order id is null");
             return null;
         }
-        return orderCustomerRepository.findById(id)
-                .map(OrderCustomerDto::fromEntity)
+        return orderUserRepository.findById(id)
+                .map(OrderUserDto::fromEntity)
                 .orElseThrow(()->
                         new EntityNotFoundException("order not found" + id, ErrorCodes.ORDER_CUSTOMER_NOT_FOUND));
     }
 
     @Override
-    public List<OrderCustomerDto> findAll() {
-        return orderCustomerRepository.findAll().stream()
-                .map(OrderCustomerDto::fromEntity)
+    public List<OrderUserDto> findAll() {
+        return orderUserRepository.findAll().stream()
+                .map(OrderUserDto::fromEntity)
                 .collect(Collectors.toList());
     }
 
@@ -136,40 +136,40 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             log.error("order id is null");
             return;
         }
-        List<ItemOrderCustomer> itemOrderCustomers = itemOrderCustomerRepository.findAllByOrderCustomerId(id);
-        if (!itemOrderCustomers.isEmpty()){
+        List<ItemOrderUser> itemOrderUsers = itemOrderUserRepository.findAllByOrderUserId(id);
+        if (!itemOrderUsers.isEmpty()){
             throw new OperationNotValidException("Can not delete a order in use ",ErrorCodes.ORDER_CUSTOMER_ALREADY_IN_USE);
         }
-            orderCustomerRepository.deleteById(id);
+            orderUserRepository.deleteById(id);
 
 
     }
     @Override
-    public List<ItemOrderCustomerDto> findAllByOrderId(Long id) {
-        return itemOrderCustomerRepository.findAllByOrderCustomerId(id).stream()
-                .map(ItemOrderCustomerDto::fromEntity).collect(Collectors.toList());
+    public List<ItemOrderUserDto> findAllByOrderId(Long id) {
+        return itemOrderUserRepository.findAllByOrderUserId(id).stream()
+                .map(ItemOrderUserDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public OrderCustomerDto updateOrderStatus(Long id, OrderStatu orderStatu) {
+    public OrderUserDto updateOrderStatus(Long id, OrderStatu orderStatu) {
         checkIdOrder(id);
         if (!StringUtils.hasLength(String.valueOf(orderStatu))){
             log.error("order status is null");
             throw new OperationNotValidException("Cant update order status to NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
 
-        OrderCustomerDto orderCustomerDto = checkOrderStatus(id);
-        orderCustomerDto.setOrderStatu(orderStatu);
+        OrderUserDto orderUserDto = checkOrderStatus(id);
+        orderUserDto.setOrderStatu(orderStatu);
 
-        OrderCustomer savedOrderCustomer = orderCustomerRepository.save(OrderCustomerDto.toEntity(orderCustomerDto));
-        if (orderCustomerDto.isOrderDELIVERED()){
+        OrderUser savedOrderUser = orderUserRepository.save(OrderUserDto.toEntity(orderUserDto));
+        if (orderUserDto.isOrderDELIVERED()){
             updateMvtStk(id);
         }
-        return OrderCustomerDto.fromEntity(savedOrderCustomer);
+        return OrderUserDto.fromEntity(savedOrderUser);
     }
 
     @Override
-    public OrderCustomerDto updateQuantityOrder(Long id, Long idItem, BigDecimal quantity) {
+    public OrderUserDto updateQuantityOrder(Long id, Long idItem, BigDecimal quantity) {
         checkIdOrder(id);
         checkIdItemOrder(idItem);
 
@@ -178,46 +178,46 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             throw new OperationNotValidException("Cant update order quantity is 0 or NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
 
-        OrderCustomerDto orderCustomerDto = checkOrderStatus(id);
-        Optional<ItemOrderCustomer> itemOrderCustomerOptional = findItemsOrder(idItem);
+        OrderUserDto orderUserDto = checkOrderStatus(id);
+        Optional<ItemOrderUser> itemOrderCustomerOptional = findItemsOrder(idItem);
         if (itemOrderCustomerOptional.isPresent()){
-            ItemOrderCustomer itemOrderCustomer = itemOrderCustomerOptional.get();
-            itemOrderCustomer.setQuantity(quantity);
-            itemOrderCustomerRepository.save(itemOrderCustomer);
+            ItemOrderUser itemOrderUser = itemOrderCustomerOptional.get();
+            itemOrderUser.setQuantity(quantity);
+            itemOrderUserRepository.save(itemOrderUser);
         }
 
-        return orderCustomerDto;
+        return orderUserDto;
     }
 
     @Override
-    public OrderCustomerDto updateCustomer(Long id, Long idCustomer) {
+    public OrderUserDto updateUser(Long id, Long idCustomer) {
         checkIdOrder(id);
         if (idCustomer == null){
             log.error("order id is null");
             throw new OperationNotValidException("Cant update order  ID customer is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
-        OrderCustomerDto orderCustomerDto = checkOrderStatus(id);
-        Optional<Customer> customerOptional = customerRepository.findById(idCustomer);
+        OrderUserDto orderUserDto = checkOrderStatus(id);
+        Optional<User> customerOptional = userRepository.findById(idCustomer);
         if(customerOptional.isEmpty()){
-            throw new EntityNotFoundException("No customers with Id" + idCustomer,ErrorCodes.CUSTOMER_NOT_FOUND);
+            throw new EntityNotFoundException("No customers with Id" + idCustomer,ErrorCodes.USER_NOT_FOUND);
         }
-        orderCustomerDto.setCustomerDto(CustomerDto.fromEntity(customerOptional.get()));
+        orderUserDto.setUserDto(UserDto.fromEntity(customerOptional.get()));
 
-        return OrderCustomerDto.fromEntity(
-                orderCustomerRepository.save(OrderCustomerDto.toEntity(orderCustomerDto))
+        return OrderUserDto.fromEntity(
+                orderUserRepository.save(OrderUserDto.toEntity(orderUserDto))
         );
     }
 
     @Override
-    public OrderCustomerDto updateProduct(Long id, Long idItem, Long idProduct) {
+    public OrderUserDto updateProduct(Long id, Long idItem, Long idProduct) {
         checkIdOrder(id);
         checkIdItemOrder(id);
         checkIDProduct(id);
 
-        OrderCustomerDto orderCustomerDto = checkOrderStatus(id);
+        OrderUserDto orderUserDto = checkOrderStatus(id);
         Optional<Product> product = findProduct(idProduct);
 
-        Optional<ItemOrderCustomer> itemOrderCustomerOptional = findItemsOrder(id);
+        Optional<ItemOrderUser> itemOrderCustomerOptional = findItemsOrder(id);
 
         if (product.isPresent()){
             List<String> errors = ProductValidator.validator(ProductDto.formEntity(product.get()));
@@ -226,32 +226,32 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             }
         }
         if (itemOrderCustomerOptional.isPresent()) {
-            ItemOrderCustomer itemOrderCustomer = itemOrderCustomerOptional.get();
-            product.ifPresent(itemOrderCustomer::setProduct);
-            itemOrderCustomerRepository.save(itemOrderCustomer);
+            ItemOrderUser itemOrderUser = itemOrderCustomerOptional.get();
+            product.ifPresent(itemOrderUser::setProduct);
+            itemOrderUserRepository.save(itemOrderUser);
         }
-        return orderCustomerDto;
+        return orderUserDto;
     }
 
     @Override
-    public OrderCustomerDto deleteProduct(Long id, Long idItem) {
+    public OrderUserDto deleteProduct(Long id, Long idItem) {
         checkIdOrder(id);
         checkIdItemOrder(id);
 
-        OrderCustomerDto orderCustomerDto = checkOrderStatus(id);
+        OrderUserDto orderUserDto = checkOrderStatus(id);
         findItemsOrder(id);
-        itemOrderCustomerRepository.deleteById(idItem);
-        return orderCustomerDto;
+        itemOrderUserRepository.deleteById(idItem);
+        return orderUserDto;
     }
-    private OrderCustomerDto checkOrderStatus(Long id){
-        OrderCustomerDto orderCustomer = findById(id);
+    private OrderUserDto checkOrderStatus(Long id){
+        OrderUserDto orderCustomer = findById(id);
         if (orderCustomer.isOrderDELIVERED()){
             throw new OperationNotValidException("Cant update DELIVERED order",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
         return orderCustomer;
     }
-    private Optional<ItemOrderCustomer> findItemsOrder(Long idItem){
-        Optional<ItemOrderCustomer> itemOrderCustomerOptional = itemOrderCustomerRepository.findById(idItem);
+    private Optional<ItemOrderUser> findItemsOrder(Long idItem){
+        Optional<ItemOrderUser> itemOrderCustomerOptional = itemOrderUserRepository.findById(idItem);
         if (itemOrderCustomerOptional.isEmpty()){
             throw new EntityNotFoundException("No items with this ID" + idItem , ErrorCodes.ORDER_CUSTOMER_NOT_FOUND);
         }
@@ -284,15 +284,15 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
         }
     }
     private void updateMvtStk(Long id){
-        List<ItemOrderCustomer> itemOrderCustomers = itemOrderCustomerRepository.findAllByOrderCustomerId(id);
-        itemOrderCustomers.forEach(this::performOutput);
+        List<ItemOrderUser> itemOrderUsers = itemOrderUserRepository.findAllByOrderUserId(id);
+        itemOrderUsers.forEach(this::performOutput);
     }
-    private void performOutput(ItemOrderCustomer itemOrderCustomer){
+    private void performOutput(ItemOrderUser itemOrderUser){
         MvtStkDto mvtStkDto = MvtStkDto.builder()
-                .productDto(ProductDto.formEntity(itemOrderCustomer.getProduct()))
+                .productDto(ProductDto.formEntity(itemOrderUser.getProduct()))
                 .dateMvt(Instant.now())
                 .typeMvt(TypeMvtStk.EXIT)
-                .quantity(itemOrderCustomer.getQuantity())
+                .quantity(itemOrderUser.getQuantity())
                 .sourceMvtStk(SourceMvtStk.Order_Customer)
                 .build();
         mvtStkService.exitStock(mvtStkDto);

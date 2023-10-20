@@ -14,11 +14,12 @@ import java.util.List;
 @Entity
 public class Category extends AbstractEntity {
 
-    @Column(name="codeCategory")
-    private String codeCategory;
-
     @Column(name="nameCategory")
     private String nameCategory;
+
+    @Column(name="descriptionCategory")
+    private String descriptionCategory;
+
 
     @OneToMany(mappedBy = "category")
     private List<Product> products;

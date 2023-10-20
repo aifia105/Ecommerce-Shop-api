@@ -15,8 +15,6 @@ public class ProductDto {
 
     private Long id;
 
-    private String codeProduct;
-
 
     private String Name;
 
@@ -24,10 +22,7 @@ public class ProductDto {
     private String description;
 
 
-    private BigDecimal priceHT;
-
-
-    private BigDecimal TVA;
+    private String brand;
 
 
     private BigDecimal priceTTC;
@@ -40,7 +35,7 @@ public class ProductDto {
 
 
     @JsonIgnore
-    private List<ItemOrderCustomerDto> itemOrderCustomerList;
+    private List<ItemOrderUserDto> itemOrderUserDtoList;
 
 
     @JsonIgnore
@@ -56,11 +51,9 @@ public class ProductDto {
         }
         return ProductDto.builder()
                 .id(product.getId())
-                .codeProduct(product.getCodeProduct())
                 .Name(product.getName())
                 .description(product.getDescription())
-                .priceHT(product.getPriceHT())
-                .TVA(product.getTVA())
+                .brand(product.getBrand())
                 .priceTTC(product.getPriceTTC())
                 .picture(product.getPicture())
                 .category(CategoryDto.fromEntity(product.getCategory())).build();
@@ -72,11 +65,9 @@ public class ProductDto {
         }
         Product product = new Product();
         product.setId(productDto.getId());
-        product.setCodeProduct(productDto.getCodeProduct());
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
-        product.setPriceHT(productDto.getPriceHT());
-        product.setTVA(productDto.getTVA());
+        product.setBrand(productDto.getBrand());
         product.setPriceTTC(productDto.getPriceTTC());
         product.setPicture(productDto.getPicture());
         product.setCategory(CategoryDto.toEntity(productDto.getCategory()));

@@ -4,10 +4,10 @@ import com.PersonalProject.Jemo.dto.RatingDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
-import com.PersonalProject.Jemo.model.Customer;
+import com.PersonalProject.Jemo.model.User;
 import com.PersonalProject.Jemo.model.Product;
 import com.PersonalProject.Jemo.model.Rating;
-import com.PersonalProject.Jemo.repository.CustomerRepository;
+import com.PersonalProject.Jemo.repository.UserRepository;
 import com.PersonalProject.Jemo.repository.ProductRepository;
 import com.PersonalProject.Jemo.repository.RatingRepository;
 import com.PersonalProject.Jemo.services.RatingService;
@@ -24,14 +24,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RatingServiceImpl implements RatingService {
     private final RatingRepository ratingRepository;
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
     @Autowired
-    public RatingServiceImpl( RatingRepository ratingRepository,CustomerRepository customerRepository,ProductRepository productRepository) {
+    public RatingServiceImpl(RatingRepository ratingRepository, UserRepository userRepository, ProductRepository productRepository) {
         super();
         this.ratingRepository = ratingRepository;
-        this.customerRepository = customerRepository;
+        this.userRepository = userRepository;
         this.productRepository = productRepository;
     }
 
@@ -42,10 +42,10 @@ public class RatingServiceImpl implements RatingService {
             log.error("Rating invalid");
             throw new EntityNotValidException("rating not valid "+ ratingDto);
         }
-        Optional<Customer> customer = customerRepository.findById(ratingDto.getCustomer().getId());
+        Optional<User> customer = userRepository.findById(ratingDto.getUserDto().getId());
         if (customer.isEmpty()){
             log.warn("Client not found in database");
-            throw new EntityNotFoundException("No client with this ID" + ratingDto.getCustomer().getId(), ErrorCodes.USER_NOT_FOUND);
+            throw new EntityNotFoundException("No client with this ID" + ratingDto.getUserDto().getId(), ErrorCodes.USER_NOT_FOUND);
         }
         Optional<Product> product = productRepository.findById(ratingDto.getProduct().getId());
         if (product.isEmpty()){
@@ -78,7 +78,7 @@ public class RatingServiceImpl implements RatingService {
             log.error("user ID is null");
             return null;
         }
-        return ratingRepository.findAllByCustomerId(id).stream()
+        return ratingRepository.findAllByUserId(id).stream()
                 .map(RatingDto::fromEntity).collect(Collectors.toList());
     }
 

@@ -15,7 +15,7 @@ public class CategoryValidator {
             errors.add("Please fill in category fields");
         } else {
 
-            if (!StringUtils.hasLength(categoryDto.getCodeCategory())) {
+            if (!StringUtils.hasLength(categoryDto.getDescriptionCategory())) {
                 errors.add("Please fill in the category code");
             }
             if (!StringUtils.hasLength(categoryDto.getNameCategory())) {

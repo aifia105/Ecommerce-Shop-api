@@ -1,10 +1,8 @@
 package com.PersonalProject.Jemo.config;
 
 
-
-import com.PersonalProject.Jemo.model.Customer;
-import com.PersonalProject.Jemo.model.User;
-import com.PersonalProject.Jemo.repository.CustomerRepository;
+import com.PersonalProject.Jemo.exception.EntityNotFoundException;
+import com.PersonalProject.Jemo.exception.ErrorCodes;
 import com.PersonalProject.Jemo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,30 +15,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Optional;
-
 
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
 
-    private final UserRepository userRepository;
 
-    private final CustomerRepository customerRepository;
+
+    private final UserRepository userRepository;
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> {
-            Optional<User> userOptional = userRepository.findUserByEmail(username);
-            Optional<Customer> customerOptional = customerRepository.findCustomerByEmail(username);
-            if (userOptional.isEmpty()) {
-                return customerOptional.get();
-            }
-            else  {
-                return userOptional.get();
-            }
-        };
+        return username -> userRepository.findUserByEmail(username)
+                .orElseThrow(()-> new EntityNotFoundException("No client found with this email",ErrorCodes.USER_NOT_FOUND));
 
 
     }

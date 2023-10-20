@@ -4,9 +4,9 @@ import com.PersonalProject.Jemo.dto.CartDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
-import com.PersonalProject.Jemo.model.Customer;
+import com.PersonalProject.Jemo.model.User;
 import com.PersonalProject.Jemo.repository.CartRepository;
-import com.PersonalProject.Jemo.repository.CustomerRepository;
+import com.PersonalProject.Jemo.repository.UserRepository;
 import com.PersonalProject.Jemo.services.CartService;
 import com.PersonalProject.Jemo.validator.CartValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CartServiceImpl(CartRepository cartRepository, CustomerRepository customerRepository) {
+    public CartServiceImpl(CartRepository cartRepository, UserRepository userRepository) {
         super();
         this.cartRepository = cartRepository;
-        this.customerRepository = customerRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CartServiceImpl implements CartService {
             log.warn("Cart object not valid");
             throw new EntityNotValidException("Cart object not valid", ErrorCodes.CART_NOT_VALID,errors);
         }
-        Optional<Customer> customer = customerRepository.findById(cartDto.getCustomer().getId());
+        Optional<User> customer = userRepository.findById(cartDto.getUserDto().getId());
         if (customer.isEmpty()){
             log.warn("user not found to associate with this cart");
             throw new EntityNotFoundException("user not found to associate with this cart",ErrorCodes.USER_NOT_FOUND);
@@ -65,7 +65,7 @@ public class CartServiceImpl implements CartService {
             log.warn("Id User is null");
             return null;
         }
-        return cartRepository.findByCustomerId(id).map(CartDto::fromEntity).orElseThrow(()->
+        return cartRepository.findByUserId(id).map(CartDto::fromEntity).orElseThrow(()->
                  new EntityNotFoundException("Cart with this user ID not found UserId = " + id, ErrorCodes.CART_NOT_FOUND));
 
     }
@@ -87,11 +87,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartDto> findAllByCustomerId(Long id) {
+    public List<CartDto> findAllByUserId(Long id) {
         if (id == null) {
             log.warn("Id User is null");
             return null;
         }
-        return cartRepository.findAllByCustomerId(id).stream().map(CartDto::fromEntity).collect(Collectors.toList());
+        return cartRepository.findAllByUserId(id).stream().map(CartDto::fromEntity).collect(Collectors.toList());
     }
 }

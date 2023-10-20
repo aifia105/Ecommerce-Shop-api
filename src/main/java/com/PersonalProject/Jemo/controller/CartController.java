@@ -47,7 +47,7 @@ public class CartController implements CartApi {
     }
 
     @Override
-    public ResponseEntity<List<CartDto>> findAllByCustomerId(Long id) {
-        return ResponseEntity.ok(cartService.findAllByCustomerId(id));
+    public ResponseEntity<List<CartDto>> findAllByUserId(Long id) {
+        return ResponseEntity.ok(cartService.findAllByUserId(id));
     }
 }

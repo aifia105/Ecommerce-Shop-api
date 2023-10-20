@@ -1,7 +1,6 @@
 package com.PersonalProject.Jemo.services;
 
-import com.PersonalProject.Jemo.dto.ItemOrderCustomerDto;
-import com.PersonalProject.Jemo.dto.ItemOrderSupplierDto;
+import com.PersonalProject.Jemo.dto.ItemOrderUserDto;
 import com.PersonalProject.Jemo.dto.ProductDto;
 
 import java.util.List;
@@ -18,9 +17,8 @@ public interface ProductService {
 
     List<ProductDto> findAllByCategoryId(Long idCategory);
 
-    List<ItemOrderCustomerDto> findHistoryOrderClient(Long id);
+    List<ItemOrderUserDto> findHistoryOrderUser(Long id);
 
-    List<ItemOrderSupplierDto> findHistoryOrderSupplier(Long id);
 
     void delete(Long id);
 }

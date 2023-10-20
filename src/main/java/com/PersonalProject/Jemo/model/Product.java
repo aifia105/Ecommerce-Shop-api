@@ -14,20 +14,15 @@ import java.util.List;
 public class Product extends AbstractEntity {
 
 
-    @Column(name="codeProduct")
-    private String codeProduct;
-
     @Column(name="Name")
     private String name;
 
     @Column(name="description")
     private String description;
 
-    @Column(name="priceHT")
-    private BigDecimal priceHT;
+    @Column(name="brand")
+    private String brand;
 
-    @Column(name="TVA")
-    private BigDecimal TVA;
 
     @Column(name="priceTTC")
     private BigDecimal priceTTC;
@@ -40,10 +35,8 @@ public class Product extends AbstractEntity {
     private Category category;
 
     @OneToMany(mappedBy = "product")
-    private List<ItemOrderCustomer> itemOrderCustomerList;
+    private List<ItemOrderUser> itemOrderUserList;
 
-    @OneToMany(mappedBy = "product")
-    private List<ItemOrderSupplier> itemOrderSupplierListList;
 
     @OneToMany(mappedBy = "product")
     private List<MvtStk> mvtStks;

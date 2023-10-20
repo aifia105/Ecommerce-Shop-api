@@ -1,6 +1,6 @@
 package com.PersonalProject.Jemo.validator;
 
-import com.PersonalProject.Jemo.dto.ItemOrderCustomerDto;
+import com.PersonalProject.Jemo.dto.ItemOrderUserDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,19 +8,19 @@ import java.util.List;
 
 public class ItemOrderCustomerValidator {
 
-    public static List<String> validator(ItemOrderCustomerDto itemOrderCustomerDto){
+    public static List<String> validator(ItemOrderUserDto itemOrderUserDto){
         List<String> errors = new ArrayList<>();
 
-        if (itemOrderCustomerDto == null){
+        if (itemOrderUserDto == null){
             errors.add("Please fill in the fields");
         } else {
-            if (itemOrderCustomerDto.getProductDto() == null || itemOrderCustomerDto.getProductDto().getId() == null ){
+            if (itemOrderUserDto.getProductDto() == null || itemOrderUserDto.getProductDto().getId() == null ){
                 errors.add("Please fill in the product field");
             }
-            if (itemOrderCustomerDto.getQuantity().compareTo(BigDecimal.ZERO) == 0){
+            if (itemOrderUserDto.getQuantity().compareTo(BigDecimal.ZERO) == 0){
                 errors.add("Please fill in the product quantity field");
             }
-            if (itemOrderCustomerDto.getUnit_price() == 0){
+            if (itemOrderUserDto.getUnit_price() == 0){
                 errors.add("Please fill in the product unit price field");
             }
         }

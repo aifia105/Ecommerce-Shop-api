@@ -29,7 +29,7 @@ public class CartDto {
     private Integer cvv;
 
 
-    private CustomerDto customer;
+    private UserDto userDto;
 
     public static CartDto fromEntity(Cart cart){
         if(cart == null){
@@ -41,7 +41,7 @@ public class CartDto {
                 .expirationMonth(cart.getExpirationMonth())
                 .expirationYear(cart.getExpirationYear())
                 .cvv(cart.getCvv())
-                .customer(CustomerDto.fromEntity(cart.getCustomer()))
+                .userDto(UserDto.fromEntity(cart.getUser()))
                 .build();
     }
 
@@ -55,7 +55,7 @@ public class CartDto {
         cart.setExpirationMonth(cartDto.getExpirationMonth());
         cart.setExpirationYear(cartDto.getExpirationYear());
         cart.setCvv(cartDto.getCvv());
-        cart.setCustomer(CustomerDto.toEntity(cartDto.getCustomer()));
+        cart.setUser(UserDto.toEntity(cartDto.getUserDto()));
         return cart;
     }
 

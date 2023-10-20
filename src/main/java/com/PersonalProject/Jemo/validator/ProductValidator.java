@@ -14,9 +14,6 @@ public class ProductValidator {
         if (productDto == null){
             errors.add("Please fill in the product fields");
         } else {
-            if (!StringUtils.hasLength(productDto.getCodeProduct())){
-                errors.add("Please fill in the product code field");
-            }
             if (!StringUtils.hasLength(productDto.getName())){
                 errors.add("Please fill in the product name field");
             }
@@ -26,10 +23,7 @@ public class ProductValidator {
             if (!StringUtils.hasLength(productDto.getPicture())){
                 errors.add("Please fill in the product picture");
             }
-            if (productDto.getPriceHT().compareTo(BigDecimal.ZERO) == 0){
-                errors.add("Please fill in the product priceHT");
-            }
-            if (productDto.getTVA().compareTo(BigDecimal.ZERO) == 0){
+            if (!StringUtils.hasLength(productDto.getBrand())){
                 errors.add("Please fill in the product TVA");
             }
             if (productDto.getPriceTTC().compareTo(BigDecimal.ZERO) == 0){

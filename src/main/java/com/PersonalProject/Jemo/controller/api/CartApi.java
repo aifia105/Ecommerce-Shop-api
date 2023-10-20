@@ -30,6 +30,6 @@ public interface CartApi {
     @DeleteMapping (value = CART_ENDPOINT + "/{id}")
     ResponseEntity<Void> delete(@PathVariable Long id);
 
-    @GetMapping(value = CART_ENDPOINT + "/filter/Customer/all/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<CartDto>> findAllByCustomerId(@PathVariable Long id);
+    @GetMapping(value = CART_ENDPOINT + "/filter/User/all/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<CartDto>> findAllByUserId(@PathVariable Long id);
 }

@@ -1,14 +1,12 @@
 package com.PersonalProject.Jemo.services.Implemenation;
 
-import com.PersonalProject.Jemo.dto.ItemOrderCustomerDto;
-import com.PersonalProject.Jemo.dto.ItemOrderSupplierDto;
+import com.PersonalProject.Jemo.dto.ItemOrderUserDto;
 import com.PersonalProject.Jemo.dto.ProductDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
 import com.PersonalProject.Jemo.exception.OperationNotValidException;
-import com.PersonalProject.Jemo.model.ItemOrderCustomer;
-import com.PersonalProject.Jemo.model.ItemOrderSupplier;
+import com.PersonalProject.Jemo.model.ItemOrderUser;
 import com.PersonalProject.Jemo.repository.*;
 import com.PersonalProject.Jemo.services.ProductService;
 import com.PersonalProject.Jemo.validator.ProductValidator;
@@ -25,16 +23,16 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
     private final   ProductRepository productRepository;
-    private final ItemOrderCustomerRepository itemOrderCustomerRepository;
-    private final ItemOrderSupplierRepository itemOrderSupplierRepository;
+    private final ItemOrderUserRepository itemOrderUserRepository;
+
 
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, ItemOrderCustomerRepository itemOrderCustomerRepository,ItemOrderSupplierRepository itemOrderSupplierRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ItemOrderUserRepository itemOrderUserRepository) {
         super();
         this.productRepository = productRepository;
-        this.itemOrderCustomerRepository = itemOrderCustomerRepository;
-        this.itemOrderSupplierRepository = itemOrderSupplierRepository;
+        this.itemOrderUserRepository = itemOrderUserRepository;
+
 
     }
 
@@ -98,16 +96,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ItemOrderCustomerDto> findHistoryOrderClient(Long id) {
-        return itemOrderCustomerRepository.findAllByProductId(id).stream()
-                .map(ItemOrderCustomerDto::fromEntity).collect(Collectors.toList());
+    public List<ItemOrderUserDto> findHistoryOrderUser(Long id) {
+        return itemOrderUserRepository.findAllByProductId(id).stream()
+                .map(ItemOrderUserDto::fromEntity).collect(Collectors.toList());
     }
 
-    @Override
-    public List<ItemOrderSupplierDto> findHistoryOrderSupplier(Long id) {
-        return itemOrderSupplierRepository.findAllByProductId(id).stream()
-                .map(ItemOrderSupplierDto::fromEntity).collect(Collectors.toList());
-    }
+
 
     @Override
     public void delete(Long id) {
@@ -115,15 +109,11 @@ public class ProductServiceImpl implements ProductService {
             log.error("Product ID is Null");
             return;
         }
-        List<ItemOrderCustomer> itemOrderCustomers = itemOrderCustomerRepository.findAllByProductId(id);
-        if (!itemOrderCustomers.isEmpty()){
+        List<ItemOrderUser> itemOrderUsers = itemOrderUserRepository.findAllByProductId(id);
+        if (!itemOrderUsers.isEmpty()){
             throw new OperationNotValidException("Product already in use(Order)",ErrorCodes.PRODUCT_ALREADY_IN_USE);
         }
-        List<ItemOrderSupplier> itemOrderSuppliers = itemOrderSupplierRepository.findAllByProductId(id);
-        if (!itemOrderSuppliers.isEmpty()){
-            throw new OperationNotValidException("Product already in use(Supplier)",ErrorCodes.PRODUCT_ALREADY_IN_USE);
-        }
-            productRepository.deleteById(id);
+
 
     }
 }

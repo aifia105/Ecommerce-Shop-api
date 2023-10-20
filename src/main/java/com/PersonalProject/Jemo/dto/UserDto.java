@@ -1,51 +1,63 @@
 package com.PersonalProject.Jemo.dto;
 
 
-
 import com.PersonalProject.Jemo.model.User;
+import com.PersonalProject.Jemo.model.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
 public class UserDto {
 
+
     private Long id;
 
-    private String name;
-
-    private String lastname;
+    private String fullName;
 
     private String email;
 
     private Instant birthday;
 
-    private String password;
+    private AddressDto address;
 
-    private AddressDto addressDto;
+    private Role role;
 
     private String picture;
 
+    private String password;
+
     private String phone;
+
+    @JsonIgnore
+    private List<RatingDto> rating;
+
+    @JsonIgnore
+    private List<OrderUserDto> orderUserDtos;
+
+    @JsonIgnore
+    private List<CartDto> cart;
+
 
 
     public static UserDto fromEntity(User user){
-        if (user == null){
+        if(user == null){
             return null;
         }
         return UserDto.builder()
                 .id(user.getId())
-                .name(user.getName())
-                .lastname(user.getLastname())
-                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .role(user.getRole())
                 .birthday(user.getBirthday())
+                .address(AddressDto.fromEntity(user.getAddress()))
+                .picture(user.getPhone())
+                .email(user.getEmail())
                 .password(user.getPassword())
-                .addressDto(AddressDto.fromEntity(user.getAddress()))
-                .picture(user.getPicture())
-                .phone(user.getPhone())
-                .build();
+                .phone(user.getPhone()).build();
     }
 
     public static User toEntity(UserDto userDto){
@@ -54,14 +66,14 @@ public class UserDto {
         }
         User user = new User();
         user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setLastname(userDto.getLastname());
-        user.setEmail(userDto.getEmail());
-        user.setBirthday(userDto.getBirthday());
-        user.setPassword(user.getPassword());
-        user.setAddress(AddressDto.toEntity(userDto.getAddressDto()));
+        user.setFullName(userDto.getFullName());
+        user.setRole(user.getRole());
+        user.setAddress(AddressDto.toEntity(userDto.getAddress()));
         user.setPicture(userDto.getPicture());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
         user.setPhone(userDto.getPhone());
-        return user ;
+        user.setBirthday(userDto.getBirthday());
+        return user;
     }
 }

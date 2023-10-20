@@ -1,8 +1,14 @@
 package com.PersonalProject.Jemo.controller;
 
 
+import static com.PersonalProject.Jemo.utils.Constants.APP_ROOT;
+
+
+
+import com.PersonalProject.Jemo.dto.UserDto;
 import com.PersonalProject.Jemo.dto.auth.AuthenticationRequest;
 import com.PersonalProject.Jemo.dto.auth.AuthenticationResponse;
+
 import com.PersonalProject.Jemo.services.Implemenation.AuthenticationUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,17 +17,34 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
-import static com.PersonalProject.Jemo.utils.Constants.AUTHENTICATION_ENDPOINT;
 
 @RestController
-@RequestMapping(AUTHENTICATION_ENDPOINT + "/admin")
 @RequiredArgsConstructor
-@Tag(name = "Authentication Admin" )
+@Tag(name = "Authentication User" )
 public class AuthenticationUserController {
 
-    private final AuthenticationUserService authenticationUserService;
+    private final AuthenticationUserService userService;
+
+    @Operation(
+            description = "Register new customer",
+            summary = "create new customer account",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Bad request",
+                            responseCode = "400"
+                    )
+            }
+    )
+    @PostMapping(APP_ROOT + "/singin")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody UserDto register){
+        return ResponseEntity.ok(userService.register(register));
+    }
 
     @Operation(
             description = "Authenticate",
@@ -37,8 +60,8 @@ public class AuthenticationUserController {
                     )
             }
     )
-    @PostMapping("/login")
+    @PostMapping(APP_ROOT + "/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest){
-        return ResponseEntity.ok(authenticationUserService.authentication(authenticationRequest));
+        return ResponseEntity.ok(userService.authenticate(authenticationRequest));
     }
 }

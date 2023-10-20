@@ -1,8 +1,7 @@
 package com.PersonalProject.Jemo.controller;
 
 import com.PersonalProject.Jemo.controller.api.ProductApi;
-import com.PersonalProject.Jemo.dto.ItemOrderCustomerDto;
-import com.PersonalProject.Jemo.dto.ItemOrderSupplierDto;
+import com.PersonalProject.Jemo.dto.ItemOrderUserDto;
 import com.PersonalProject.Jemo.dto.ProductDto;
 import com.PersonalProject.Jemo.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +46,10 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<List<ItemOrderCustomerDto>> findHistoryOrderClient(Long id) {
-        return ResponseEntity.ok(productService.findHistoryOrderClient(id));
+    public ResponseEntity<List<ItemOrderUserDto>> findHistoryOrderUser(Long id) {
+        return ResponseEntity.ok(productService.findHistoryOrderUser(id));
     }
 
-    @Override
-    public ResponseEntity<List<ItemOrderSupplierDto>> findHistoryOrderSupplier(Long id) {
-        return ResponseEntity.ok(productService.findHistoryOrderSupplier(id));
-    }
 
     @Override
     public ResponseEntity<Void> delete(Long id) {

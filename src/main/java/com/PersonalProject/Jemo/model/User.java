@@ -1,7 +1,5 @@
 package com.PersonalProject.Jemo.model;
 
-
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +11,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,31 +19,39 @@ import java.util.List;
 public class User extends AbstractEntity implements UserDetails {
 
     @Column(name = "name")
-    private String name;
+    private String fullName;
 
-    @Column(name = "lastname")
-    private String lastname;
-
-    @Column(unique = true , name = "email")
-    private String email;
 
     @Column(name = "birthday")
     private Instant birthday;
 
-    @Column(name = "password")
-    private String password;
-
     @Embedded
     private Address address;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "picture")
     private String picture;
 
+    @Column(unique = true ,name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(mappedBy = "rapporteur")
-    private List<Reporting> reportings;
+    @OneToMany(mappedBy = "user")
+    private List<OrderUser> orderUsers;
+
+    @OneToMany(mappedBy = "user")
+    private List<Rating> ratings;
+
+    @OneToMany( mappedBy = "user")
+    private List<Cart> cart;
 
     @Override
     public Long getId() {

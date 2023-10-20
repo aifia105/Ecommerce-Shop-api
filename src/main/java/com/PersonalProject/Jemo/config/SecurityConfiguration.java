@@ -28,8 +28,8 @@ public class SecurityConfiguration  {
                     .csrf()
                     .disable()
                     .authorizeHttpRequests((request) -> request
-                            .requestMatchers("/JemoApi/version1/auth/**",
-                                    "/admin/login",
+                            .requestMatchers("/JemoApi/version1/singin",
+                                    "/JemoApi/version1/login",
                                     "/v3/api-docs/**",
                                     "/swagger-resources/**",
                                     "/configuration/ui",
@@ -39,9 +39,7 @@ public class SecurityConfiguration  {
                                     "/swagger-ui.html"
                             ).permitAll()
                             .anyRequest().authenticated())
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
+                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authenticationProvider(authenticationProvider)
                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

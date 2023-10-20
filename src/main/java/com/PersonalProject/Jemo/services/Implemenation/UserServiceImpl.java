@@ -1,15 +1,17 @@
 package com.PersonalProject.Jemo.services.Implemenation;
 
-import com.PersonalProject.Jemo.dto.ModifyPasswordDto;
 import com.PersonalProject.Jemo.dto.UserDto;
+import com.PersonalProject.Jemo.dto.ModifyPasswordDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
 import com.PersonalProject.Jemo.exception.OperationNotValidException;
 import com.PersonalProject.Jemo.model.User;
+import com.PersonalProject.Jemo.model.OrderUser;
 import com.PersonalProject.Jemo.repository.UserRepository;
+import com.PersonalProject.Jemo.repository.OrderUserRepository;
 import com.PersonalProject.Jemo.services.UserService;
-import com.PersonalProject.Jemo.validator.UserValidator;
+import com.PersonalProject.Jemo.validator.CustomerValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,47 +28,59 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final OrderUserRepository orderUserRepository;
     private final PasswordEncoder passwordEncoder;
-
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, OrderUserRepository orderUserRepository, PasswordEncoder passwordEncoder) {
         super();
+        this.orderUserRepository = orderUserRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public UserDto save(UserDto userDto) {
-        List<String> errors = UserValidator.validator(userDto);
-        if(!errors.isEmpty()){
-            log.error("User invalid {}",userDto);
-            throw new EntityNotValidException("User invalid", ErrorCodes.USER_NOT_VALID, errors);
+        List<String> errors = CustomerValidator.validator(userDto);
+        if (!errors.isEmpty()){
+            log.error("Customer invalid {}", userDto);
+            throw new EntityNotValidException("Customer invalid", ErrorCodes.USER_NOT_VALID,errors);
         }
-        if(userAlreadyExists(userDto.getEmail())){
-            throw new EntityNotValidException("User already exists",ErrorCodes.USER_ALREADY_EXISTS, Collections.singletonList("email user already exists"));
+        if (customerAlreadyExists(userDto.getEmail())){
+            throw new EntityNotValidException("customer already exists",ErrorCodes.CUSTOMER_ALREADY_EXISTS, Collections.singletonList("email customer already exists"));
         }
-
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         return UserDto.fromEntity(
                 userRepository.save(
                         UserDto.toEntity(userDto)));
     }
-
-    private Boolean userAlreadyExists(String email){
-        Optional<User> user = userRepository.findUserByEmail(email);
-        return user.isPresent();
+    private Boolean customerAlreadyExists(String email){
+        Optional<User> customer = userRepository.findUserByEmail(email);
+        return customer.isPresent();
     }
 
     @Override
     public UserDto findById(Long id) {
-        if (id == null){
-            log.error("User id is null");
+        if(id == null){
+            log.error("ID is null");
             return null;
         }
-        return userRepository.findById(id).map(UserDto::fromEntity).orElseThrow(() -> new EntityNotFoundException(
-                "User not found" + id, ErrorCodes.USER_NOT_FOUND
-        ));
+        return userRepository.findById(id)
+                .map(UserDto::fromEntity)
+                .orElseThrow(()->
+                        new EntityNotFoundException("No Customer with ID"+ id , ErrorCodes.USER_NOT_FOUND));
+    }
+
+    @Override
+    public UserDto findByEmail(String customerEmail) {
+        if(!StringUtils.hasLength(customerEmail)){
+            log.error("Email is null");
+            return null;
+        }
+        return userRepository.findUserByEmail(customerEmail)
+                .map(UserDto::fromEntity)
+                .orElseThrow(()->
+                        new EntityNotFoundException("No Customer with Email"+ customerEmail , ErrorCodes.USER_NOT_FOUND));
     }
 
     @Override
@@ -78,55 +92,48 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        if(id == null){
-            log.error("User id is null");
-        } else {
-            userRepository.deleteById(id);
-        }
-
+     if (id == null){
+         log.error("ID is null");
+     } else {
+         List<OrderUser> orderUser = orderUserRepository.findAllByUserId(id);
+         if (!orderUser.isEmpty()){
+             throw new OperationNotValidException("can not delete a customer with a existing order");
+         }
+         userRepository.deleteById(id);
+     }
     }
 
     @Override
-    public UserDto findByEmail(String email) {
-        if(!StringUtils.hasLength(email)){
-            log.error("User email is null");
-            return null;
-        }
-        return userRepository.findUserByEmail(email)
-                .map(UserDto::fromEntity)
-                .orElseThrow(()-> new EntityNotFoundException("User not found" + email, ErrorCodes.USER_NOT_FOUND));
-    }
-
-    @Override
-    public UserDto ChangePassword(ModifyPasswordDto modifyPasswordDto) {
+    public UserDto changePassWord(ModifyPasswordDto modifyPasswordDto) {
         validate(modifyPasswordDto);
 
-        Optional<User> userOptional = userRepository.findById(modifyPasswordDto.getId());
-        if (userOptional.isEmpty()){
-            log.warn("No user with this ID {}",modifyPasswordDto.getId());
-            throw new EntityNotFoundException("No user with this ID" + modifyPasswordDto.getId(),ErrorCodes.USER_NOT_FOUND);
+        Optional<User> customerOptional = userRepository.findById(modifyPasswordDto.getId());
+        if (customerOptional.isEmpty()){
+            log.warn("No customer with this ID {}",modifyPasswordDto.getId());
+            throw new EntityNotFoundException("No customer with this ID" + modifyPasswordDto.getId(),ErrorCodes.USER_NOT_FOUND);
         }
-        User user = userOptional.get();
+        User user = customerOptional.get();
         user.setPassword(passwordEncoder.encode(modifyPasswordDto.getPassword()));
 
-        return UserDto.fromEntity(userRepository.save(user));
+        return UserDto.fromEntity(userRepository.save(user)) ;
     }
+
     private void validate(ModifyPasswordDto modifyPasswordDto){
         if (modifyPasswordDto == null){
-            log.warn("Object update user password is NULL");
-            throw new OperationNotValidException("Object update user password is NULL",ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+            log.warn("Object update customer password is NULL");
+            throw new OperationNotValidException("Object update customer password is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
         if (modifyPasswordDto.getId() == null){
-            log.warn("Cant update Password with ID user is NULL");
-            throw new OperationNotValidException("ID user is NULL",ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+            log.warn("Cant update Password with ID customer is NULL");
+            throw new OperationNotValidException("ID customer is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
         if (StringUtils.hasLength(modifyPasswordDto.getPassword()) || StringUtils.hasLength(modifyPasswordDto.getConfirmPassWord())){
             log.warn("Cant update Password with Password NULL");
-            throw new OperationNotValidException("Cant update Password with ID user is NULL",ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+            throw new OperationNotValidException("Cant update Password with ID user is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
         if (!modifyPasswordDto.getPassword().equals(modifyPasswordDto.getConfirmPassWord())){
             log.warn("Cant update Password confirm password dont match");
-            throw new OperationNotValidException("Cant update Password confirm password dont match",ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+            throw new OperationNotValidException("Cant update Password confirm password dont match",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
 
     }

@@ -1,7 +1,6 @@
 package com.PersonalProject.Jemo.controller.api;
 
-import com.PersonalProject.Jemo.dto.ItemOrderCustomerDto;
-import com.PersonalProject.Jemo.dto.ItemOrderSupplierDto;
+import com.PersonalProject.Jemo.dto.ItemOrderUserDto;
 import com.PersonalProject.Jemo.dto.ProductDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
@@ -29,11 +28,9 @@ public interface ProductApi {
     @GetMapping(value =PRODUCT_ENDPOINT + "/filter/Category/{idCategory}",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<ProductDto>> findAllByCategoryId(@PathVariable Long idCategory);
 
-    @GetMapping(value =PRODUCT_ENDPOINT + "/History/OrderCustomer/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<ItemOrderCustomerDto>> findHistoryOrderClient(@PathVariable Long id);
+    @GetMapping(value =PRODUCT_ENDPOINT + "/History/OrderUser/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<ItemOrderUserDto>> findHistoryOrderUser(@PathVariable Long id);
 
-    @GetMapping(value =PRODUCT_ENDPOINT + "/History/OrderSupplier/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<ItemOrderSupplierDto>> findHistoryOrderSupplier(@PathVariable Long id);
 
     @DeleteMapping(value =PRODUCT_ENDPOINT + "/delete/{id}")
     ResponseEntity<Void> delete(@PathVariable  Long id);

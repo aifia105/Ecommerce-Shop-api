@@ -13,7 +13,7 @@ public class RatingValidator {
             errors.add("Please fill in the rating fields of rating");
 
         } else {
-            if (ratingDto.getCustomer() == null || ratingDto.getCustomer().getId() == null) {
+            if (ratingDto.getUserDto() == null || ratingDto.getUserDto().getId() == null) {
                 errors.add("No user for rating ! user is required ");
             }
             if (ratingDto.getProduct() == null || ratingDto.getProduct().getId() == null) {
@@ -25,6 +25,7 @@ public class RatingValidator {
             if (ratingDto.getDate() == null) {
                 errors.add("No date for rating ! date is required ");
             }
+
         }
         return errors;
     }

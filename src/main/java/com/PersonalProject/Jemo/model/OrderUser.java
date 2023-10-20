@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class OrderCustomer extends AbstractEntity{
+public class OrderUser extends AbstractEntity{
 
     @Column(name = "codeOrder")
     private String codeOrder;
@@ -27,15 +27,15 @@ public class OrderCustomer extends AbstractEntity{
     private OrderStatu orderStatu;
 
     @ManyToOne
-    @JoinColumn(name = "idCustomer")
-    private Customer customer;
+    @JoinColumn(name = "idUser")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "idCart")
     private Cart cart;
 
-    @OneToMany(mappedBy = "orderCustomer")
-    private List<ItemOrderCustomer> orderItemCustomers;
+    @OneToMany(mappedBy = "orderUser")
+    private List<ItemOrderUser> itemOrderUsers;
 
 
 

@@ -15,7 +15,7 @@ public class CartValidator {
         if (cartDto == null) {
             errors.add("Please fill in the cart fields");
         } else {
-            if (cartDto.getCustomer() == null || cartDto.getCustomer().getId() == null){
+            if (cartDto.getUserDto() == null || cartDto.getUserDto().getId() == null){
                 errors.add("Cart should has a user");
             }
             if (cartDto.getCardNumber().compareTo(BigDecimal.ZERO) == 0) {

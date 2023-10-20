@@ -23,8 +23,8 @@ public class Rating extends AbstractEntity {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "idClient")
-    private Customer customer;
+    @JoinColumn(name = "idUser")
+    private User user;
 
     @Column(name = "rate")
     private int rate;
@@ -32,4 +32,6 @@ public class Rating extends AbstractEntity {
     @Column(name = "date")
     private Instant date;
 
+    @Column(name = "message")
+    private String message;
 }

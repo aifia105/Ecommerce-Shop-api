@@ -16,11 +16,13 @@ public class RatingDto {
 
     private ProductDto product;
 
-    private CustomerDto customer;
+    private UserDto userDto;
 
     private int rate;
 
     private Instant date;
+
+    private String message;
 
     public static RatingDto fromEntity(Rating rating){
         if (rating == null){
@@ -29,9 +31,10 @@ public class RatingDto {
         return RatingDto.builder()
                 .id(rating.getId())
                 .product(ProductDto.formEntity(rating.getProduct()))
-                .customer(CustomerDto.fromEntity(rating.getCustomer()))
+                .userDto(UserDto.fromEntity(rating.getUser()))
                 .rate(rating.getRate())
-                .date(rating.getDate()).build();
+                .date(rating.getDate())
+                .message(rating.getMessage()).build();
 
     }
 
@@ -42,9 +45,10 @@ public class RatingDto {
         Rating rating = new Rating();
         rating.setId(ratingDto.getId());
         rating.setProduct(ProductDto.toEntity(ratingDto.getProduct()));
-        rating.setCustomer(CustomerDto.toEntity(ratingDto.getCustomer()));
+        rating.setUser(UserDto.toEntity(ratingDto.getUserDto()));
         rating.setRate(ratingDto.getRate());
         rating.setDate(ratingDto.getDate());
+        rating.setMessage(ratingDto.getMessage());
         return rating ;
     }
 }

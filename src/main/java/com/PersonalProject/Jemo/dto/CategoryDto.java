@@ -14,7 +14,7 @@ public class CategoryDto {
 
     private Long id;
 
-    private String codeCategory;
+    private String descriptionCategory;
 
     private String nameCategory;
 
@@ -27,7 +27,7 @@ public class CategoryDto {
         }
         return CategoryDto.builder()
                 .id(category.getId())
-                .codeCategory(category.getCodeCategory())
+                .descriptionCategory(category.getDescriptionCategory())
                 .nameCategory(category.getNameCategory()).build();
 
     }
@@ -38,7 +38,7 @@ public class CategoryDto {
         }
         Category category = new Category();
         category.setId(categoryDto.getId());
-        category.setCodeCategory(categoryDto.getCodeCategory());
+        category.setDescriptionCategory(categoryDto.getDescriptionCategory());
         category.setNameCategory(categoryDto.getNameCategory());
         return category;
 }

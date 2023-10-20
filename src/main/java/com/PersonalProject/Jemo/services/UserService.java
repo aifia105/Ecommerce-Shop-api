@@ -1,7 +1,7 @@
 package com.PersonalProject.Jemo.services;
 
-import com.PersonalProject.Jemo.dto.ModifyPasswordDto;
 import com.PersonalProject.Jemo.dto.UserDto;
+import com.PersonalProject.Jemo.dto.ModifyPasswordDto;
 
 import java.util.List;
 
@@ -9,8 +9,10 @@ public interface UserService {
 
     UserDto save(UserDto userDto);
     UserDto findById(Long id);
+    UserDto findByEmail(String customerEmail);
     List<UserDto> findAll();
     void delete(Long id);
-    UserDto findByEmail(String email);
-    UserDto ChangePassword(ModifyPasswordDto modifyPasswordDto);
+    UserDto changePassWord(ModifyPasswordDto modifyPasswordDto);
+
+
 }

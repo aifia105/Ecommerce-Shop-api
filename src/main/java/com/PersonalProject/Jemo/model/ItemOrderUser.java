@@ -1,17 +1,19 @@
 package com.PersonalProject.Jemo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.math.BigDecimal;
-
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class ItemOrderSupplier extends AbstractEntity {
+public class ItemOrderUser extends AbstractEntity{
 
     @ManyToOne
     @JoinColumn(name = "idProduct")
@@ -24,6 +26,6 @@ public class ItemOrderSupplier extends AbstractEntity {
     private Integer unit_price;
 
     @ManyToOne
-    @JoinColumn(name = "idOrderSupplier")
-    private OrderSupplier orderSupplier;
+    @JoinColumn(name = "idOrderUser")
+    private OrderUser orderUser;
 }

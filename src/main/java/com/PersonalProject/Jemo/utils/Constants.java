@@ -4,21 +4,18 @@ public interface Constants {
 
      String APP_ROOT = "JemoApi/version1";
 
-     String USER_ENDPOINT = APP_ROOT + "/Users";
 
-     String CUSTOMER_ENDPOINT = APP_ROOT + "/Customers";
+     String USER_ENDPOINT = APP_ROOT + "/User";
 
      String PRODUCT_ENDPOINT = APP_ROOT + "/Products";
 
-     String SUPPLIER_ENDPOINT = APP_ROOT + "/Suppliers";
 
      String CATEGORY_ENDPOINT = APP_ROOT + "/Categorys";
 
      String MVT_STK_ENDPOINT = APP_ROOT + "/MvtStk";
 
-     String ORDER_CUSTOMER_ENDPOINT = APP_ROOT + "/OrderCustomers";
+     String ORDER_USER_ENDPOINT = APP_ROOT + "/OrderUser";
 
-     String ORDER_SUPPLIER_ENDPOINT = APP_ROOT + "/OrderSuppliers";
 
      String AUTHENTICATION_ENDPOINT = APP_ROOT + "/auth";
 
