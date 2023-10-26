@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -23,10 +24,10 @@ public class User extends AbstractEntity implements UserDetails {
 
 
     @Column(name = "birthday")
-    private Instant birthday;
+    private Date birthday;
 
-    @Embedded
-    private Address address;
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)

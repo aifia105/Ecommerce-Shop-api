@@ -27,7 +27,17 @@ public class AuthenticationUserService {
     public AuthenticationResponse register(UserDto userDto){
         var user = UserDto.toEntity(userService.save(userDto));
         var jwtToken = jwtUtil.generateToken(user);
-        return AuthenticationResponse.builder().accessToken(jwtToken).build();
+        return AuthenticationResponse.builder()
+                .id(user.getId())
+                .fullName(user.getFullName())
+                .address(user.getAddress())
+                .birthday(user.getBirthday())
+                .phone(user.getPhone())
+                .role(user.getRole())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .token(jwtToken).build();
+
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
@@ -43,7 +53,16 @@ public class AuthenticationUserService {
             throw new EntityNotFoundException("User not found", ErrorCodes.USER_NOT_FOUND);
         }
         var jwtToken = jwtUtil.generateToken(user);
-        return AuthenticationResponse.builder().accessToken(jwtToken).build();
+        return AuthenticationResponse.builder()
+                .id(user.getId())
+                .fullName(user.getFullName())
+                .address(user.getAddress())
+                .birthday(user.getBirthday())
+                .phone(user.getPhone())
+                .role(user.getRole())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .token(jwtToken).build();
     }
 
 }

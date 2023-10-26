@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -21,13 +22,14 @@ public class UserDto {
 
     private String email;
 
-    private Instant birthday;
+    private Date birthday;
 
-    private AddressDto address;
+    private String address;
 
     private Role role;
 
-    private String picture;
+
+    //private String picture;
 
     private String password;
 
@@ -53,8 +55,8 @@ public class UserDto {
                 .fullName(user.getFullName())
                 .role(user.getRole())
                 .birthday(user.getBirthday())
-                .address(AddressDto.fromEntity(user.getAddress()))
-                .picture(user.getPhone())
+                .address(user.getAddress())
+                //.picture(user.getPhone())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .phone(user.getPhone()).build();
@@ -68,8 +70,8 @@ public class UserDto {
         user.setId(userDto.getId());
         user.setFullName(userDto.getFullName());
         user.setRole(user.getRole());
-        user.setAddress(AddressDto.toEntity(userDto.getAddress()));
-        user.setPicture(userDto.getPicture());
+        user.setAddress(userDto.getAddress());
+        //user.setPicture(userDto.getPicture());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setPhone(userDto.getPhone());

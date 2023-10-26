@@ -29,7 +29,9 @@ public class CustomerValidator {
             if (!StringUtils.hasLength(userDto.getPhone())) {
                 errors.add("Please fill in the phone field");
             }
-            errors.addAll(AddressValidator.validator(userDto.getAddress()));
+            if (!StringUtils.hasLength(userDto.getAddress())) {
+                errors.add("Please fill in the address field");
+            }
 
         }
         return errors;
