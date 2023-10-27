@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,8 +26,6 @@ public class SecurityConfiguration  {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
             httpSecurity
-                    .csrf()
-                    .disable()
                     .authorizeHttpRequests((request) -> request
                             .requestMatchers("/JemoApi/version1/singin",
                                     "/JemoApi/version1/login",
@@ -39,6 +38,8 @@ public class SecurityConfiguration  {
                                     "/swagger-ui.html"
                             ).permitAll()
                             .anyRequest().authenticated())
+                    .csrf(csrf -> csrf.disable())
+                    .cors(Customizer.withDefaults())
                     .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authenticationProvider(authenticationProvider)
                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
