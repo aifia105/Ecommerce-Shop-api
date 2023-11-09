@@ -2,6 +2,7 @@ package com.PersonalProject.Jemo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
@@ -17,8 +18,9 @@ public class Category extends AbstractEntity {
     @Column(name="nameCategory")
     private String nameCategory;
 
-    @Column(name="descriptionCategory")
-    private String descriptionCategory;
+    @Column(name="image", length=5000)
+    @Lob
+    private byte[] image;
 
 
     @OneToMany(mappedBy = "category")

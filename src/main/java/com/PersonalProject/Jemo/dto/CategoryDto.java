@@ -14,7 +14,7 @@ public class CategoryDto {
 
     private Long id;
 
-    private String descriptionCategory;
+    private byte[] image;
 
     private String nameCategory;
 
@@ -27,7 +27,7 @@ public class CategoryDto {
         }
         return CategoryDto.builder()
                 .id(category.getId())
-                .descriptionCategory(category.getDescriptionCategory())
+                .image(category.getImage())
                 .nameCategory(category.getNameCategory()).build();
 
     }
@@ -38,7 +38,7 @@ public class CategoryDto {
         }
         Category category = new Category();
         category.setId(categoryDto.getId());
-        category.setDescriptionCategory(categoryDto.getDescriptionCategory());
+        category.setImage(categoryDto.getImage());
         category.setNameCategory(categoryDto.getNameCategory());
         return category;
 }

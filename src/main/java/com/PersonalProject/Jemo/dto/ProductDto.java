@@ -28,7 +28,7 @@ public class ProductDto {
     private BigDecimal priceTTC;
 
 
-    private String picture;
+    private byte[] image;
 
 
     private CategoryDto category;
@@ -55,7 +55,7 @@ public class ProductDto {
                 .description(product.getDescription())
                 .brand(product.getBrand())
                 .priceTTC(product.getPriceTTC())
-                .picture(product.getPicture())
+                .image(product.getImage())
                 .category(CategoryDto.fromEntity(product.getCategory())).build();
     }
 
@@ -69,7 +69,7 @@ public class ProductDto {
         product.setDescription(productDto.getDescription());
         product.setBrand(productDto.getBrand());
         product.setPriceTTC(productDto.getPriceTTC());
-        product.setPicture(productDto.getPicture());
+        product.setImage(productDto.getImage());
         product.setCategory(CategoryDto.toEntity(productDto.getCategory()));
         return product;
     }

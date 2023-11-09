@@ -29,7 +29,7 @@ public class UserDto {
     private Role role;
 
 
-    //private String picture;
+    private byte[] image;
 
     private String password;
 
@@ -56,7 +56,7 @@ public class UserDto {
                 .role(user.getRole())
                 .birthday(user.getBirthday())
                 .address(user.getAddress())
-                //.picture(user.getPhone())
+                .image(user.getImage())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .phone(user.getPhone()).build();
@@ -71,7 +71,7 @@ public class UserDto {
         user.setFullName(userDto.getFullName());
         user.setRole(user.getRole());
         user.setAddress(userDto.getAddress());
-        //user.setPicture(userDto.getPicture());
+        user.setImage(userDto.getImage());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setPhone(userDto.getPhone());

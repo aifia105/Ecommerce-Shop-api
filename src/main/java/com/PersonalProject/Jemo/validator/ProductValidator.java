@@ -20,11 +20,8 @@ public class ProductValidator {
             if (!StringUtils.hasLength(productDto.getDescription())){
                 errors.add("Please fill in the product description field");
             }
-            if (!StringUtils.hasLength(productDto.getPicture())){
-                errors.add("Please fill in the product picture");
-            }
             if (!StringUtils.hasLength(productDto.getBrand())){
-                errors.add("Please fill in the product TVA");
+                errors.add("Please fill in the product brand");
             }
             if (productDto.getPriceTTC().compareTo(BigDecimal.ZERO) == 0){
                 errors.add("Please fill in the product priceTTC");

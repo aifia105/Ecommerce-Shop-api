@@ -33,8 +33,9 @@ public class User extends AbstractEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "picture")
-    private String picture;
+    @Column(name="image", length=5000)
+    @Lob
+    private byte[] image;
 
     @Column(unique = true ,name = "email")
     private String email;

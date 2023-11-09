@@ -27,8 +27,9 @@ public class Product extends AbstractEntity {
     @Column(name="priceTTC")
     private BigDecimal priceTTC;
 
-    @Column(name="picture")
-    private String picture;
+    @Column(name="image", length=5000)
+    @Lob
+    private byte[] image;
 
     @ManyToOne
     @JoinColumn(name = "idCategory")
