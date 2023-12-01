@@ -2,7 +2,6 @@ package com.PersonalProject.Jemo.controller.api;
 
 import com.PersonalProject.Jemo.dto.ItemOrderUserDto;
 import com.PersonalProject.Jemo.dto.OrderUserDto;
-import com.PersonalProject.Jemo.model.OrderStatu;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

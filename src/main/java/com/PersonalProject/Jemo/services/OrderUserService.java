@@ -2,7 +2,6 @@ package com.PersonalProject.Jemo.services;
 
 import com.PersonalProject.Jemo.dto.ItemOrderUserDto;
 import com.PersonalProject.Jemo.dto.OrderUserDto;
-import com.PersonalProject.Jemo.model.OrderStatu;
 
 import java.math.BigDecimal;
 import java.util.List;

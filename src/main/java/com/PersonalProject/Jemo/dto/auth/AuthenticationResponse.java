@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -24,7 +25,7 @@ public class AuthenticationResponse {
     private String email;
 
     @JsonProperty("birthday")
-    private Date birthday;
+    private Instant birthday;
 
     @JsonProperty("address")
     private String address;

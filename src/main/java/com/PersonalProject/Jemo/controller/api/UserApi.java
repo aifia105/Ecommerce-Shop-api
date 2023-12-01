@@ -16,6 +16,9 @@ public interface UserApi {
     @PostMapping(value = USER_ENDPOINT + "/save" , consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UserDto> save(@RequestBody UserDto userDto);
 
+    @PostMapping(value = USER_ENDPOINT + "/update/{id}" , consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<UserDto> update(@PathVariable String id, @RequestBody UserDto userDto );
+
     @GetMapping(value = USER_ENDPOINT + "/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UserDto> findById(@PathVariable String id);
 

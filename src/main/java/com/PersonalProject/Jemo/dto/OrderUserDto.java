@@ -2,7 +2,6 @@ package com.PersonalProject.Jemo.dto;
 
 
 import com.PersonalProject.Jemo.model.OrderUser;
-import com.PersonalProject.Jemo.model.OrderStatu;
 import lombok.Builder;
 import lombok.Data;
 

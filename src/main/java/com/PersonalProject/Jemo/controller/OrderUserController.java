@@ -3,7 +3,6 @@ package com.PersonalProject.Jemo.controller;
 import com.PersonalProject.Jemo.controller.api.OrderUserApi;
 import com.PersonalProject.Jemo.dto.ItemOrderUserDto;
 import com.PersonalProject.Jemo.dto.OrderUserDto;
-import com.PersonalProject.Jemo.model.OrderStatu;
 import com.PersonalProject.Jemo.services.OrderUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

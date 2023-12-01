@@ -27,6 +27,11 @@ public class UserController implements UserApi {
     }
 
     @Override
+    public ResponseEntity<UserDto> update(String id, UserDto userDto) {
+        return ResponseEntity.ok(userService.update(id, userDto));
+    }
+
+    @Override
     public ResponseEntity<UserDto> findById(String id) {
         return ResponseEntity.ok(userService.findById(id));
     }
