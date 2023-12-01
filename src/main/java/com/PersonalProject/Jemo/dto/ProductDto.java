@@ -36,6 +36,7 @@ public class ProductDto {
     private CategoryDto category;
 
 
+    @JsonIgnore
     private List<ItemOrderUserDto> itemOrderUserDtoList;
 
 
@@ -57,7 +58,6 @@ public class ProductDto {
                 .priceTTC(product.getPriceTTC())
                 .image(product.getImage())
                 .category(CategoryDto.fromEntity(product.getCategory()))
-                .itemOrderUserDtoList(Collections.singletonList(ItemOrderUserDto.fromEntity((ItemOrderUser) product.getItemOrderUserList())))
                 .build();
     }
 
@@ -74,7 +74,6 @@ public class ProductDto {
         product.setImage(productDto.getImage());
         product.setCategory(CategoryDto.toEntity(productDto.getCategory()));
         product.setAvg_ratings(productDto.getRating());
-        product.setItemOrderUserList(Collections.singletonList(ItemOrderUserDto.toEntity((ItemOrderUserDto) productDto.getItemOrderUserDtoList())));
         return product;
     }
 

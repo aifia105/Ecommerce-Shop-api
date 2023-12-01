@@ -1,11 +1,13 @@
 package com.PersonalProject.Jemo.dto;
 
 
+import com.PersonalProject.Jemo.model.ItemOrderUser;
 import com.PersonalProject.Jemo.model.OrderUser;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,6 +40,7 @@ public class OrderUserDto {
                 .orderStatus(orderUser.getOrderStatus())
                 .userDto(UserDto.fromEntity(orderUser.getUser()))
                 .cartDto(CartDto.fromEntity(orderUser.getCart()))
+                .itemOrderUserDtos(Collections.singletonList(ItemOrderUserDto.fromEntity((ItemOrderUser) orderUser.getItemOrderUsers())))
                 .build();
 
     }
@@ -53,6 +56,7 @@ public class OrderUserDto {
         orderUser.setOrderStatus(orderUserDto.getOrderStatus());
         orderUser.setUser(UserDto.toEntity(orderUserDto.getUserDto()));
         orderUser.setCart(CartDto.toEntity(orderUserDto.getCartDto()));
+        orderUser.setItemOrderUsers(Collections.singletonList(ItemOrderUserDto.toEntity((ItemOrderUserDto) orderUserDto.getItemOrderUserDtos())));
         return orderUser;
     }
 

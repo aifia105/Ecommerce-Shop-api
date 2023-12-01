@@ -16,7 +16,7 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
     private String id;
 
     @CreatedDate

@@ -14,7 +14,7 @@ import java.time.Instant;
 @Builder
 public class MvtStkDto {
 
-    private Long id;
+    private String  id;
 
     private Instant dateMvt;
 

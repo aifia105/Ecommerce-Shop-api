@@ -11,7 +11,7 @@ import java.time.Instant;
 @Builder
 public class ReportDto {
 
-    private long id;
+    private String id;
 
     private UserDto rapporteur;
 
