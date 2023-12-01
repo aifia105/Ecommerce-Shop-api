@@ -16,8 +16,8 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity implements Serializable {
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
     @CreatedDate
     @Column(name="CreationDate" , nullable = false, updatable = false)

@@ -42,8 +42,8 @@ public class Product extends AbstractEntity {
     @OneToMany(mappedBy = "product")
     private List<MvtStk> mvtStks;
 
-    @OneToMany(mappedBy = "product")
-    private List<Rating> ratings;
+    @Column(name="ratings")
+    private Integer  avg_ratings;
 
 
 

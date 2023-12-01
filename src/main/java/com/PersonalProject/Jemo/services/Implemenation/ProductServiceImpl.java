@@ -43,6 +43,7 @@ public class ProductServiceImpl implements ProductService {
             log.error("product invalid {}",productDto);
             throw new EntityNotValidException("product invalid", ErrorCodes.PRODUCT_NOT_VALID, errors);
         }
+        System.out.println(productDto);
         return ProductDto.formEntity(
                 productRepository.save(
                         ProductDto.toEntity(productDto)));
@@ -65,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findById(Long id) {
+    public ProductDto findById(String  id) {
         if (id == null){
             log.error("Product ID is Null");
             return null;
@@ -86,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findAllByCategoryId(Long idCategory) {
+    public List<ProductDto> findAllByCategoryId(String  idCategory) {
         if (idCategory == null){
             log.error("Category ID is Null");
             return null;
@@ -96,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ItemOrderUserDto> findHistoryOrderUser(Long id) {
+    public List<ItemOrderUserDto> findHistoryOrderUser(String  id) {
         return itemOrderUserRepository.findAllByProductId(id).stream()
                 .map(ItemOrderUserDto::fromEntity).collect(Collectors.toList());
     }
@@ -104,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public void delete(Long id) {
+    public void delete(String  id) {
         if (id == null) {
             log.error("Product ID is Null");
             return;

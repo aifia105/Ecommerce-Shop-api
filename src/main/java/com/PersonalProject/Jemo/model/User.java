@@ -24,14 +24,13 @@ public class User extends AbstractEntity implements UserDetails {
 
 
     @Column(name = "birthday")
-    private Date birthday;
+    private Instant birthday;
 
     @Column(name = "address")
     private String address;
 
     @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 
     @Column(name="image", length=5000)
     @Lob
@@ -49,14 +48,12 @@ public class User extends AbstractEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<OrderUser> orderUsers;
 
-    @OneToMany(mappedBy = "user")
-    private List<Rating> ratings;
 
     @OneToMany( mappedBy = "user")
     private List<Cart> cart;
 
     @Override
-    public Long getId() {
+    public String getId() {
         return super.getId();
     }
 
@@ -88,5 +85,8 @@ public class User extends AbstractEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void getId(String id) {
     }
 }

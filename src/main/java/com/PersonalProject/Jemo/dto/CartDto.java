@@ -5,14 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.Month;
-import java.time.Year;
+import java.time.Instant;
 
 @Data
 @Builder
 public class CartDto {
 
-    private Long id;
+    private String id;
 
     private BigDecimal cardNumber;
 
@@ -20,10 +19,8 @@ public class CartDto {
     private String cardholderName;
 
 
-    private Month expirationMonth;
+    private Instant expirationDate;
 
-
-    private Year expirationYear;
 
 
     private Integer cvv;
@@ -38,8 +35,7 @@ public class CartDto {
         return CartDto.builder()
                 .cardNumber(cart.getCardNumber())
                 .cardholderName(cart.getCardholderName())
-                .expirationMonth(cart.getExpirationMonth())
-                .expirationYear(cart.getExpirationYear())
+                .expirationDate(cart.getExpirationDate())
                 .cvv(cart.getCvv())
                 .userDto(UserDto.fromEntity(cart.getUser()))
                 .build();
@@ -52,8 +48,7 @@ public class CartDto {
         Cart cart = new Cart();
         cart.setCardNumber(cartDto.getCardNumber());
         cart.setCardholderName(cartDto.getCardholderName());
-        cart.setExpirationMonth(cartDto.getExpirationMonth());
-        cart.setExpirationYear(cartDto.getExpirationYear());
+        cart.setExpirationDate(cartDto.getExpirationDate());
         cart.setCvv(cartDto.getCvv());
         cart.setUser(UserDto.toEntity(cartDto.getUserDto()));
         return cart;

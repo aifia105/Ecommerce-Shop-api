@@ -17,14 +17,14 @@ public interface ReportingApi {
     ResponseEntity<ReportDto> save(@RequestBody ReportDto reportDto);
 
     @GetMapping(value =REPORT_ENDPOINT + "/filter/user/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<ReportDto>> findAllByUserId(@PathVariable Long id);
+    ResponseEntity<List<ReportDto>> findAllByUserId(@PathVariable String id);
 
     @GetMapping(value =REPORT_ENDPOINT + "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ReportDto> findById(@PathVariable Long id);
+    ResponseEntity<ReportDto> findById(@PathVariable String id);
 
     @GetMapping(value =REPORT_ENDPOINT + "/All",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<ReportDto>> findAll();
 
     @DeleteMapping(value =REPORT_ENDPOINT + "/delete/{id}")
-    ResponseEntity<Void> delete(@PathVariable Long id);
+    ResponseEntity<Void> delete(@PathVariable String id);
 }

@@ -22,8 +22,8 @@ public class ItemOrderUser extends AbstractEntity{
     @Column(name = "quantity")
     private BigDecimal quantity;
 
-    @Column(name = "unit_price")
-    private Integer unit_price;
+    @Column(name = "total")
+    private Integer total;
 
     @ManyToOne
     @JoinColumn(name = "idOrderUser")

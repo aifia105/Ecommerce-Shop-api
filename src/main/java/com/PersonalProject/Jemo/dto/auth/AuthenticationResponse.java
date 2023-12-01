@@ -1,14 +1,11 @@
 package com.PersonalProject.Jemo.dto.auth;
 
-import com.PersonalProject.Jemo.model.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -18,7 +15,7 @@ import java.util.Date;
 public class AuthenticationResponse {
 
     @JsonProperty("id")
-    private Long id;
+    private String id;
 
     @JsonProperty("fullName")
     private String fullName;
@@ -33,7 +30,7 @@ public class AuthenticationResponse {
     private String address;
 
     @JsonProperty("role")
-    private Role role;
+    private String role;
 
     @JsonProperty("password")
     private String password;

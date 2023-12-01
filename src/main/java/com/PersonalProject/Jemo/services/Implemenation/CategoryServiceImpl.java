@@ -39,6 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
             log.error("Category invalid {}",categoryDto);
             throw new EntityNotValidException("Category invalid", ErrorCodes.CATEGORY_NOT_VALID,errors);
         }
+        System.out.println(categoryDto);
         return CategoryDto.fromEntity(
                 categoryRepository.save(
                         CategoryDto.toEntity(categoryDto)));
@@ -58,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto findById(Long id) {
+    public CategoryDto findById(String id) {
         if(id == null){
             log.error("ID is null");
             return null;
@@ -78,7 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         if (id == null){
             log.error("ID is null");
             return;

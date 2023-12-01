@@ -18,10 +18,10 @@ public interface MvtStkApi {
 
 
     @GetMapping(value = MVT_STK_ENDPOINT + "/stockReel/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<BigDecimal> stockReelProduct(@PathVariable Long id);
+    ResponseEntity<BigDecimal> stockReelProduct(@PathVariable String id);
 
     @GetMapping(value = MVT_STK_ENDPOINT + "/filter/Product/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<MvtStkDto>> mvtStkProduct(@PathVariable Long id);
+    ResponseEntity<List<MvtStkDto>> mvtStkProduct(@PathVariable String id);
 
     @PostMapping(value = MVT_STK_ENDPOINT + "/entryStock", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<MvtStkDto> entryStock(@RequestBody MvtStkDto mvtStkDto);

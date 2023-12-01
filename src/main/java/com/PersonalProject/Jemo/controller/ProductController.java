@@ -31,7 +31,7 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<ProductDto> findById(Long id) {
+    public ResponseEntity<ProductDto> findById(String id) {
         return ResponseEntity.ok(productService.findById(id));
     }
 
@@ -41,18 +41,18 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<List<ProductDto>>  findAllByCategoryId(Long idCategory) {
+    public ResponseEntity<List<ProductDto>>  findAllByCategoryId(String idCategory) {
         return ResponseEntity.ok(productService.findAllByCategoryId(idCategory));
     }
 
     @Override
-    public ResponseEntity<List<ItemOrderUserDto>> findHistoryOrderUser(Long id) {
+    public ResponseEntity<List<ItemOrderUserDto>> findHistoryOrderUser(String id) {
         return ResponseEntity.ok(productService.findHistoryOrderUser(id));
     }
 
 
     @Override
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> delete(String id) {
     productService.delete(id);
     return ResponseEntity.ok().build();
     }

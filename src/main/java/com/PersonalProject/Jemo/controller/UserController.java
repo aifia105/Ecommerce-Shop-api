@@ -27,7 +27,7 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public ResponseEntity<UserDto> findById(Long id) {
+    public ResponseEntity<UserDto> findById(String id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
@@ -42,7 +42,7 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> delete(String id) {
          userService.delete(id);
          return ResponseEntity.ok().build();
     }

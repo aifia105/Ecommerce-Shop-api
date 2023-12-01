@@ -20,18 +20,18 @@ public interface ProductApi {
     ResponseEntity<ProductDto> findByName(@PathVariable String productName);
 
     @GetMapping(value =PRODUCT_ENDPOINT + "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ProductDto> findById(@PathVariable Long id);
+    ResponseEntity<ProductDto> findById(@PathVariable String id);
 
     @GetMapping(value =PRODUCT_ENDPOINT + "/All",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<ProductDto>> findAll();
 
     @GetMapping(value =PRODUCT_ENDPOINT + "/filter/Category/{idCategory}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<ProductDto>> findAllByCategoryId(@PathVariable Long idCategory);
+    ResponseEntity<List<ProductDto>> findAllByCategoryId(@PathVariable String idCategory);
 
     @GetMapping(value =PRODUCT_ENDPOINT + "/History/OrderUser/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<ItemOrderUserDto>> findHistoryOrderUser(@PathVariable Long id);
+    ResponseEntity<List<ItemOrderUserDto>> findHistoryOrderUser(@PathVariable String id);
 
 
     @DeleteMapping(value =PRODUCT_ENDPOINT + "/delete/{id}")
-    ResponseEntity<Void> delete(@PathVariable  Long id);
+    ResponseEntity<Void> delete(@PathVariable  String id);
 }

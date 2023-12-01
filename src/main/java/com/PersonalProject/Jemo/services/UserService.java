@@ -8,10 +8,11 @@ import java.util.List;
 public interface UserService {
 
     UserDto save(UserDto userDto);
-    UserDto findById(Long id);
+    UserDto update(String id, UserDto userDto);
+    UserDto findById(String id);
     UserDto findByEmail(String customerEmail);
     List<UserDto> findAll();
-    void delete(Long id);
+    void delete(String id);
     UserDto changePassWord(ModifyPasswordDto modifyPasswordDto);
 
 

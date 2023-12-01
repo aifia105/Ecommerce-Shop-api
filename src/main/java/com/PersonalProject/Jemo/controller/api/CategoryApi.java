@@ -19,12 +19,12 @@ public interface CategoryApi {
     ResponseEntity<CategoryDto> findCategoryByNameCategory(@PathVariable String categoryName);
 
     @GetMapping(value = CATEGORY_ENDPOINT + "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<CategoryDto> findById(@PathVariable Long id);
+    ResponseEntity<CategoryDto> findById(@PathVariable String id);
 
     @GetMapping(value = CATEGORY_ENDPOINT + "/All", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<CategoryDto>> findAll();
 
     @DeleteMapping(value = CATEGORY_ENDPOINT + "/delete/{id}")
-    ResponseEntity<Void> delete(@PathVariable Long id);
+    ResponseEntity<Void> delete(@PathVariable String id);
 
 }

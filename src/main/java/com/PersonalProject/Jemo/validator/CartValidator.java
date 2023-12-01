@@ -24,11 +24,8 @@ public class CartValidator {
             if (!StringUtils.hasLength(cartDto.getCardholderName())) {
                 errors.add("Please fill in the card holder name");
             }
-            if (cartDto.getExpirationMonth() == null) {
+            if (cartDto.getExpirationDate() == null) {
                 errors.add("Please fill in the card expiration month");
-            }
-            if (cartDto.getExpirationYear() == null) {
-                errors.add("Please fill in the card Expiration year");
             }
         }
         return errors;

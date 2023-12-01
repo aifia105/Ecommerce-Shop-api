@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class ModifyPasswordDto {
 
-    private Long id;
+    private String id;
 
     private String password;
 

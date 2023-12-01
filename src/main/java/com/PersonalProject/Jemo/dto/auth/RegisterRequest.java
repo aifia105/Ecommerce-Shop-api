@@ -1,7 +1,6 @@
 package com.PersonalProject.Jemo.dto.auth;
 
 
-import com.PersonalProject.Jemo.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +22,7 @@ public class RegisterRequest {
 
     private String address;
 
-    private Role role;
+    private String role;
 
     private String password;
 

@@ -13,8 +13,6 @@ import java.util.List;
 @Entity
 public class OrderUser extends AbstractEntity{
 
-    @Column(name = "codeOrder")
-    private String codeOrder;
 
     @Column(name = "dateOrder")
     private Instant dateOrder;
@@ -23,8 +21,7 @@ public class OrderUser extends AbstractEntity{
     private Integer total;
 
     @Column(name = "orderstatu")
-    @Enumerated(EnumType.STRING)
-    private OrderStatu orderStatu;
+    private String orderStatus;
 
     @ManyToOne
     @JoinColumn(name = "idUser")

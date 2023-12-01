@@ -47,7 +47,7 @@ public class ReportingServiceImpl implements ReportingService {
     }
 
     @Override
-    public List<ReportDto> findAllByUserId(Long id) {
+    public List<ReportDto> findAllByUserId(String  id) {
         if (id == null){
             log.error("Id user is null");
             return null;
@@ -62,7 +62,7 @@ public class ReportingServiceImpl implements ReportingService {
     }
 
     @Override
-    public ReportDto findById(Long id) {
+    public ReportDto findById(String  id) {
         if (id == null){
             log.error("Id Report is null");
             return null;
@@ -78,7 +78,7 @@ public class ReportingServiceImpl implements ReportingService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String  id) {
         if (id == null){
             log.error("Id Report is null");
             return;

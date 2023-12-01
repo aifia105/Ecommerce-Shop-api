@@ -8,10 +8,10 @@ import java.util.List;
 public interface CartService {
 
     CartDto save(CartDto cartDto);
-    CartDto findById(Long id);
-    CartDto findByUserId(Long id);
-    List<CartDto> findAllByUserId(Long id);
+    CartDto findById(String  id);
+    CartDto findByUserId(String  id);
+    List<CartDto> findAllByUserId(String  id);
     List<CartDto> findAll();
-    void delete(Long id);
+    void delete(String  id);
 
 }

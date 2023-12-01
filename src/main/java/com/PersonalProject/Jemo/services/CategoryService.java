@@ -10,10 +10,10 @@ public interface CategoryService {
 
     CategoryDto findCategoryByNameCategory(String categoryName);
 
-    CategoryDto findById(Long id);
+    CategoryDto findById(String  id);
 
     List<CategoryDto> findAll();
 
-    void delete(Long id);
+    void delete(String  id);
 
 }

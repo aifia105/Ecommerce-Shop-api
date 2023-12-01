@@ -44,11 +44,12 @@ public class CartServiceImpl implements CartService {
             log.warn("user not found to associate with this cart");
             throw new EntityNotFoundException("user not found to associate with this cart",ErrorCodes.USER_NOT_FOUND);
         }
+        System.out.println(cartDto);
         return CartDto.fromEntity(cartRepository.save(CartDto.toEntity(cartDto)));
     }
 
     @Override
-    public CartDto findById(Long id) {
+    public CartDto findById(String id) {
         if(id == null){
             log.warn("Id cart is null");
             return null;
@@ -60,7 +61,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartDto findByUserId(Long id) {
+    public CartDto findByUserId(String id) {
         if (id == null) {
             log.warn("Id User is null");
             return null;
@@ -77,7 +78,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         if (id == null){
             log.warn("Id  cart is null");
             return;
@@ -87,7 +88,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartDto> findAllByUserId(Long id) {
+    public List<CartDto> findAllByUserId(String id) {
         if (id == null) {
             log.warn("Id User is null");
             return null;

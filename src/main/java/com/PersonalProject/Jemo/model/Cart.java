@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.Month;
-import java.time.Year;
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -22,11 +21,8 @@ public class Cart extends AbstractEntity {
     @Column(name = "CardholderName")
     private String cardholderName;
 
-    @Column(name = "ExpirationMonth")
-    private Month expirationMonth;
-
-    @Column(name = "ExpirationYear")
-    private Year expirationYear;
+    @Column(name = "ExpirationDate")
+    private Instant expirationDate;
 
     @Column(name = "CVV")
     private Integer cvv;

@@ -42,25 +42,56 @@ public class UserServiceImpl implements UserService {
     public UserDto save(UserDto userDto) {
         List<String> errors = CustomerValidator.validator(userDto);
         if (!errors.isEmpty()){
-            log.error("Customer invalid {}", userDto);
-            throw new EntityNotValidException("Customer invalid", ErrorCodes.USER_NOT_VALID,errors);
+            log.error("User invalid {}", userDto);
+            throw new EntityNotValidException("User invalid", ErrorCodes.USER_NOT_VALID,errors);
         }
         if (customerAlreadyExists(userDto.getEmail())){
             throw new EntityNotValidException("customer already exists",ErrorCodes.CUSTOMER_ALREADY_EXISTS, Collections.singletonList("email customer already exists"));
         }
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
+        System.out.println(userDto);
         return UserDto.fromEntity(
                 userRepository.save(
                         UserDto.toEntity(userDto)));
     }
+
+    @Override
+    public UserDto update(String id, UserDto userDto) {
+        List<String> errors = CustomerValidator.validator(userDto);
+        if (!errors.isEmpty()){
+            log.error("User invalid {}", userDto);
+            throw new EntityNotValidException("User invalid", ErrorCodes.USER_NOT_VALID,errors);
+        }
+        Optional<User> optionUser = userRepository.findById(id);
+        if (optionUser.isPresent()) {
+            User updatetedUser = optionUser.get();
+            updatetedUser.setId(userDto.getId());
+            updatetedUser.setFullName(userDto.getFullName());
+            updatetedUser.setBirthday(userDto.getBirthday());
+            updatetedUser.setAddress(userDto.getAddress());
+            updatetedUser.setRole(userDto.getRole());
+            updatetedUser.setPhone(userDto.getPhone());
+            updatetedUser.setEmail(userDto.getEmail());
+            updatetedUser.setPassword(updatetedUser.getPassword());
+            updatetedUser.setImage(userDto.getImage());
+            System.out.println(updatetedUser);
+            User savedUser = userRepository.save(updatetedUser);
+            return UserDto.fromEntity(savedUser);
+        } else  {
+            log.error("User not found");
+            throw  new EntityNotFoundException("No User with ID " + id, ErrorCodes.USER_NOT_FOUND);
+        }
+
+    }
+
     private Boolean customerAlreadyExists(String email){
         Optional<User> customer = userRepository.findUserByEmail(email);
         return customer.isPresent();
     }
 
     @Override
-    public UserDto findById(Long id) {
+    public UserDto findById(String  id) {
         if(id == null){
             log.error("ID is null");
             return null;
@@ -68,7 +99,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id)
                 .map(UserDto::fromEntity)
                 .orElseThrow(()->
-                        new EntityNotFoundException("No Customer with ID"+ id , ErrorCodes.USER_NOT_FOUND));
+                        new EntityNotFoundException("No User with ID"+ id , ErrorCodes.USER_NOT_FOUND));
     }
 
     @Override
@@ -80,7 +111,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByEmail(customerEmail)
                 .map(UserDto::fromEntity)
                 .orElseThrow(()->
-                        new EntityNotFoundException("No Customer with Email"+ customerEmail , ErrorCodes.USER_NOT_FOUND));
+                        new EntityNotFoundException("No User with Email"+ customerEmail , ErrorCodes.USER_NOT_FOUND));
     }
 
     @Override
@@ -91,13 +122,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String  id) {
      if (id == null){
          log.error("ID is null");
      } else {
          List<OrderUser> orderUser = orderUserRepository.findAllByUserId(id);
          if (!orderUser.isEmpty()){
-             throw new OperationNotValidException("can not delete a customer with a existing order");
+             throw new OperationNotValidException("can not delete a User with a existing order");
          }
          userRepository.deleteById(id);
      }
@@ -110,7 +141,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> customerOptional = userRepository.findById(modifyPasswordDto.getId());
         if (customerOptional.isEmpty()){
             log.warn("No customer with this ID {}",modifyPasswordDto.getId());
-            throw new EntityNotFoundException("No customer with this ID" + modifyPasswordDto.getId(),ErrorCodes.USER_NOT_FOUND);
+            throw new EntityNotFoundException("No User with this ID" + modifyPasswordDto.getId(),ErrorCodes.USER_NOT_FOUND);
         }
         User user = customerOptional.get();
         user.setPassword(passwordEncoder.encode(modifyPasswordDto.getPassword()));
@@ -121,11 +152,11 @@ public class UserServiceImpl implements UserService {
     private void validate(ModifyPasswordDto modifyPasswordDto){
         if (modifyPasswordDto == null){
             log.warn("Object update customer password is NULL");
-            throw new OperationNotValidException("Object update customer password is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+            throw new OperationNotValidException("Object update User password is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
         if (modifyPasswordDto.getId() == null){
             log.warn("Cant update Password with ID customer is NULL");
-            throw new OperationNotValidException("ID customer is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+            throw new OperationNotValidException("ID User is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
         if (StringUtils.hasLength(modifyPasswordDto.getPassword()) || StringUtils.hasLength(modifyPasswordDto.getConfirmPassWord())){
             log.warn("Cant update Password with Password NULL");

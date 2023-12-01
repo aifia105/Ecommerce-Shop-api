@@ -31,7 +31,7 @@ public class MvtStkServiceImpl implements MvtStkService {
     }
 
     @Override
-    public BigDecimal stockReelProduct(Long id) {
+    public BigDecimal stockReelProduct(String id) {
         if(id == null){
             log.warn("Id product is null");
             return BigDecimal.valueOf(-1);
@@ -41,7 +41,7 @@ public class MvtStkServiceImpl implements MvtStkService {
     }
 
     @Override
-    public List<MvtStkDto> mvtStkProduct(Long id) {
+    public List<MvtStkDto> mvtStkProduct(String id) {
         if (id == null){
             log.warn("Id product is null");
         }

@@ -10,13 +10,13 @@ import java.math.BigDecimal;
 @Builder
 public class ItemOrderUserDto {
 
-    private Long id;
+    private String id;
 
     private ProductDto productDto;
 
     private BigDecimal quantity;
 
-    private Integer unit_price;
+    private Integer total;
 
     private OrderUserDto orderUserDto;
 
@@ -28,7 +28,7 @@ public class ItemOrderUserDto {
                 .id(itemOrderUser.getId())
                 .productDto(ProductDto.formEntity(itemOrderUser.getProduct()))
                 .quantity(itemOrderUser.getQuantity())
-                .unit_price(itemOrderUser.getUnit_price()).build();
+                .total(itemOrderUser.getTotal()).build();
     }
 
     public static ItemOrderUser toEntity(ItemOrderUserDto itemOrderUserDto){
@@ -39,7 +39,7 @@ public class ItemOrderUserDto {
         itemOrderUser.setId(itemOrderUserDto.getId());
         itemOrderUser.setProduct(ProductDto.toEntity(itemOrderUserDto.getProductDto()));
         itemOrderUser.setQuantity(itemOrderUserDto.getQuantity());
-        itemOrderUser.setUnit_price(itemOrderUserDto.getUnit_price());
+        itemOrderUser.setTotal(itemOrderUserDto.getTotal());
         return itemOrderUser;
     }
 }

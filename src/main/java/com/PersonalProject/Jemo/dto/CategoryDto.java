@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class CategoryDto {
 
-    private Long id;
+    private String id;
 
     private byte[] image;
 

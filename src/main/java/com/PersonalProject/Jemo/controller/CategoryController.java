@@ -31,7 +31,7 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public ResponseEntity<CategoryDto> findById(Long id) {
+    public ResponseEntity<CategoryDto> findById(String id) {
         return ResponseEntity.ok(categoryService.findById(id));
     }
 
@@ -41,7 +41,7 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> delete(String id) {
          categoryService.delete(id);
          return ResponseEntity.ok().build();
     }

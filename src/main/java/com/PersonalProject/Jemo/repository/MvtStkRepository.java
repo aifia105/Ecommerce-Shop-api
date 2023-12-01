@@ -8,10 +8,10 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface MvtStkRepository extends JpaRepository<MvtStk, Long> {
+public interface MvtStkRepository extends JpaRepository<MvtStk, String> {
 
     @Query("select sum (m.quantity) from MvtStk m where m.product.id = :id")
-    BigDecimal stockReelProduct(@Param("id") Long id);
+    BigDecimal stockReelProduct(@Param("id") String id);
 
-    List<MvtStk> findAllByProductId(Long id);
+    List<MvtStk> findAllByProductId(String id);
 }

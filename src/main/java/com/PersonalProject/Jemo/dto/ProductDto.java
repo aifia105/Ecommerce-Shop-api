@@ -1,19 +1,21 @@
 package com.PersonalProject.Jemo.dto;
 
 
+import com.PersonalProject.Jemo.model.ItemOrderUser;
 import com.PersonalProject.Jemo.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 @Data
 @Builder
 public class ProductDto {
 
-    private Long id;
+    private String id;
 
 
     private String Name;
@@ -34,15 +36,13 @@ public class ProductDto {
     private CategoryDto category;
 
 
-    @JsonIgnore
     private List<ItemOrderUserDto> itemOrderUserDtoList;
 
 
     @JsonIgnore
     private List<MvtStkDto> mvtStks;
 
-    @JsonIgnore
-    private List<RatingDto> rating;
+    private Integer rating;
 
     public static ProductDto formEntity(Product product){
 
@@ -56,7 +56,9 @@ public class ProductDto {
                 .brand(product.getBrand())
                 .priceTTC(product.getPriceTTC())
                 .image(product.getImage())
-                .category(CategoryDto.fromEntity(product.getCategory())).build();
+                .category(CategoryDto.fromEntity(product.getCategory()))
+                .itemOrderUserDtoList(Collections.singletonList(ItemOrderUserDto.fromEntity((ItemOrderUser) product.getItemOrderUserList())))
+                .build();
     }
 
     public static Product toEntity(ProductDto productDto){
@@ -71,6 +73,8 @@ public class ProductDto {
         product.setPriceTTC(productDto.getPriceTTC());
         product.setImage(productDto.getImage());
         product.setCategory(CategoryDto.toEntity(productDto.getCategory()));
+        product.setAvg_ratings(productDto.getRating());
+        product.setItemOrderUserList(Collections.singletonList(ItemOrderUserDto.toEntity((ItemOrderUserDto) productDto.getItemOrderUserDtoList())));
         return product;
     }
 

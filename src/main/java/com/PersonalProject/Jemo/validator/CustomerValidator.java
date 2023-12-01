@@ -17,7 +17,7 @@ public class CustomerValidator {
             if (!StringUtils.hasLength(userDto.getFullName())) {
                 errors.add("Please fill in the name field");
             }
-            if (!StringUtils.hasLength(userDto.getRole().toString())) {
+            if (!StringUtils.hasLength(userDto.getRole())) {
                 errors.add("Please fill in the last name field");
             }
             if (!StringUtils.hasLength(userDto.getEmail())) {

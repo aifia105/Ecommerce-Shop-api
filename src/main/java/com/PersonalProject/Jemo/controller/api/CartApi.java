@@ -19,17 +19,17 @@ public interface CartApi {
     ResponseEntity<CartDto> save(@RequestBody CartDto cartDto);
 
     @GetMapping(value = CART_ENDPOINT + "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<CartDto> findById(@PathVariable Long id);
+    ResponseEntity<CartDto> findById(@PathVariable String id);
 
     @GetMapping(value = CART_ENDPOINT + "/filter/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<CartDto> findByUserId(@PathVariable Long id);
+    ResponseEntity<CartDto> findByUserId(@PathVariable String id);
 
     @GetMapping(value = CART_ENDPOINT + "/All", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<CartDto>> findAll();
 
     @DeleteMapping (value = CART_ENDPOINT + "/{id}")
-    ResponseEntity<Void> delete(@PathVariable Long id);
+    ResponseEntity<Void> delete(@PathVariable String id);
 
     @GetMapping(value = CART_ENDPOINT + "/filter/User/all/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<CartDto>> findAllByUserId(@PathVariable Long id);
+    ResponseEntity<List<CartDto>> findAllByUserId(@PathVariable String id);
 }

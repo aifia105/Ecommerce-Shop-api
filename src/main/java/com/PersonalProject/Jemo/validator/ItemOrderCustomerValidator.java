@@ -20,7 +20,7 @@ public class ItemOrderCustomerValidator {
             if (itemOrderUserDto.getQuantity().compareTo(BigDecimal.ZERO) == 0){
                 errors.add("Please fill in the product quantity field");
             }
-            if (itemOrderUserDto.getUnit_price() == 0){
+            if (itemOrderUserDto.getTotal() == 0){
                 errors.add("Please fill in the product unit price field");
             }
         }

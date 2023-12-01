@@ -27,6 +27,7 @@ public class AuthenticationUserService {
     public AuthenticationResponse register(UserDto userDto){
         var user = UserDto.toEntity(userService.save(userDto));
         var jwtToken = jwtUtil.generateToken(user);
+        System.out.println(userDto);
         return AuthenticationResponse.builder()
                 .id(user.getId())
                 .fullName(user.getFullName())
@@ -48,6 +49,7 @@ public class AuthenticationUserService {
                 )
         );
         var user = UserDto.toEntity(userService.findByEmail(request.getLogin()));
+        System.out.println(user);
         if (user == null){
             log.warn("User not found");
             throw new EntityNotFoundException("User not found", ErrorCodes.USER_NOT_FOUND);

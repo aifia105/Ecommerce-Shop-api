@@ -13,16 +13,13 @@ public class OrderCustomerValidator {
         if (orderUserDto == null){
             errors.add("Please fill in the customer order fields");
         } else {
-            if (StringUtils.hasLength(orderUserDto.getCodeOrder())){
-                errors.add("Please fill in the code order field");
-            }
             if (orderUserDto.getDateOrder() == null) {
                 errors.add("Please fill in the date order field");
             }
             if (orderUserDto.getTotal() == 0){
                 errors.add("Please fill in the Total price field");
             }
-            if (StringUtils.hasLength(orderUserDto.getOrderStatu().toString())){
+            if (StringUtils.hasLength(orderUserDto.getOrderStatus())){
                 errors.add("Please fill in the the order status");
             }
             if (orderUserDto.getUserDto() == null || orderUserDto.getUserDto().getId() == null){

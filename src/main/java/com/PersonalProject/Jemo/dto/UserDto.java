@@ -2,7 +2,6 @@ package com.PersonalProject.Jemo.dto;
 
 
 import com.PersonalProject.Jemo.model.User;
-import com.PersonalProject.Jemo.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
@@ -16,17 +15,17 @@ import java.util.List;
 public class UserDto {
 
 
-    private Long id;
+    private String id;
 
     private String fullName;
 
     private String email;
 
-    private Date birthday;
+    private Instant birthday;
 
     private String address;
 
-    private Role role;
+    private String role;
 
 
     private byte[] image;
@@ -35,8 +34,6 @@ public class UserDto {
 
     private String phone;
 
-    @JsonIgnore
-    private List<RatingDto> rating;
 
     @JsonIgnore
     private List<OrderUserDto> orderUserDtos;
