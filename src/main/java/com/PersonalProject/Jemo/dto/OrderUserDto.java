@@ -15,7 +15,7 @@ import java.util.Objects;
 @Builder
 public class OrderUserDto {
 
-    private String id;
+    private Long id;
 
     private Instant dateOrder;
 

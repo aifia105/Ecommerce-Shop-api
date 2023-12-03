@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ItemOrderUserRepository extends JpaRepository<ItemOrderUser, String> {
+public interface ItemOrderUserRepository extends JpaRepository<ItemOrderUser, Long> {
 
-    List<ItemOrderUser> findAllByProductId(String id);
+    List<ItemOrderUser> findAllByProductId(Long id);
 
-    List<ItemOrderUser> findAllByOrderUserId(String id);
+    List<ItemOrderUser> findAllByOrderUserId(Long id);
 
 }

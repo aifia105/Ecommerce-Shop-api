@@ -9,15 +9,15 @@ import java.util.List;
 public interface OrderUserService {
 
     OrderUserDto save(OrderUserDto orderUserDto);
-    OrderUserDto findById(String id);
+    OrderUserDto findById(Long id);
     List<OrderUserDto> findAll();
-    void delete(String  id);
-    List<ItemOrderUserDto> findAllByOrderId(String id);
-    OrderUserDto updateOrderStatus(String  id, String  orderStatus);
-    OrderUserDto updateQuantityOrder(String  id, String  idItem, BigDecimal quantity);
-    OrderUserDto updateUser(String  id, String  idCustomer);
-    OrderUserDto updateProduct(String  id, String  idItem , String  idProduct);
-    OrderUserDto deleteProduct(String  id, String  idItem);
+    void delete(Long  id);
+    List<ItemOrderUserDto> findAllByOrderId(Long id);
+    OrderUserDto updateOrderStatus(Long id, String  orderStatus);
+    OrderUserDto updateQuantityOrder(Long  id, Long  idItem, BigDecimal quantity);
+    OrderUserDto updateUser(Long id, Long  idCustomer);
+    OrderUserDto updateProduct(Long  id,Long  idItem , Long  idProduct);
+    OrderUserDto deleteProduct(Long  id, Long  idItem);
 
 
 }

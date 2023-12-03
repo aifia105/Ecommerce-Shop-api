@@ -44,7 +44,7 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
     private List<OrderUser> orderUsers;
 
 
@@ -52,7 +52,7 @@ public class User extends AbstractEntity implements UserDetails {
     private List<Cart> cart;
 
     @Override
-    public String getId() {
+    public Long getId() {
         return super.getId();
     }
 

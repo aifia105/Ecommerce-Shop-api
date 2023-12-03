@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Builder
 public class ItemOrderUserDto {
 
-    private String id;
+    private Long id;
 
     private ProductDto productDto;
 
@@ -18,7 +18,6 @@ public class ItemOrderUserDto {
 
     private Integer total;
 
-    private OrderUserDto orderUserDto;
 
     public static ItemOrderUserDto fromEntity(ItemOrderUser itemOrderUser){
         if (itemOrderUser == null){

@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto update(String id, UserDto userDto) {
+    public UserDto update(Long  id, UserDto userDto) {
         List<String> errors = CustomerValidator.validator(userDto);
         if (!errors.isEmpty()){
             log.error("User invalid {}", userDto);
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findById(String  id) {
+    public UserDto findById(Long   id) {
         if(id == null){
             log.error("ID is null");
             return null;
@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(String  id) {
+    public void delete(Long   id) {
      if (id == null){
          log.error("ID is null");
      } else {
@@ -136,7 +136,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto changePassWord(ModifyPasswordDto modifyPasswordDto) {
+        System.out.println(modifyPasswordDto);
+
         validate(modifyPasswordDto);
+
 
         Optional<User> customerOptional = userRepository.findById(modifyPasswordDto.getId());
         if (customerOptional.isEmpty()){
@@ -158,9 +161,9 @@ public class UserServiceImpl implements UserService {
             log.warn("Cant update Password with ID customer is NULL");
             throw new OperationNotValidException("ID User is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
-        if (StringUtils.hasLength(modifyPasswordDto.getPassword()) || StringUtils.hasLength(modifyPasswordDto.getConfirmPassWord())){
+        if (!StringUtils.hasLength(modifyPasswordDto.getPassword()) || !StringUtils.hasLength(modifyPasswordDto.getConfirmPassWord())){
             log.warn("Cant update Password with Password NULL");
-            throw new OperationNotValidException("Cant update Password with ID user is NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
+            throw new OperationNotValidException("Cant update Password with  NULL",ErrorCodes.CUSTOMER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
         if (!modifyPasswordDto.getPassword().equals(modifyPasswordDto.getConfirmPassWord())){
             log.warn("Cant update Password confirm password dont match");

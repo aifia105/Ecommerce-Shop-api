@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findById(String  id) {
+    public ProductDto findById(Long  id) {
         if (id == null){
             log.error("Product ID is Null");
             return null;
@@ -87,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findAllByCategoryId(String  idCategory) {
+    public List<ProductDto> findAllByCategoryId(Long   idCategory) {
         if (idCategory == null){
             log.error("Category ID is Null");
             return null;
@@ -97,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ItemOrderUserDto> findHistoryOrderUser(String  id) {
+    public List<ItemOrderUserDto> findHistoryOrderUser(Long  id) {
         return itemOrderUserRepository.findAllByProductId(id).stream()
                 .map(ItemOrderUserDto::fromEntity).collect(Collectors.toList());
     }
@@ -105,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public void delete(String  id) {
+    public void delete(Long   id) {
         if (id == null) {
             log.error("Product ID is Null");
             return;

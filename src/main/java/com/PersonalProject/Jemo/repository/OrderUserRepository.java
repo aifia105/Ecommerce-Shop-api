@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface OrderUserRepository extends JpaRepository<OrderUser, String> {
+public interface OrderUserRepository extends JpaRepository<OrderUser, Long> {
 
-    List<OrderUser> findAllByUserId(String id);
+    List<OrderUser> findAllByUserId(Long id);
 
 
 }

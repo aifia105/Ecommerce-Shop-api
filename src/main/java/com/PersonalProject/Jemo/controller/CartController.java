@@ -26,12 +26,12 @@ public class CartController implements CartApi {
     }
 
     @Override
-    public ResponseEntity<CartDto> findById(String id) {
+    public ResponseEntity<CartDto> findById(Long  id) {
         return ResponseEntity.ok(cartService.findById(id));
     }
 
     @Override
-    public ResponseEntity<CartDto> findByUserId(String id) {
+    public ResponseEntity<CartDto> findByUserId(Long  id) {
         return ResponseEntity.ok(cartService.findByUserId(id));
     }
 
@@ -41,13 +41,13 @@ public class CartController implements CartApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(String id) {
+    public ResponseEntity<Void> delete(Long  id) {
         cartService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<List<CartDto>> findAllByUserId(String id) {
+    public ResponseEntity<List<CartDto>> findAllByUserId(Long  id) {
         return ResponseEntity.ok(cartService.findAllByUserId(id));
     }
 }

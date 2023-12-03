@@ -4,7 +4,6 @@ import com.PersonalProject.Jemo.dto.CartDto;
 import com.PersonalProject.Jemo.exception.EntityNotFoundException;
 import com.PersonalProject.Jemo.exception.EntityNotValidException;
 import com.PersonalProject.Jemo.exception.ErrorCodes;
-import com.PersonalProject.Jemo.model.User;
 import com.PersonalProject.Jemo.repository.CartRepository;
 import com.PersonalProject.Jemo.repository.UserRepository;
 import com.PersonalProject.Jemo.services.CartService;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -39,17 +37,13 @@ public class CartServiceImpl implements CartService {
             log.warn("Cart object not valid");
             throw new EntityNotValidException("Cart object not valid", ErrorCodes.CART_NOT_VALID,errors);
         }
-        Optional<User> customer = userRepository.findById(cartDto.getUserDto().getId());
-        if (customer.isEmpty()){
-            log.warn("user not found to associate with this cart");
-            throw new EntityNotFoundException("user not found to associate with this cart",ErrorCodes.USER_NOT_FOUND);
-        }
+
         System.out.println(cartDto);
         return CartDto.fromEntity(cartRepository.save(CartDto.toEntity(cartDto)));
     }
 
     @Override
-    public CartDto findById(String id) {
+    public CartDto findById(Long id) {
         if(id == null){
             log.warn("Id cart is null");
             return null;
@@ -61,7 +55,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartDto findByUserId(String id) {
+    public CartDto findByUserId(Long id) {
         if (id == null) {
             log.warn("Id User is null");
             return null;
@@ -78,7 +72,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         if (id == null){
             log.warn("Id  cart is null");
             return;
@@ -88,7 +82,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartDto> findAllByUserId(String id) {
+    public List<CartDto> findAllByUserId(Long id) {
         if (id == null) {
             log.warn("Id User is null");
             return null;

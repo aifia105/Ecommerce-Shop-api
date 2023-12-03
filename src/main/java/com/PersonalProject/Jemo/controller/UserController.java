@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,17 +23,23 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public ResponseEntity<UserDto> save(UserDto userDto) {
+    public ResponseEntity<UserDto> save(UserDto userDto) throws IOException {
+        if (userDto != null) {
+            byte[] bytes = userDto.getImage();
+            userDto.setImage(bytes);
+        } else {
+            throw new IOException("CategoryDto or image data is null");
+        }
         return ResponseEntity.ok(userService.save(userDto));
     }
 
     @Override
-    public ResponseEntity<UserDto> update(String id, UserDto userDto) {
+    public ResponseEntity<UserDto> update(Long  id, UserDto userDto) {
         return ResponseEntity.ok(userService.update(id, userDto));
     }
 
     @Override
-    public ResponseEntity<UserDto> findById(String id) {
+    public ResponseEntity<UserDto> findById(Long  id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
@@ -47,7 +54,7 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(String id) {
+    public ResponseEntity<Void> delete(Long  id) {
          userService.delete(id);
          return ResponseEntity.ok().build();
     }

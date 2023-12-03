@@ -28,7 +28,7 @@ public class OrderUserController implements OrderUserApi {
     }
 
     @Override
-    public ResponseEntity<OrderUserDto> findById(String id) {
+    public ResponseEntity<OrderUserDto> findById(Long  id) {
         return ResponseEntity.ok(orderUserService.findById(id));
     }
 
@@ -38,37 +38,37 @@ public class OrderUserController implements OrderUserApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(String id) {
+    public ResponseEntity<Void> delete(Long  id) {
          orderUserService.delete(id);
          return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<List<ItemOrderUserDto>> findAllByOrderId(String id) {
+    public ResponseEntity<List<ItemOrderUserDto>> findAllByOrderId(Long  id) {
         return ResponseEntity.ok(orderUserService.findAllByOrderId(id));
     }
     @Override
-    public ResponseEntity<OrderUserDto> updateOrderStatus(String id, String orderStatus) {
+    public ResponseEntity<OrderUserDto> updateOrderStatus(Long  id, String  orderStatus) {
         return ResponseEntity.ok(orderUserService.updateOrderStatus(id,orderStatus));
     }
 
     @Override
-    public ResponseEntity<OrderUserDto> updateQuantityOrder(String id, String idItem, BigDecimal quantity) {
+    public ResponseEntity<OrderUserDto> updateQuantityOrder(Long  id, Long  idItem, BigDecimal quantity) {
         return ResponseEntity.ok(orderUserService.updateQuantityOrder(id,idItem,quantity));
     }
 
     @Override
-    public ResponseEntity<OrderUserDto> updateUser(String id, String idCustomer) {
+    public ResponseEntity<OrderUserDto> updateUser(Long  id, Long  idCustomer) {
         return ResponseEntity.ok(orderUserService.updateUser(id,idCustomer));
     }
 
     @Override
-    public ResponseEntity<OrderUserDto> updateProduct(String id, String idItem, String idProduct) {
+    public ResponseEntity<OrderUserDto> updateProduct(Long  id, Long  idItem, Long  idProduct) {
         return ResponseEntity.ok(orderUserService.updateProduct(id,idItem,idProduct));
     }
 
     @Override
-    public ResponseEntity<OrderUserDto> deleteProduct(String id, String idItem) {
+    public ResponseEntity<OrderUserDto> deleteProduct(Long  id, Long  idItem) {
         return ResponseEntity.ok(orderUserService.deleteProduct(id,idItem));
     }
 }

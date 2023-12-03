@@ -6,6 +6,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
+
 import java.util.List;
 
 @Data
@@ -18,7 +19,7 @@ public class Category extends AbstractEntity {
     @Column(name="nameCategory")
     private String nameCategory;
 
-    @Column(name="image", length=5000)
+    @Column(name="image", length=50000000)
     @Lob
     private byte[] image;
 

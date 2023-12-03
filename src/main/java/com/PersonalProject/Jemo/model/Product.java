@@ -43,7 +43,7 @@ public class Product extends AbstractEntity {
     private List<MvtStk> mvtStks;
 
     @Column(name="ratings")
-    private Integer  avg_ratings;
+    private Integer  rating;
 
 
 

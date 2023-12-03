@@ -19,7 +19,7 @@ public class OrderCustomerValidator {
             if (orderUserDto.getTotal() == 0){
                 errors.add("Please fill in the Total price field");
             }
-            if (StringUtils.hasLength(orderUserDto.getOrderStatus())){
+            if (!StringUtils.hasLength(orderUserDto.getOrderStatus())){
                 errors.add("Please fill in the the order status");
             }
             if (orderUserDto.getUserDto() == null || orderUserDto.getUserDto().getId() == null){

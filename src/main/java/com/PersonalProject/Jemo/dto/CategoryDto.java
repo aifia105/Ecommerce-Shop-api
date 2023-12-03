@@ -2,24 +2,20 @@ package com.PersonalProject.Jemo.dto;
 
 
 import com.PersonalProject.Jemo.model.Category;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
 
 @Data
 @Builder
 public class CategoryDto {
 
-    private String id;
+    private Long id;
 
     private byte[] image;
 
     private String nameCategory;
 
-    @JsonIgnore
-    private List<ProductDto> products;
 
     public static CategoryDto fromEntity(Category category) {
         if(category == null){

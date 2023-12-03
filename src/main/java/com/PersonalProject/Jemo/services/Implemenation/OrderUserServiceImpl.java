@@ -113,7 +113,7 @@ public class OrderUserServiceImpl implements OrderUserService {
     }
 
     @Override
-    public OrderUserDto findById(String  id) {
+    public OrderUserDto findById(Long  id) {
         if(id == null){
             log.error("order id is null");
             return null;
@@ -132,7 +132,7 @@ public class OrderUserServiceImpl implements OrderUserService {
     }
 
     @Override
-    public void delete(String  id) {
+    public void delete(Long id) {
         if(id == null){
             log.error("order id is null");
             return;
@@ -146,13 +146,13 @@ public class OrderUserServiceImpl implements OrderUserService {
 
     }
     @Override
-    public List<ItemOrderUserDto> findAllByOrderId(String  id) {
+    public List<ItemOrderUserDto> findAllByOrderId(Long  id) {
         return itemOrderUserRepository.findAllByOrderUserId(id).stream()
                 .map(ItemOrderUserDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public OrderUserDto updateOrderStatus(String  id, String  orderStatus) {
+    public OrderUserDto updateOrderStatus(Long  id, String  orderStatus) {
         checkIdOrder(id);
         if (!StringUtils.hasLength(String.valueOf(orderStatus))){
             log.error("order status is null");
@@ -170,7 +170,7 @@ public class OrderUserServiceImpl implements OrderUserService {
     }
 
     @Override
-    public OrderUserDto updateQuantityOrder(String  id, String  idItem, BigDecimal quantity) {
+    public OrderUserDto updateQuantityOrder(Long  id, Long  idItem, BigDecimal quantity) {
         checkIdOrder(id);
         checkIdItemOrder(idItem);
 
@@ -191,7 +191,7 @@ public class OrderUserServiceImpl implements OrderUserService {
     }
 
     @Override
-    public OrderUserDto updateUser(String  id, String  idCustomer) {
+    public OrderUserDto updateUser(Long  id, Long  idCustomer) {
         checkIdOrder(id);
         if (idCustomer == null){
             log.error("order id is null");
@@ -210,7 +210,7 @@ public class OrderUserServiceImpl implements OrderUserService {
     }
 
     @Override
-    public OrderUserDto updateProduct(String  id, String  idItem, String  idProduct) {
+    public OrderUserDto updateProduct(Long  id, Long  idItem, Long  idProduct) {
         checkIdOrder(id);
         checkIdItemOrder(id);
         checkIDProduct(id);
@@ -235,7 +235,7 @@ public class OrderUserServiceImpl implements OrderUserService {
     }
 
     @Override
-    public OrderUserDto deleteProduct(String  id, String  idItem) {
+    public OrderUserDto deleteProduct(Long  id, Long  idItem) {
         checkIdOrder(id);
         checkIdItemOrder(id);
 
@@ -244,21 +244,21 @@ public class OrderUserServiceImpl implements OrderUserService {
         itemOrderUserRepository.deleteById(idItem);
         return orderUserDto;
     }
-    private OrderUserDto checkOrderStatus(String  id){
+    private OrderUserDto checkOrderStatus(Long  id){
         OrderUserDto orderCustomer = findById(id);
         if (orderCustomer.isOrderDELIVERED()){
             throw new OperationNotValidException("Cant update DELIVERED order",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
         return orderCustomer;
     }
-    private Optional<ItemOrderUser> findItemsOrder(String  idItem){
+    private Optional<ItemOrderUser> findItemsOrder(Long  idItem){
         Optional<ItemOrderUser> itemOrderCustomerOptional = itemOrderUserRepository.findById(idItem);
         if (itemOrderCustomerOptional.isEmpty()){
             throw new EntityNotFoundException("No items with this ID" + idItem , ErrorCodes.ORDER_CUSTOMER_NOT_FOUND);
         }
         return itemOrderCustomerOptional ;
     }
-    private Optional<Product> findProduct(String  idProduct){
+    private Optional<Product> findProduct(Long  idProduct){
         Optional<Product> product = productRepository.findById(idProduct);
         if (product.isEmpty()){
             throw new EntityNotFoundException("No items with this ID" + idProduct , ErrorCodes.ORDER_CUSTOMER_NOT_FOUND);
@@ -266,25 +266,25 @@ public class OrderUserServiceImpl implements OrderUserService {
         return product ;
     }
 
-    private void checkIdOrder(String  id){
-        if (!StringUtils.hasLength(id)){
+    private void checkIdOrder(Long  id){
+        if (id == null){
             log.error("order id is null");
             throw new OperationNotValidException("Cant update order  ID is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
     }
-    private void checkIdItemOrder(String  idItem){
-        if (!StringUtils.hasLength(idItem)){
+    private void checkIdItemOrder(Long  idItem){
+        if (idItem == null){
             log.error("order id is null");
             throw new OperationNotValidException("Cant update order  ID item is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
     }
-    private void checkIDProduct(String  idProduct){
-        if (!StringUtils.hasLength(idProduct)){
+    private void checkIDProduct(Long idProduct){
+        if (idProduct == null){
             log.error("product id is null");
             throw new OperationNotValidException("Cant update order  ID product is NULL",ErrorCodes.ORDER_CUSTOMER_NON_MODIFIABLE);
         }
     }
-    private void updateMvtStk(String  id){
+    private void updateMvtStk(Long  id){
         List<ItemOrderUser> itemOrderUsers = itemOrderUserRepository.findAllByOrderUserId(id);
         itemOrderUsers.forEach(this::performOutput);
     }

@@ -19,12 +19,12 @@ public class MvtStkController implements MvtStkApi {
     }
 
     @Override
-    public  ResponseEntity<BigDecimal> stockReelProduct(String id) {
+    public  ResponseEntity<BigDecimal> stockReelProduct(Long  id) {
         return  ResponseEntity.ok(mvtStkService.stockReelProduct(id));
     }
 
     @Override
-    public  ResponseEntity<List<MvtStkDto>> mvtStkProduct(String id) {
+    public  ResponseEntity<List<MvtStkDto>> mvtStkProduct(Long  id) {
         return  ResponseEntity.ok(mvtStkService.mvtStkProduct(id));
     }
 

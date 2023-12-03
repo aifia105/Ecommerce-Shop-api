@@ -11,14 +11,14 @@ public interface ProductService {
 
     ProductDto findByName(String productName);
 
-    ProductDto findById(String id);
+    ProductDto findById(Long id);
 
     List<ProductDto> findAll();
 
-    List<ProductDto> findAllByCategoryId(String idCategory);
+    List<ProductDto> findAllByCategoryId(Long idCategory);
 
-    List<ItemOrderUserDto> findHistoryOrderUser(String id);
+    List<ItemOrderUserDto> findHistoryOrderUser(Long id);
 
 
-    void delete(String id);
+    void delete(Long id);
 }

@@ -8,12 +8,12 @@ public interface ReportingService {
 
     ReportDto save(ReportDto reportDto);
 
-    List<ReportDto> findAllByUserId(String id);
+    List<ReportDto> findAllByUserId(Long id);
 
 
-    ReportDto findById(String id);
+    ReportDto findById(Long id);
 
     List<ReportDto> findAll();
 
-    void delete(String id);
+    void delete(Long id);
 }

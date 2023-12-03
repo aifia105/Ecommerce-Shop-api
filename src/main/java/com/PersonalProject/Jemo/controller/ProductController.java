@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,13 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<ProductDto> save(ProductDto productDto) {
+    public ResponseEntity<ProductDto> save(ProductDto productDto) throws IOException {
+        if(productDto != null && productDto.getImage() != null ) {
+            byte[] bytes = productDto.getImage();
+            productDto.setImage(bytes);
+        } else {
+            throw new IOException("CategoryDto or image data is null");
+        }
         return ResponseEntity.ok(productService.save(productDto));
     }
 
@@ -31,7 +38,7 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<ProductDto> findById(String id) {
+    public ResponseEntity<ProductDto> findById(Long  id) {
         return ResponseEntity.ok(productService.findById(id));
     }
 
@@ -41,18 +48,18 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<List<ProductDto>>  findAllByCategoryId(String idCategory) {
+    public ResponseEntity<List<ProductDto>>  findAllByCategoryId(Long  idCategory) {
         return ResponseEntity.ok(productService.findAllByCategoryId(idCategory));
     }
 
     @Override
-    public ResponseEntity<List<ItemOrderUserDto>> findHistoryOrderUser(String id) {
+    public ResponseEntity<List<ItemOrderUserDto>> findHistoryOrderUser(Long  id) {
         return ResponseEntity.ok(productService.findHistoryOrderUser(id));
     }
 
 
     @Override
-    public ResponseEntity<Void> delete(String id) {
+    public ResponseEntity<Void> delete(Long  id) {
     productService.delete(id);
     return ResponseEntity.ok().build();
     }

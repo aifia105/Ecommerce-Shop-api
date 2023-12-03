@@ -59,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto findById(String id) {
+    public CategoryDto findById(Long id) {
         if(id == null){
             log.error("ID is null");
             return null;
@@ -79,7 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         if (id == null){
             log.error("ID is null");
             return;

@@ -27,12 +27,12 @@ public class ReportingController implements ReportingApi {
     }
 
     @Override
-    public ResponseEntity<List<ReportDto>> findAllByUserId(String id) {
+    public ResponseEntity<List<ReportDto>> findAllByUserId(Long  id) {
         return ResponseEntity.ok(reportingService.findAllByUserId(id));
     }
 
     @Override
-    public ResponseEntity<ReportDto> findById(String id) {
+    public ResponseEntity<ReportDto> findById(Long  id) {
         return ResponseEntity.ok(reportingService.findById(id));
     }
 
@@ -42,7 +42,7 @@ public class ReportingController implements ReportingApi {
     }
 
     @Override
-    public ResponseEntity<Void> delete(String id) {
+    public ResponseEntity<Void> delete(Long  id) {
         reportingService.delete(id);
         return ResponseEntity.ok().build();
     }

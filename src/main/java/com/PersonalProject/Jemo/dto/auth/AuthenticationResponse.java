@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.Date;
+
 
 @Data
 @Builder
@@ -16,7 +16,7 @@ import java.util.Date;
 public class AuthenticationResponse {
 
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
     @JsonProperty("fullName")
     private String fullName;

@@ -11,7 +11,7 @@ import java.time.Instant;
 @Builder
 public class CartDto {
 
-    private String id;
+    private Long id;
 
     private BigDecimal cardNumber;
 
@@ -22,11 +22,9 @@ public class CartDto {
     private Instant expirationDate;
 
 
-
     private Integer cvv;
 
 
-    private UserDto userDto;
 
     public static CartDto fromEntity(Cart cart){
         if(cart == null){
@@ -37,7 +35,6 @@ public class CartDto {
                 .cardholderName(cart.getCardholderName())
                 .expirationDate(cart.getExpirationDate())
                 .cvv(cart.getCvv())
-                .userDto(UserDto.fromEntity(cart.getUser()))
                 .build();
     }
 
@@ -50,7 +47,6 @@ public class CartDto {
         cart.setCardholderName(cartDto.getCardholderName());
         cart.setExpirationDate(cartDto.getExpirationDate());
         cart.setCvv(cartDto.getCvv());
-        cart.setUser(UserDto.toEntity(cartDto.getUserDto()));
         return cart;
     }
 

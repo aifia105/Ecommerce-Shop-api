@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ReportingRepository extends JpaRepository<Reporting , String> {
+public interface ReportingRepository extends JpaRepository<Reporting , Long> {
 
-    List<Reporting> findAllByRapporteurId(String id);
+    List<Reporting> findAllByRapporteurId(Long id);
 
 }

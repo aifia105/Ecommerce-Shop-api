@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import static com.PersonalProject.Jemo.utils.Constants.USER_ENDPOINT;
 
@@ -14,13 +15,13 @@ import static com.PersonalProject.Jemo.utils.Constants.USER_ENDPOINT;
 public interface UserApi {
 
     @PostMapping(value = USER_ENDPOINT + "/save" , consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UserDto> save(@RequestBody UserDto userDto);
+    ResponseEntity<UserDto> save(@RequestBody UserDto userDto) throws IOException;
 
     @PostMapping(value = USER_ENDPOINT + "/update/{id}" , consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UserDto> update(@PathVariable String id, @RequestBody UserDto userDto );
+    ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto userDto );
 
     @GetMapping(value = USER_ENDPOINT + "/{id}" , produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UserDto> findById(@PathVariable String id);
+    ResponseEntity<UserDto> findById(@PathVariable Long id);
 
     @GetMapping(value = USER_ENDPOINT + "/find/{UserEmail}" , produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UserDto> findByEmail(@PathVariable String UserEmail);
@@ -29,7 +30,7 @@ public interface UserApi {
     ResponseEntity<List<UserDto>> findAll();
 
     @DeleteMapping(value = USER_ENDPOINT + "/delete/{id}")
-    ResponseEntity<Void> delete(@PathVariable String id);
+    ResponseEntity<Void> delete(@PathVariable Long id);
 
     @PostMapping(value = USER_ENDPOINT + "/updatePassword" , consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UserDto> changePassWord(@RequestBody ModifyPasswordDto modifyPasswordDto);
