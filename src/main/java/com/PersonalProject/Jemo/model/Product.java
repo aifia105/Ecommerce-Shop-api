@@ -27,7 +27,7 @@ public class Product extends AbstractEntity {
     @Column(name="priceTTC")
     private BigDecimal priceTTC;
 
-    @Column(name="image", length=5000)
+    @Column(name="image", length=50000000)
     @Lob
     private byte[] image;
 

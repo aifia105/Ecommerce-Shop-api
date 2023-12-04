@@ -28,7 +28,7 @@ public class Cart extends AbstractEntity {
     private Integer cvv;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "id")
     private User user;
 
     @OneToMany(mappedBy = "cart")

@@ -24,6 +24,10 @@ public class CartDto {
 
     private Integer cvv;
 
+    private UserDto user;
+
+
+
 
 
     public static CartDto fromEntity(Cart cart){
@@ -35,6 +39,7 @@ public class CartDto {
                 .cardholderName(cart.getCardholderName())
                 .expirationDate(cart.getExpirationDate())
                 .cvv(cart.getCvv())
+                .user(UserDto.fromEntity(cart.getUser()))
                 .build();
     }
 
@@ -47,6 +52,7 @@ public class CartDto {
         cart.setCardholderName(cartDto.getCardholderName());
         cart.setExpirationDate(cartDto.getExpirationDate());
         cart.setCvv(cartDto.getCvv());
+        cart.setUser(UserDto.toEntity(cartDto.getUser()));
         return cart;
     }
 

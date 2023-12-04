@@ -28,7 +28,7 @@ public class UserController implements UserApi {
             byte[] bytes = userDto.getImage();
             userDto.setImage(bytes);
         } else {
-            throw new IOException("CategoryDto or image data is null");
+            throw new IOException("UserDto  null");
         }
         return ResponseEntity.ok(userService.save(userDto));
     }

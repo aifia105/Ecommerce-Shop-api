@@ -27,7 +27,7 @@ public class ProductController implements ProductApi {
             byte[] bytes = productDto.getImage();
             productDto.setImage(bytes);
         } else {
-            throw new IOException("CategoryDto or image data is null");
+            throw new IOException("ProductDto is null");
         }
         return ResponseEntity.ok(productService.save(productDto));
     }

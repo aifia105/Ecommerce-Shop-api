@@ -29,6 +29,9 @@ public class ProductValidator {
             if (productDto.getCategory() == null || productDto.getCategory().getId() == null){
                 errors.add("Please select product category");
             }
+            if (productDto.getRating() == null) {
+                errors.add("Please add product rate");
+            }
         }
         return errors;
     }

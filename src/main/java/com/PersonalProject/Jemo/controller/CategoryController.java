@@ -29,7 +29,7 @@ public class CategoryController implements CategoryApi {
             byte[] bytes = categoryDto.getImage();
             categoryDto.setImage(bytes);
         } else {
-            throw new IOException("CategoryDto or image data is null");
+            throw new IOException("CategoryDto is null");
         }
         return ResponseEntity.ok(categoryService.save(categoryDto));
 

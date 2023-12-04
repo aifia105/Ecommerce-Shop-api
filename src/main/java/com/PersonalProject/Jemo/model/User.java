@@ -31,7 +31,7 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "role")
     private String role;
 
-    @Column(name="image", length=5000)
+    @Column(name="image", length=50000000)
     @Lob
     private byte[] image;
 
