@@ -35,6 +35,7 @@ public class CartDto {
             return null;
         }
         return CartDto.builder()
+                .id(cart.getId())
                 .cardNumber(cart.getCardNumber())
                 .cardholderName(cart.getCardholderName())
                 .expirationDate(cart.getExpirationDate())
@@ -48,6 +49,7 @@ public class CartDto {
             return null;
         }
         Cart cart = new Cart();
+        cart.setId(cartDto.getId());
         cart.setCardNumber(cartDto.getCardNumber());
         cart.setCardholderName(cartDto.getCardholderName());
         cart.setExpirationDate(cartDto.getExpirationDate());

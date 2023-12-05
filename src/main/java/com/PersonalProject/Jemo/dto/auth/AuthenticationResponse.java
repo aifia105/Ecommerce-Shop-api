@@ -30,6 +30,9 @@ public class AuthenticationResponse {
     @JsonProperty("address")
     private String address;
 
+    @JsonProperty("image")
+    private byte[] image;
+
     @JsonProperty("role")
     private String role;
 

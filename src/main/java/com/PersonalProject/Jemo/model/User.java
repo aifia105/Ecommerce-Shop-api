@@ -48,7 +48,7 @@ public class User extends AbstractEntity implements UserDetails {
     private List<OrderUser> orderUsers;
 
 
-    @OneToMany( mappedBy = "user")
+    @OneToMany( mappedBy = "user",  fetch = FetchType.EAGER)
     private List<Cart> cart;
 
     @Override

@@ -17,7 +17,7 @@ public interface ProductApi {
     @PostMapping(value =PRODUCT_ENDPOINT + "/create",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE )
     ResponseEntity<ProductDto> save(@RequestBody ProductDto productDto) throws IOException;
 
-    @GetMapping(value =PRODUCT_ENDPOINT + "/{productName}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value =PRODUCT_ENDPOINT + "/byName/{productName}",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<ProductDto> findByName(@PathVariable String productName);
 
     @GetMapping(value =PRODUCT_ENDPOINT + "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
