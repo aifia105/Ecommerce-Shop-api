@@ -44,7 +44,7 @@ public class OrderUserController implements OrderUserApi {
     }
 
     @Override
-    public ResponseEntity<List<ItemOrderUserDto>> findAllByOrderId(Long  id) {
+    public ResponseEntity<List<OrderUserDto>> findAllByOrderId(Long  id) {
         return ResponseEntity.ok(orderUserService.findAllByOrderId(id));
     }
     @Override

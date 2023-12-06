@@ -28,7 +28,7 @@ public interface OrderUserApi {
     ResponseEntity<Void> delete(@PathVariable Long id);
 
     @GetMapping(value = ORDER_USER_ENDPOINT + "/filter/Order/{id}" ,produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<ItemOrderUserDto>> findAllByOrderId(@PathVariable Long id);
+    ResponseEntity<List<OrderUserDto>> findAllByOrderId(@PathVariable Long id);
 
     @PatchMapping(value = ORDER_USER_ENDPOINT + "/update/{id}/OrderStatus/{orderStatus}" ,produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<OrderUserDto> updateOrderStatus(@PathVariable Long id, @PathVariable String orderStatus);

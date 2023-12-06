@@ -12,7 +12,7 @@ public interface OrderUserService {
     OrderUserDto findById(Long id);
     List<OrderUserDto> findAll();
     void delete(Long  id);
-    List<ItemOrderUserDto> findAllByOrderId(Long id);
+    List<OrderUserDto> findAllByOrderId(Long id);
     OrderUserDto updateOrderStatus(Long id, String  orderStatus);
     OrderUserDto updateQuantityOrder(Long  id, Long  idItem, BigDecimal quantity);
     OrderUserDto updateUser(Long id, Long  idCustomer);

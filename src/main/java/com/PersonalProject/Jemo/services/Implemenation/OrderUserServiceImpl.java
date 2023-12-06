@@ -146,9 +146,9 @@ public class OrderUserServiceImpl implements OrderUserService {
 
     }
     @Override
-    public List<ItemOrderUserDto> findAllByOrderId(Long  id) {
-        return itemOrderUserRepository.findAllByOrderUserId(id).stream()
-                .map(ItemOrderUserDto::fromEntity).collect(Collectors.toList());
+    public List<OrderUserDto> findAllByOrderId(Long  id) {
+        return orderUserRepository.findAllByUserId(id).stream()
+                .map(OrderUserDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
